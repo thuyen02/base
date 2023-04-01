@@ -1,0 +1,47 @@
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.quantity-product {
+  display: flex;
+  background-color: #d1cece;
+
+  height: 52px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+.input-qty {
+  width: 40px;
+  text-align: center;
+  padding: auto;
+  border: none;
+  outline: none;
+  background-color: #d1cece;
+}
+.btn-less,
+.btn-more {
+  width: 40px;
+  font-size: 20px;
+  border: none;
+  background-color: #d1cece;
+}
+.btn-less:hover,
+.btn-more:hover {
+  font-size: 30px;
+  cursor: pointer;
+}
+/* {
+  font-size: 30px;
+} */
