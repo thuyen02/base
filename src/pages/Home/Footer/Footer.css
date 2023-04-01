@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#footer {
+    background-color: black;
+    color: white;
+    padding: 40px 0;
+   
+}
+
+#footer h2 {
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 22.4px;
+    size: 16px;
+}
+
+.footer-item {
+    margin: 10px 0;
+}
+
+.footer-item > a {
+    color: white;
+}
+
+.footer-item > a:hover {
+    color: lightblue;
+}

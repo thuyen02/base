@@ -1,0 +1,113 @@
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.Updateprofile-form{
+ padding-top: 76px;
+ width: 100%;
+ margin: auto;
+}
+.Updateprofile_form-name{
+  display: flex;
+  justify-content: space-between;
+  width:71%;
+}
+.Updateprofile_form-information{
+  display:flex ;
+  justify-content: space-between;
+  width: 71%;
+}
+
+
+.Updateprofile-conttent{
+  background-color: #fff;
+}
+
+.Updateprofile-nav{
+  padding-right: 0;
+  border-bottom: 1px #ccc solid;
+}
+
+.Updateprofile-nav--left{
+  color: #838181;
+}
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.wrapper-update {
+  /* height: 100vh; */
+  padding: 50px 0;
+}
+
+.updateRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+.updateRow .ant-form-item-label {
+  padding: 0;
+}
+
+.updateFormItem input {
+  width: 250px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  padding: 0 11px;
+  outline: none !important;
+}
+
+
+.updateFormItem:first-child {
+  margin-right: 20px;
+}
+
+.updateAddress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updateAddress .ant-form-item-label {
+  padding: 0;
+}
+
+.updateAddress .updateFormItem {
+  width: 520px;
+}
+
+.updateAddress .ant-form-item {
+  margin-right: 0;
+}
+
+.updateAddress input {
+  width: 100%;
+}
+
+.updateBtn{
+  /* width: 100px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.updateBtn button {
+  background-color: #000;
+  color: #fff;
+ border-radius: 0;
+  text-transform: uppercase;
+}
