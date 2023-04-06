@@ -1,14 +1,15 @@
 import React from 'react';
-import Updateprofile from './components/Authorization/updateprofile/Updateprofile';
-import Header from './pages/Header/Header';
-import Footer from './pages/Footer/Footer';
-
+import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
+import Header from './pages/Home/Header/Header';
+import Footer from './pages/Home/Footer/Footer';
+import Category from './pages/Category/thuyen/Category';
 function App() {
 
   return (
     <div>    
-    <Header/>
-      <Updateprofile/>
+      <Header/>
+      {/* <Updateprofile/> */}
+      <Category/>
       <Footer/>
     </div>
     
