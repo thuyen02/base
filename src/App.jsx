@@ -1,16 +1,20 @@
 import React from 'react';
-import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
-import Header from './pages/Home/Header/Header';
-import Footer from './pages/Home/Footer/Footer';
-import Category from './pages/Category/thuyen/Category';
+import BannerImg from './pages/Home/Banner/Banner';
+import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
+import Footer from './Components/Footer/Footer';
+import  Header  from './Components/Header/Header';
+import SignIn from './pages/Authorization/SignIn/SignIn';
 function App() {
-
   return (
     <div>    
-      <Header/>
+    {/* <SignIn/> */}
+      {/* <Header/> */}
       {/* <Updateprofile/> */}
-      <Category/>
-      <Footer/>
+      {/* <Category/> */}
+      {/* <Footer/> */}
+      {/* <BannerImg/> */}
+      {/* <HomepageProduct/> */}
+      {/* <Footer/> */}
     </div>
     
   );

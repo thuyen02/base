@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './Header.css';
+import logoIcon from './Icon.jpg'
 import { Menu, Input } from 'antd';
 import { UserOutlined, ShoppingCartOutlined, SearchOutlined } from '@ant-design/icons';
 
 export class Header extends Component {
   render() {
     return (
-      <div className='navbar' >
-        <Menu  mode="horizontal" style={{ border: 0 }} className='left-nav'>
+      <div className='navbar'>
+        <Menu  mode="horizontal" className='left-nav'>
           <Menu.Item key="logo">
-            <img src="public/Icon.jpg" alt="" />
+            <img src={logoIcon} alt="" />
           </Menu.Item>
           <Menu.Item key="home">HOME</Menu.Item>
           <Menu.Item key="clothes">CLOTHES</Menu.Item>

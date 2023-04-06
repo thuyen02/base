@@ -1,0 +1,5 @@
+.react-multi-carousel-track li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
