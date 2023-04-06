@@ -1,4 +1,5 @@
-<Card
+const CardItem = () => {
+  <Card
                   hoverable
                   style={{
                     width: 240,
@@ -15,3 +16,4 @@
                     description="đ599.000"
                   />
                 </Card>
+}
