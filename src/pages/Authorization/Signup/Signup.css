@@ -1,0 +1,31 @@
+body {
+  background-color: #e5e5e5;
+}
+.signup-form-container {
+  margin: 200px auto;
+  width: 470px;
+  padding: 48px 32px 38px;
+  font: Raleway;
+  font-size: 18px;
+  line-height: 21.13px;
+  letter-spacing: 0.1 px;
+}
+.signup-field input {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.1px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #43464e;
+  outline: none;
+}
+
+.signup-form-container a {
+  display: flex;
+  justify-content: center;
+  color: #1d1f22;
+}
+::placeholder {
+  color: #1d1f22 !important;
+}
