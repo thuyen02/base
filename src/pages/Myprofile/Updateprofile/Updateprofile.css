@@ -10,36 +10,34 @@
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
-.Updateprofile-form{
- padding-top: 76px;
- width: 100%;
- margin: auto;
+.Updateprofile-form {
+  padding-top: 76px;
+  width: 100%;
+  margin: auto;
 }
-.Updateprofile_form-name{
+.Updateprofile_form-name {
   display: flex;
   justify-content: space-between;
-  width:71%;
+  width: 71%;
 }
-.Updateprofile_form-information{
-  display:flex ;
+.Updateprofile_form-information {
+  display: flex;
   justify-content: space-between;
   width: 71%;
 }
 
-
-.Updateprofile-conttent{
+.Updateprofile-conttent {
   background-color: #fff;
 }
 
-.Updateprofile-nav{
+.Updateprofile-nav {
   padding-right: 0;
   border-bottom: 1px #ccc solid;
 }
 
-.Updateprofile-nav--left{
+.Updateprofile-nav--left {
   color: #838181;
 }
-
 
 * {
   padding: 0;
@@ -72,7 +70,6 @@
   outline: none !important;
 }
 
-
 .updateFormItem:first-child {
   margin-right: 20px;
 }
@@ -99,7 +96,7 @@
   width: 100%;
 }
 
-.updateBtn{
+.updateBtn {
   /* width: 100px; */
   display: flex;
   justify-content: center;
@@ -108,6 +105,6 @@
 .updateBtn button {
   background-color: #000;
   color: #fff;
- border-radius: 0;
+  border-radius: 0;
   text-transform: uppercase;
 }

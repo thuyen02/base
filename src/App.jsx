@@ -1,17 +1,17 @@
 import React from 'react';
-import Updateprofile from './components/Authorization/updateprofile/Updateprofile';
-import Header from './pages/Header/Header';
-import Footer from './pages/Footer/Footer';
+import Header from './pages/Home/Header/Header';
+import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
+import Changepassword from './pages/Myprofile/Changepassword/Changepassword';
+import Footer from './pages/Home/Footer/Footer';
 
 function App() {
-
   return (
-    <div>    
-    <Header/>
-      <Updateprofile/>
-      <Footer/>
+    <div>
+      <Header />
+      <Updateprofile />
+      <Changepassword />
+      <Footer />
     </div>
-    
   );
 }
 
