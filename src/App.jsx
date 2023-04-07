@@ -1,4 +1,5 @@
 import React from 'react';
+import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile'
 import BannerImg from './pages/Home/Banner/Banner';
 import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
 import Footer from './Components/Footer/Footer';
@@ -9,7 +10,7 @@ function App() {
     <div>    
     {/* <SignIn/> */}
       {/* <Header/> */}
-      {/* <Updateprofile/> */}
+      <Updateprofile/>
       {/* <Category/> */}
       {/* <Footer/> */}
       {/* <BannerImg/> */}

@@ -14,7 +14,7 @@ import {
   Select,
 } from 'antd';
 import { useState } from 'react';
-import Header from '../../Home/Header/Header';
+
 const { Content, Footer } = Layout;
 
 const { Option } = Select;
