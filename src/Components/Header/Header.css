@@ -5,11 +5,9 @@
 }
 
 .navbar {
-    
-    display: flex;   
-     width: 100%;
+    display: flex;
     justify-content: space-between;
-
+    padding: 0 40px;
 }
 
 .left-nav {
@@ -23,9 +21,7 @@
     /* border-bottom: 1px solid lightblue; */
 }
 
-.ant-menu-item::after {
-  /* border-bottom: none !important; */
-  /* transition: none !important; */
+.ant-menu-item{
   color: black;
 }
 
