@@ -13,9 +13,8 @@
 }
 
 .left-nav {
-    width: 75%;
+    width: 100%;
     border-bottom: none;
-    width: fit-content;
 }
 
 .search-field {
@@ -37,8 +36,8 @@
 
 .right-nav {
     border-bottom: 0;
-    width: 25%;
-    width: fit-content;
+    width: 34%;
+  
 }
 /* 
 .right-nav >.ant-menu-item::after,

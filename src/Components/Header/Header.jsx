@@ -9,7 +9,7 @@ export class Header extends Component {
       <div className='navbar' >
         <Menu  mode="horizontal" style={{ border: 0 }} className='left-nav'>
           <Menu.Item key="logo">
-            <img src="public/Icon.jpg" alt="" />
+            <img src="./src/Icon.jpg" alt="" />
           </Menu.Item>
           <Menu.Item key="home">HOME</Menu.Item>
           <Menu.Item key="clothes">CLOTHES</Menu.Item>
