@@ -11,7 +11,7 @@
 }
 
 .left-nav {
-    /* width: fit-content; 0/. */
+    width: 100%;
     border-bottom: none;
 }
 
@@ -31,8 +31,9 @@
 
 
 .right-nav {
-    width: fit-content;
     border-bottom: 0;
+    width: 34%;
+  
 }
 /* 
 .right-nav >.ant-menu-item::after,
