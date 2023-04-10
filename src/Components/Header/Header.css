@@ -11,7 +11,7 @@
 }
 
 .left-nav {
-    width: fit-content;
+    /* width: fit-content; 0/. */
     border-bottom: none;
 }
 

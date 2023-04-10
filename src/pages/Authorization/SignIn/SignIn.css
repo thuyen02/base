@@ -32,13 +32,10 @@
 .formItem .inputField {
   padding: 0 11px;
   /* outline: none; */
+  box-shadow: none;
   border: none;
   border-bottom: 1px solid black;
   border-radius: 0;
-}
-
-.formItem .inputField:focus {
-    outline: none;
 }
 
 .checkRemember{
