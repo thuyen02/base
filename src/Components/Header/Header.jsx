@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
+import logoIcon from './Icon.jpg'
 import { Menu, Input } from 'antd';
 import {
   UserOutlined,
@@ -10,10 +11,15 @@ import {
 export class Header extends Component {
   render() {
     return (
+<<<<<<< HEAD:src/pages/Home/Header/Header.jsx
       <div className="navbar">
         <Menu mode="horizontal" style={{ border: 0 }} className="left-nav">
+=======
+      <div className='navbar'>
+        <Menu  mode="horizontal" className='left-nav'>
+>>>>>>> develop:src/Components/Header/Header.jsx
           <Menu.Item key="logo">
-            <img src="public/Icon.jpg" alt="" />
+            <img src={logoIcon} alt="" />
           </Menu.Item>
           <Menu.Item key="home">HOME</Menu.Item>
           <Menu.Item key="clothes">CLOTHES</Menu.Item>

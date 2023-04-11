@@ -7,8 +7,8 @@
 #footer {
     background-color: black;
     color: white;
-    padding: 40px 0;
-   
+    margin-top: 40px;
+    padding: 40px 80px;
 }
 
 #footer h2 {
@@ -28,4 +28,14 @@
 
 .footer-item > a:hover {
     color: lightblue;
+}
+
+.footer-wrap .ant-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-wrap .ant-col {
+    
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider } from 'antd';
 import './Footer.css'
 export class Footer extends Component {
   render() {
@@ -7,8 +7,8 @@ export class Footer extends Component {
       <footer id="footer">
       <div className="footer-wrap">
         <Row>
-        <Col md={4}></Col>
-          <Col md={4} sm={24} xs={24}>
+        {/* <Col md={4} sm={12} xs={24}></Col> */}
+          <Col md={6} sm={12} xs={24}>
             <div className="footer-center">
               <h2>about us</h2>
               <div className='footer-item'>
@@ -28,7 +28,7 @@ export class Footer extends Component {
               </div>
             </div>
           </Col>
-          <Col md={4} sm={24} xs={24}>
+          <Col md={6} sm={12} xs={24}>
             <div className="footer-center">
               <h2>departments</h2>
               <div className='footer-item'>
@@ -48,7 +48,7 @@ export class Footer extends Component {
               </div>
             </div>
           </Col>
-          <Col md={4} sm={24} xs={24}>
+          <Col md={6} sm={12} xs={24}>
             <div className="footer-center">
               <h2>help</h2>
               <div className='footer-item'>
@@ -68,7 +68,7 @@ export class Footer extends Component {
               </div>
             </div>
           </Col>
-          <Col md={4} sm={24} xs={24}>
+          <Col md={6} sm={12} xs={24}>
             <div className="footer-center">
               <h2>payment & delivery</h2>
               <div className='footer-item'>
@@ -88,8 +88,9 @@ export class Footer extends Component {
               </div>
             </div>
           </Col>
-        <Col md={4}></Col>
+        {/* <Col md={4} sm={12} xs={24}></Col> */}
         </Row>
+
       </div>
     </footer>
     );

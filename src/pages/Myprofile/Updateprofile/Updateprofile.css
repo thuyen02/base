@@ -67,11 +67,15 @@
   border-radius: 0;
   border-bottom: 1px solid black;
   padding: 0 11px;
-  outline: none !important;
+  box-shadow: none;
 }
 
 .updateFormItem:first-child {
   margin-right: 20px;
+}
+
+.updateFormItem .updateInputField {
+  box-shadow: none;
 }
 
 .updateAddress {

@@ -5,17 +5,14 @@
 }
 
 .navbar {
-    
-    display: flex;   
-     width: 100%;
+    display: flex;
     justify-content: space-between;
-
+    padding: 0 40px;
 }
 
 .left-nav {
-    width: 75%;
+    width: 100%;
     border-bottom: none;
-    width: fit-content;
 }
 
 .search-field {
@@ -24,9 +21,7 @@
     /* border-bottom: 1px solid lightblue; */
 }
 
-.ant-menu-item::after {
-  /* border-bottom: none !important; */
-  /* transition: none !important; */
+.ant-menu-item{
   color: black;
 }
 
@@ -37,8 +32,8 @@
 
 .right-nav {
     border-bottom: 0;
-    width: 25%;
-    width: fit-content;
+    width: 34%;
+  
 }
 /* 
 .right-nav >.ant-menu-item::after,
