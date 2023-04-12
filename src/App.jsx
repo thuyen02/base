@@ -1,4 +1,5 @@
 import React from 'react';
+import Category from './pages/Category/Category/Category'
 import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile'
 import BannerImg from './pages/Home/Banner/Banner';
 import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
@@ -9,12 +10,14 @@ function App() {
   return (
     <div>    
     {/* <SignIn/> */}
-      {/* <Header/> */}
-      <Updateprofile/>
+      <Header/>
+         <BannerImg/>
+      {/* <Updateprofile/> */}
+       <HomepageProduct/>
       {/* <Category/> */}
-      {/* <Footer/> */}
-      {/* <BannerImg/> */}
-      {/* <HomepageProduct/> */}
+      <Footer/>
+   
+     
       {/* <Footer/> */}
     </div>
     
