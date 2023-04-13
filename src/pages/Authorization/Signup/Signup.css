@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: #e5e5e5;
 }
 .signup-form-container {
@@ -28,4 +28,57 @@ body {
 }
 ::placeholder {
   color: #1d1f22 !important;
+} */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.appBg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.signup-form-container {
+  width: 470px;
+  height: 586px;
+  padding: 20px;
+  /* border: 1px solid black; */
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+}
+
+.signup-field {
+  position: relative;
+}
+
+.signup-field label {
+  position: absolute;
+  top: 10px;
+  padding-bottom: 0;
+}
+
+.signup-field .inputField {
+  padding: 0 11px;
+  /* outline: none; */
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0;
+}
+
+.signup_atag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-signup {
+  background-color: #1D1F22;
+  color: #FFFFFF;
+  border-radius: 0;
+  height: 52px;
+  margin-bottom: 0;
 }

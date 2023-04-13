@@ -19,6 +19,7 @@
     border-radius: 0;
     border: 0;
     /* border-bottom: 1px solid lightblue; */
+    box-shadow: none;
 }
 
 .ant-menu-item{
@@ -35,6 +36,7 @@
     width: 34%;
   
 }
+/*  */
 /* 
 .right-nav >.ant-menu-item::after,
 .right-nav >.ant-menu-submenu::after {

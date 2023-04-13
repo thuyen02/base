@@ -7,6 +7,8 @@ const BannerContainer = styled.div`
   width: 100%;
   height: 100vh;
   padding: 0 50px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Banner = styled.div`
@@ -31,12 +33,12 @@ const Banner_desc_h4 = styled.h4`
   font-size: 10px;
   line-height: 140%;
   color: #72757e;
-  font-family: 'Raleway';
+  /* font-family: 'Raleway'; */
 `;
 
 const Banner_desc_h1 = styled.h1`
   font-style: normal;
-  font-family: 'Raleway';
+  /* font-family: 'Raleway'; */
   font-weight: 600;
   font-size: 42px;
   line-height: 120%;
@@ -65,32 +67,6 @@ const Banner_desc_btn = styled.button`
 const BannerImg = () => {
   return (
     <Carousel autoplay>
-      <div>
-        <BannerContainer>
-          <Banner>
-            <Banner_desc>
-              <Banner_desc_h4>summer collection 2019</Banner_desc_h4>
-              <Banner_desc_h1>
-                Colorful summer dresses are already in store
-              </Banner_desc_h1>
-              <Banner_desc_btn>Learn more</Banner_desc_btn>
-            </Banner_desc>
-          </Banner>
-        </BannerContainer>
-      </div>
-      <div>
-        <BannerContainer>
-          <Banner>
-            <Banner_desc>
-              <Banner_desc_h4>summer collection 2019</Banner_desc_h4>
-              <Banner_desc_h1>
-                Colorful summer dresses are already in store
-              </Banner_desc_h1>
-              <Banner_desc_btn>Learn more</Banner_desc_btn>
-            </Banner_desc>
-          </Banner>
-        </BannerContainer>
-      </div>
       <div>
         <BannerContainer>
           <Banner>

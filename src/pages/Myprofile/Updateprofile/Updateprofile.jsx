@@ -1,123 +1,15 @@
 import React from 'react';
 import './Updateprofile.css';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu} from 'antd';
 import {
-  AutoComplete,
   Button,
-  Cascader,
-  Checkbox,
-  Col,
   Form,
   Input,
-  InputNumber,
-  Row,
-  Select,
 } from 'antd';
+import { InputC } from '../../../Components/Input/Input';
 import { useState } from 'react';
-
 const { Content, Footer } = Layout;
-
-const { Option } = Select;
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 const Updateprofile = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  const [form] = Form.useForm();
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
-  };
-  const prefixSelector = <Form.Item name="prefix" noStyle></Form.Item>;
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const onWebsiteChange = value => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        ['.com', '.org', '.net'].map(domain => `${value}${domain}`)
-      );
-    }
-  };
-  const websiteOptions = autoCompleteResult.map(website => ({
-    label: website,
-    value: website,
-  }));
-
   return (
     <Layout className="layout">
       <Content
@@ -134,18 +26,6 @@ const Updateprofile = () => {
             <Menu.Item key="changepassword">Change password</Menu.Item>
           </Menu>
         </div>
-        {/* <Breadcrumb className="Updateprofile-breadcrum"
-          style={{
-            margin: '16px 0',
-          }}
-        >
-          <Breadcrumb.Item className="Updateprofile-breadcrum-firt">
-            <a href="#">Myprofile </a>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item className="Updateprofile-breadcrum-child">
-            <a href="#">ChangePaword</a>
-          </Breadcrumb.Item>
-        </Breadcrumb> */}
  <div className="wrapper-update">
          <Form
           layout="vertical"
@@ -157,20 +37,19 @@ const Updateprofile = () => {
         //   onFinish={onFinish}
         >
           <div className="updateRow">
-          <Form.Item
+          <InputC
             label="Full name"
-            className="updateFormItem"
-            name="email"
+            name="fullname"
             rules={[
               {
                 required: true,
                 message: 'Please input Full name!',
               },
             ]}
-          >
-            <Input className="updateInputField" />
-          </Form.Item>
-          <Form.Item
+            className='updateFormItem'
+            inputClassName="updateInputField" type='text'
+          />
+          <InputC
             label="Username"
             className="updateFormItem"
             name="updateUsername"
@@ -180,26 +59,25 @@ const Updateprofile = () => {
                 message: 'Please input Username!',
               },
             ]}
-          >
-            <Input type="password" className="updateInputField" />
-            
-          </Form.Item>
+            inputClassName="updateInputField" type='text'
+          > 
+          </InputC>
           </div>
          <div className="updateRow">
-         <Form.Item
+         <InputC
             label="Your name"
             className="updateFormItem"
-            name="updatePhoneNumber"
+            name="updateYourname"
             rules={[
               {
                 required: true,
                 message: 'Please input Your name!',
               },
             ]}
+            inputClassName="updateInputField" type='text'
           >
-            <Input className="updateInputField" />
-          </Form.Item>
-          <Form.Item
+          </InputC>
+          <InputC
             label="Phone number"
             className="updateFormItem"
             name="updatePhoneNumber"
@@ -209,13 +87,12 @@ const Updateprofile = () => {
                 message: 'Please input Phone number!',
               },
             ]}
+            inputClassName="updateInputField" type='text'
           >
-            <Input type="password" className="updateInputField" />
-            
-          </Form.Item>
+          </InputC>
          </div>
          <div className="updateAddress">
-         <Form.Item
+         <InputC
             label="Address"
             className="updateFormItem"
             name="updateAddress"
@@ -225,9 +102,9 @@ const Updateprofile = () => {
                 message: 'Please input Address!',
               },
             ]}
+            inputClassName="updateInputField" type='text'
           >
-            <Input className="updateInputField" />
-          </Form.Item>
+          </InputC>
           
          </div>
          <div className="updateBtn">
