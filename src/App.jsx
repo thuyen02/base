@@ -1,10 +1,13 @@
 import React from 'react';
-import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile'
-import BannerImg from './pages/Home/Banner/Banner';
+import ProductCard from './Components/ProductCard/ProductCard'
+import SignIn from './pages/Authorization/SignIn/SignIn'
+import SignUp from './pages/Authorization/Signup/Signup.jsx'
+import Header from './Components/Header/Header'
+import Banner from './pages/Home/Banner/Banner.jsx'
+import Footer from './Components/Footer/Footer'
 import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
-import Footer from './Components/Footer/Footer';
-import  Header  from './Components/Header/Header';
-import SignIn from './pages/Authorization/SignIn/SignIn';
+import Hasresult from './pages/Search/Hasresult/Hasresult';
+import Noresult from './pages/Search/Noresult/Noresult';
 function App() {
 
   return (

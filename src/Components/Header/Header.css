@@ -8,11 +8,10 @@
     display: flex;
     justify-content: space-between;
     padding: 0 40px;
-  
 }
 
 .left-nav {
-    /* width: fit-content; */
+    width: 100%;
     border-bottom: none;
 }
 
@@ -20,6 +19,7 @@
     border-radius: 0;
     border: 0;
     /* border-bottom: 1px solid lightblue; */
+    box-shadow: none;
 }
 
 .ant-menu-item{
@@ -33,9 +33,10 @@
 
 .right-nav {
     border-bottom: 0;
-    /* width: fit-content; */
-    
+    width: 34%;
+  
 }
+/*  */
 /* 
 .right-nav >.ant-menu-item::after,
 .right-nav >.ant-menu-submenu::after {
