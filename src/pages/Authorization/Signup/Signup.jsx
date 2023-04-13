@@ -1,7 +1,7 @@
 import { Button, Input, Form } from 'antd';
 import React from 'react';
-import { InputC } from '../../../Components/Input/Input';
-import { ButtonC } from '../../../Components/Button';
+import { InputC } from '../../../components/Input/Input';
+import { ButtonC } from '../../../components/Button';
 import './Signup.css';
 // import axiosInstance from '../../../shared/services/http-client'
 

@@ -1,8 +1,8 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { InputC } from '../../../Components/Input/Input';
-import { ButtonC } from '../../../Components/Button';
+import { InputC } from '../../../components/Input/Input';
+import { ButtonC } from '../../../components/Button';
 import './SignIn.css';
 
 export class SignIn extends Component {
@@ -48,8 +48,9 @@ export class SignIn extends Component {
                 message: 'Please input your Email!',
               },
             ]}
-            className='formItem'
-            inputClassName="inputField" type='text'
+            className="formItem"
+            inputClassName="inputField"
+            type="text"
           />
 
           <InputC
@@ -62,7 +63,8 @@ export class SignIn extends Component {
               },
             ]}
             className="formItem"
-            inputClassName="inputField" type='password'
+            inputClassName="inputField"
+            type="password"
           />
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>

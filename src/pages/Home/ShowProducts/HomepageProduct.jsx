@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Carousel from 'react-multi-carousel';
+import Carousel from '.../../';
 import 'react-multi-carousel/lib/styles.css';
 import ProductA from './Product A.png';
 import ProductB from './Product B.png';
@@ -7,7 +7,7 @@ import ProductC from './Product C.png';
 import ProductD from './Product D.png';
 import './Card.css';
 import { Card } from 'antd';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 
 const { Meta } = Card;
 const responsive = {

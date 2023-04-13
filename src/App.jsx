@@ -1,27 +1,18 @@
 import React from 'react';
-import ProductCard from './Components/ProductCard/ProductCard'
-import SignIn from './pages/Authorization/SignIn/SignIn'
-import SignUp from './pages/Authorization/Signup/Signup.jsx'
-import Header from './Components/Header/Header'
-import Banner from './pages/Home/Banner/Banner.jsx'
-import Footer from './Components/Footer/Footer'
-import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
-import Hasresult from './pages/Search/Hasresult/Hasresult';
-import Noresult from './pages/Search/Noresult/Noresult';
+import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Changepassword from './pages/Myprofile/Changepassword/Changepassword';
+import ProductCard from './components/ProductCard/ProductCard';
 function App() {
-
   return (
-    <div>    
-    {/* <SignIn/> */}
-      {/* <Header/> */}
-      <Updateprofile/>
-      {/* <Category/> */}
-      {/* <Footer/> */}
-      {/* <BannerImg/> */}
-      {/* <HomepageProduct/> */}
-      {/* <Footer/> */}
+    <div>
+      <Header />
+      <Updateprofile />
+      <Changepassword/>
+      <Footer />
+      <ProductCard />
     </div>
-    
   );
 }
 

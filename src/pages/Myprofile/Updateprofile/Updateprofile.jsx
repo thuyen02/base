@@ -6,7 +6,7 @@ import {
   Form,
   Input,
 } from 'antd';
-import { InputC } from '../../../Components/Input/Input';
+import { InputC } from '../../../components/Input/Input';
 import { useState } from 'react';
 const { Content, Footer } = Layout;
 const Updateprofile = () => {
