@@ -9,16 +9,16 @@ import HomepageProduct from './pages/Home/ShowProducts/HomepageProduct';
 import Hasresult from './pages/Search/Hasresult/Hasresult';
 import Noresult from './pages/Search/Noresult/Noresult';
 function App() {
+
   return (
     <div>    
-      {/* <SignUp/>
-      <SignIn/> */}
-      {/* <ProductCard/> */}
-      <Header/>
-      {/* <Banner/>
-      <HomepageProduct/> */}
-      <Hasresult/>
-      {/* <Noresult/> */}
+    {/* <SignIn/> */}
+      {/* <Header/> */}
+      <Updateprofile/>
+      {/* <Category/> */}
+      {/* <Footer/> */}
+      {/* <BannerImg/> */}
+      {/* <HomepageProduct/> */}
       {/* <Footer/> */}
     </div>
     
