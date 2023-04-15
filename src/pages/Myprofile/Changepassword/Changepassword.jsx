@@ -47,7 +47,7 @@ function Changepassword() {
               pattern: /^\S+$/,
               message: 'Password cannot contain whitespace',
             },
-            { min: 6, message: 'Password must be at least 6' },
+            { min: 6, message: 'Password must have at least 6 characters in length' },
             {
               pattern:
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).+$/,
