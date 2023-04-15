@@ -3,7 +3,14 @@ import { Form, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { InputC } from '../../../components/Input/Input';
 import './Changepassword.css';
+import axios from 'axios';
 function Changepassword() {
+  const onFinish = event => {
+    event.preventDefault();
+    const { current_password, new_password, repeat_password } = event.target;
+    const data = { current_password: current_password.value, new_password: new_password.value, repeat_password: repeat_password.value };
+    axios.post('/auth/change-password', data).then(response => {});
+  };
   return (
     <div className="appBg">
       <Form
@@ -13,6 +20,7 @@ function Changepassword() {
         initialValues={{
           remember: true,
         }}
+        onFinish={onFinish}
       >
         <InputC
           label="Current password"
@@ -47,7 +55,10 @@ function Changepassword() {
               pattern: /^\S+$/,
               message: 'Password cannot contain whitespace',
             },
-            { min: 6, message: 'Password must have at least 6 characters in length' },
+            {
+              min: 6,
+              message: 'Password must have at least 6 characters in length',
+            },
             {
               pattern:
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).+$/,
@@ -73,7 +84,7 @@ function Changepassword() {
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('new-password') === value) {
+                if (!value || getFieldValue('new_password') === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
