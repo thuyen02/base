@@ -1,8 +1,8 @@
 import { Button, Input, Form } from 'antd';
 import React from 'react';
 
-import './Singup.css'
-import axiosInstance from '../../../shared/services/http-client'
+import './Signup.css'
+// import axiosInstance from '../../../shared/services/http-client'
 
 
 const styleTextbox = {
@@ -12,15 +12,15 @@ const styleTextbox = {
   padding: '5px 0',
 };
 
-const postDataSignup = async newUser => {
-  axiosInstance.post('/auth/local/register', newUser)
-    .then(res => {
-      let jwt = res.jwt
-      console.log(jwt);
-      localStorage.setItem('token', jwt)
+// const postDataSignup = async newUser => {
+//   axiosInstance.post('/auth/local/register', newUser)
+//     .then(res => {
+//       let jwt = res.jwt
+//       console.log(jwt);
+//       localStorage.setItem('token', jwt)
   
-  });
-};
+//   });
+// };
 
 const SignupForm = () => {
   const [form] = Form.useForm();
@@ -38,7 +38,7 @@ const SignupForm = () => {
       email: email,
     };
 
-    postDataSignup(newUser);
+    // postDataSignup(newUser);
     onReset();
   };
   const onReset = () => {
