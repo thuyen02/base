@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Avatar, List, Drawer, Card, InputNumber } from 'antd';
+import { Drawer, Card } from 'antd';
 import './Hasorders.css';
 import styled from 'styled-components';
 import cartIcon from '../Noorder/cart.png';
@@ -9,7 +9,6 @@ const Container = styled(Drawer)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-between; */
   padding-bottom: 120px;
   .ant-drawer-header {
     border-bottom: none;
