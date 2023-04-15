@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Divider } from 'antd';
 import './Footer.css'
-export class Footer extends Component {
-  render() {
+const Footer = () => {
     return (
       <footer id="footer">
       <div className="footer-wrap">
@@ -94,7 +93,7 @@ export class Footer extends Component {
       </div>
     </footer>
     );
-  }
+  
 }
 
 export default Footer;

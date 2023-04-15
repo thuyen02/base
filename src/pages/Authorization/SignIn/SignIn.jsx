@@ -5,8 +5,7 @@ import { InputC } from '../../../Components/Input/Input';
 import { ButtonC } from '../../../Components/Button';
 import './SignIn.css';
 
-export class SignIn extends Component {
-  render() {
+export const SignIn = () => {
     const onFinish = values => {
       console.log('Finish:', values);
       let data = {
@@ -85,7 +84,6 @@ export class SignIn extends Component {
         </Form>
       </div>
     );
-  }
 }
 
 export default SignIn;
