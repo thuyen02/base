@@ -1,91 +1,69 @@
 import React from 'react';
-import { Button, Input, Form, Col, Row } from 'antd';
-import { Validator } from 'react';
+import {Form, Button, Menu} from 'antd';
 import './Changepassword.css';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { InputC } from '../../../Components/Input/Input';
 function Changepassword() {
   return (
-    <Row justify={'center'}>
-      <Col xs={24} sm={16} md={12} lg={16}>
-        <Form className="form--password__change">
-          <Form.Item
-            name="old-password"
-            rules={[
-              { require: true, message: 'Please input old password' },
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__old"
-              placeholder="Current Password *"
-            />
-          </Form.Item>
-          <Form.Item
-            name="new-password"
-            rules={[
-              { required: true, message: 'Please input new password' },
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
-              },
-              { min: 6, message: 'Password must be at least 6' },
-              {
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).+$/,
-                message:
-                  'Password must contain at least one lowercase, one uppercase letter and one special character',
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__new"
-              placeholder="New Password *"
-            />
-          </Form.Item>
-          <Form.Item
-            name="repeat-password"
-            dependencies={['repeat_password']}
+    <div className="appBg">
+      <Form
+      layout="vertical"
+          name="normal_sigin"
+          className="signin-form"
+          initialValues={{
+            remember: true,
+          }}
+      >
+        <InputC
+        label="Current password"
+        name="current_password"
             rules={[
               {
                 required: true,
-                message: 'Please confirm your password',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('new-password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      'The passwords that you entered do not match the new passwords'
-                    )
-                  );
-                },
-              }),
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
+                message: 'Please input Current Password!',
               },
             ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__repeat"
-              placeholder="Repeat Password *"
-            />
-          </Form.Item>
+            className='formItem'
+            inputClassName="inputField" type='password'
+            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        ></InputC>
+         <InputC
+        label="New password"
+        name="new_password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input New Password!',
+              },
+            ]}
+            className='formItem'
+            inputClassName="inputField" type='password'
+            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        ></InputC>
+        <InputC
+        label="Repeat password"
+        name="repeat_password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input Repeat Password!',
+              },
+            ]}
+            className='formItem'
+            inputClassName="inputField" type='password'
+            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        ></InputC>
           <Form.Item>
-            <Button className="btn" type="primary" htmlType="submit">
-              UPDATE
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="changepassword-form-button"
+            >
+              update
             </Button>
           </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+      </Form>
+    </div>
   );
 }
 export default Changepassword;
