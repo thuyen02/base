@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Row, Col, Divider } from 'antd';
 import ProductB from './Product B.png'
 import styled from 'styled-components';
