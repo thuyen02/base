@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 import './SignIn.css';
-
+import { Outlet, Link } from 'react-router-dom';
 export const SignIn = () => {
   const navigate = useNavigate();
 

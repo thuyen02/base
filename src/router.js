@@ -9,7 +9,6 @@ import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,29 +32,18 @@ const router = createBrowserRouter([
       {
         path: '/category',
         element: <Category/>
-      }
-    ],
-  },
-  {
-    path: "/",
-    element: (
-      <>
-        <Header/>
-        <Outlet/>
-        {/* <Updateprofile/> */}
-      </>
-    ),
-    children: [
+      },
       {
-        path: '/updateprofile',
+        path: '/update-profile',
         element: <Updateprofile/>
       },
       {
-        path: '/changepassword',
+        path: '/change-password',
         element: <Changepassword/>
       }
-    ]
+    ],
   },
+  
   {
     path: "/signin",
     element: <SignIn/>

@@ -154,7 +154,7 @@ const SignupForm = () => {
           </Button>
         </Form.Item>
         <a href="/some/valid/uri#top" className="signup_atag">
-          or log in to your account
+          <Link to="/signin">  or log in to your account </Link>
         </a>
       </Form>
     </div>
