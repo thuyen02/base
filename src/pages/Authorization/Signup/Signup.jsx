@@ -1,9 +1,9 @@
-import { Button, Input, Form } from 'antd';
+import { Button, Form } from 'antd';
 import React from 'react';
 import { InputC } from '../../../Components/Input/Input';
-import { ButtonC } from '../../../Components/Button';
 import './Signup.css';
-import axiosInstance from '../../../shared/services/http-client';
+import axiosInstance from '../../../shared/services/http-client';<<<<<<< product-detail
+import { Link } from 'react-router-dom';
 
 const styleTextbox = {
   borderRadius: 0,
@@ -12,13 +12,13 @@ const styleTextbox = {
   padding: '5px 0',
 };
 
-const postDataSignup = async newUser => {
-  axiosInstance.post('/auth/local/register', newUser)
-    .then(res => {
-      let jwt = res.jwt
-      console.log(jwt);
-      localStorage.setItem('token', jwt)
 
+
+const postDataSignup = async newUser => {
+  axiosInstance.post('/auth/local/register', newUser).then(res => {
+    let jwt = res.jwt;
+    console.log(jwt);
+    localStorage.setItem('token', jwt);
   });
 };
 
@@ -154,7 +154,7 @@ const SignupForm = () => {
           </Button>
         </Form.Item>
         <a href="/some/valid/uri#top" className="signup_atag">
-          <Link to="/signin">  or log in to your account </Link>
+          <Link to="/signin"> or log in to your account </Link>
         </a>
       </Form>
     </div>
