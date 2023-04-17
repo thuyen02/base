@@ -53,11 +53,11 @@ const CardProductBody = styled.div`
 `;
 
 
-const ProductCard = () => (
+const ProductCard = ({src}) => (
   
    <CardProduct>
       <CardProductImage
-        src="/image/Product-B.png"
+        src={src}
       alt=""
     />
       <CardProductBody >

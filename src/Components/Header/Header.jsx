@@ -64,4 +64,8 @@ const Header = ({ isLoggedIn }) => {
     </div>
   );
 };
+<<<<<<< HEAD
 export default Header;
+=======
+export default Header;
+>>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b
