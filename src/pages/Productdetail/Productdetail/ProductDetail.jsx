@@ -2,6 +2,7 @@ import { Row, Col, Image } from 'antd';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import SimilarProduct from '../SimilarProduct/SimilarProduct';
+import { useParams } from 'react-router-dom';
 // import axiosInstance from '../../../shared/services/http-client';
 
 import {
@@ -19,21 +20,25 @@ import {
 import productApi from '../../../API/productApi';
 
 export default function ProductDetail() {
+  const { id } = useParams();
   const [visible, setVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
-  const [productId, setProductId] = useState(1);
+  const [productId, setProductId] = useState(id);
 
   useEffect(() => {
     getDataProduct();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
   const getDataProduct = async () => {
     try {
       const res = await productApi.getId(productId);
-      console.log(res);
       setDataProduct(res.data.attributes);
     } catch (error) {
       console.log(error);
