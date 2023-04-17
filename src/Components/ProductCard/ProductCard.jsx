@@ -71,7 +71,7 @@ const ProductCard = ({src}) => {
     alt=""
   />
     <CardProductBody >
-    <h3>Apolo Running</h3>
+    <h3  >Apolo Running</h3>
     <p><sup>đ</sup>500,000</p>  
     <IconCart><FiShoppingCart/></IconCart>
   </CardProductBody>  

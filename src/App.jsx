@@ -4,12 +4,13 @@ import router from './router'
 import Category from './pages/Category/Category/Category';
 function App() {
   return (
-   <RouterProvider router={router}>
-    {/* <div>
-      <Category/>   
-    </div> */}
-    <App/>
-   </RouterProvider>   
+  // <RouterProvider router={router}>
+  
+  //  <App/>
+  //  </RouterProvider>   
+  <div>
+  <Category/>   
+</div>  
   );
 }
 
