@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form, Button, Menu, Layout, Content } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { InputC } from '../../../components/Input/Input';
 import './Changepassword.css';
 import axiosInstance from '../../../shared/services/http-client';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 function Changepassword() {
+  const formRef = useRef(null);
   const onFinish = values => {
     const { current_password, new_password, repeat_password } = values;
     const data = {
@@ -13,40 +15,47 @@ function Changepassword() {
       password: new_password,
       passwordConfirmation: repeat_password,
     };
-    axiosInstance.post('/auth/change-password', data).then(response => {
-      console.log(response.data.current_password);
-      swal({
-        title: 'Good job!',
-        text: 'Update is successful!',
-        icon: 'success',
-        button: 'OK',
-        position: 'top-end',
-        width: 400,
-        padding: '2em',
-        backdrop: true,
-        timer: 1000,
+    try {
+      axiosInstance.post('/auth/change-password', data).then(response => {
+        // console.log(response.data.current_password);
+        swal({
+          title: 'Good job!',
+          text: 'Your password has been changed successfully',
+          icon: 'success',
+          button: 'OK',
+          position: 'top-end',
+          width: 400,
+          padding: '2em',
+          backdrop: true,
+          // timer: 1000,
+        });
+        localStorage.setItem('token', response.data);
+        console.log(111);
+        formRef.current.resetFields();
       });
-      localStorage.setItem('token', response.data);
-    });
+    } catch (error) {
+      console.log(112);
+      console.log(error);
+    }
   };
   return (
     <Layout className="change_password">
       <div className="change_password-nav">
         <Menu mode="horizontal" className="my_profile-nav">
           <Menu.Item className="Updateprofile-nav--item" key="myprofile">
-            My profile
+            <Link to="/update-profile">My profile</Link>
           </Menu.Item>
-          <Menu.Item key="changepassword">Change password</Menu.Item>
+          <Menu.Item key="changepassword">
+            <Link to="/change-password">Change password</Link>
+          </Menu.Item>
         </Menu>
       </div>
       <div className="change_password-form">
         <Form
           layout="vertical"
           name="normal_sigin"
-          initialValues={{
-            remember: true,
-          }}
           onFinish={onFinish}
+          ref={formRef}
         >
           <InputC
             label="Current password"
@@ -93,12 +102,15 @@ function Changepassword() {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || !(getFieldValue('current_password') === value)) {
+                  if (
+                    !value ||
+                    !(getFieldValue('current_password') === value)
+                  ) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
                     new Error(
-                      'New password can not be same as current password'
+                      'New password can not be same as your current password'
                     )
                   );
                 },

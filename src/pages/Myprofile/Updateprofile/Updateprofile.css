@@ -78,6 +78,10 @@
   box-shadow: none;
 }
 
+.disableInput {
+  background-color: transparent !important;
+}
+
 .updateAddress {
   display: flex;
   justify-content: center;
