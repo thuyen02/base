@@ -1,17 +1,10 @@
 import { Button, Input, Form } from 'antd';
 import React from 'react';
-<<<<<<< HEAD
-
-import './Signup.css'
-// import axiosInstance from '../../../shared/services/http-client'
-
-=======
 import { InputC } from '../../../Components/Input/Input';
 import { ButtonC } from '../../../Components/Button';
 import './Signup.css';
 // import axiosInstance from '../../../shared/services/http-client'
->>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b
-
+import { Outlet, Link } from 'react-router-dom';
 const styleTextbox = {
   borderRadius: 0,
   outline: 'none',
@@ -25,34 +18,12 @@ const styleTextbox = {
 //       let jwt = res.jwt
 //       console.log(jwt);
 //       localStorage.setItem('token', jwt)
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b
 //   });
 // };
 
 const SignupForm = () => {
   const [form] = Form.useForm();
   const onFinish = values => {
-<<<<<<< HEAD
-    let { email, password, fullname, username, address, phoneNumber } = values;
-
-    let newUser = {
-      phoneNumber: phoneNumber,
-      username: username,
-      confirmed: true,
-      role: 2,
-      fullname: fullname,
-      address: address,
-      password: password,
-      email: email,
-    };
-
-    // postDataSignup(newUser);
-    onReset();
-=======
     // let { email, password, fullname, username, address, phoneNumber } = values;
     // let newUser = {
     //   phoneNumber: phoneNumber,
@@ -66,7 +37,6 @@ const SignupForm = () => {
     // };
     // postDataSignup(newUser);
     // onReset();
->>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b
   };
   const onReset = () => {
     form.resetFields();
@@ -183,7 +153,7 @@ const SignupForm = () => {
           </Button>
         </Form.Item>
         <a href="/some/valid/uri#top" className="signup_atag">
-          or log in to your account
+          <Link to="/signin">  or log in to your account </Link>
         </a>
       </Form>
     </div>

@@ -7,12 +7,13 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 2px 40px;
 }
 
 .left-nav {
-    width: 75%;
+    width: 75%0;
     border-bottom: none;
+   
 }
 
 .search-field {
@@ -43,20 +44,13 @@
 
 .right-nav {
     border-bottom: 0;
-    width: 25%;
+    width: 25%; 
 }
-<<<<<<< HEAD
-=======
 /*  */
->>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b
 
 .ant-menu-item::after,
 .ant-menu-submenu::after {
   border-bottom: none !important;
   transition: none !important;
   color: black;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3df6a0064fe420f73d0e4ea3a6168533f5ee554b

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { InputC } from '../../../Components/Input/Input';
 import { ButtonC } from '../../../Components/Button';
 import './SignIn.css';
-
+import { Outlet, Link } from 'react-router-dom';
 export const SignIn = () => {
     const onFinish = values => {
       console.log('Finish:', values);
@@ -77,8 +77,8 @@ export const SignIn = () => {
           </Form.Item>
           <Form.Item className="create-account">
             <h2>Don't have an account yet?</h2>
-            <a href="" className="register">
-              Register now
+            <a href=""  className="register">
+        <Link to="/signup"> Register now </Link>
             </a>
           </Form.Item>
         </Form>
