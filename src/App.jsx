@@ -1,12 +1,15 @@
 import React from 'react';
-// import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
-import SignupForm from './pages/Authorization/Signup/Signup';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
+import Category from './pages/Category/Category/Category';
 function App() {
   return (
-    <div>
-      {/* <ProductDetail /> */}
-      <SignupForm />
-    </div>
+    <RouterProvider router={router}>
+      {/* <div>
+      <Category/>   
+    </div> */}
+      <App />
+    </RouterProvider>
   );
 }
 

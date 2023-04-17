@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import './SignIn.css';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Checkbox, Col } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import axios from 'axios';
-import Password from 'antd/es/input/Password';
-
-export class SignIn extends Component {
-  render() {
+import React, { Component } from 'react';
+import { InputC } from '../../../Components/Input/Input';
+import { ButtonC } from '../../../Components/Button';
+import './SignIn.css';
+import { Outlet, Link } from 'react-router-dom';
+export const SignIn = () => {
     const onFinish = values => {
       console.log('Finish:', values);
       let data = {
@@ -18,7 +17,7 @@ export class SignIn extends Component {
         .post('https://edison-shipping-api.savvycom.xyz/api/auth/local', data)
         .then(res => {
           console.log(res.data.jwt);
-          localStorage.setItem("userKey", res.data.jwt);
+          localStorage.setItem('userKey', res.data.jwt);
         })
         .catch(error => {
           console.log(error);
@@ -39,9 +38,8 @@ export class SignIn extends Component {
           }}
           onFinish={onFinish}
         >
-          <Form.Item
+          <InputC
             label="Your email"
-            className="formItem"
             name="email"
             rules={[
               {
@@ -49,10 +47,11 @@ export class SignIn extends Component {
                 message: 'Please input your Email!',
               },
             ]}
-          >
-            <Input className="inputField" />
-          </Form.Item>
-          <Form.Item
+            className='formItem'
+            inputClassName="inputField" type='text'
+          />
+
+          <InputC
             label="Password"
             name="password"
             rules={[
@@ -62,42 +61,29 @@ export class SignIn extends Component {
               },
             ]}
             className="formItem"
-          >
-            <Input type="password" className="inputField" />
-            
-          </Form.Item>
+            inputClassName="inputField" type='password'
+          />
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox className="checkRemember">Remember me</Checkbox>
             </Form.Item>
           </Form.Item>
           <Form.Item>
-            <Button
+            <ButtonC
               type="primary"
               htmlType="submit"
               className="login-form-button"
-            >
-              LOGIN
-            </Button>
-            {/* <Button
-              type="primary"
-              htmlType="button"
-              className="login-form-button"
-              onClick={logout}
-            >
-              LOGOUT
-            </Button> */}
+            />
           </Form.Item>
           <Form.Item className="create-account">
             <h2>Don't have an account yet?</h2>
-            <a href="" className="register">
-              Register now
+            <a href=""  className="register">
+        <Link to="/signup"> Register now </Link>
             </a>
           </Form.Item>
         </Form>
       </div>
     );
-  }
 }
 
 export default SignIn;

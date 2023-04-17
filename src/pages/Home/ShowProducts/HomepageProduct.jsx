@@ -7,6 +7,7 @@ import ProductC from './Product C.png';
 import ProductD from './Product D.png';
 import './Card.css';
 import { Card } from 'antd';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 
 const { Meta } = Card;
 const responsive = {
@@ -70,139 +71,43 @@ const HomepageProduct = () => {
             //   deviceType={this.props.deviceType}
             itemClass="carousel-item-padding-40-px"
           >
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={<img alt="ProductB" src={ProductB} />}
-            >
-              <Meta title="Apollo Running Short" description="đ599.000" />
-            </Card>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={<img alt="example" src={ProductC} />}
-            >
-              <Meta title="Apollo Running Short" description="đ599.000" />
-            </Card>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={<img alt="example" src={ProductD} />}
-            >
-              <Meta title="Apollo Running Short" description="đ599.000" />
-            </Card>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={<img alt="example" src={ProductA} />}
-            >
-              <Meta title="Apollo Running Short" description="đ599.000" />
-            </Card>
+            <ProductCard src={ProductB} />
+            <ProductCard src={ProductC} />
+            <ProductCard src={ProductD} />
+            <ProductCard src={ProductA} />
           </Carousel>
         </div>
         ;
       </div>
       <div className="homepage-clothes">
-      <Homepage_clothes_title>
-        <h2>Sport shoes</h2>
-      </Homepage_clothes_title>
-      <div className="homepage-clothes-products">
-        <Carousel
-          swipeable={false}
-          draggable={false}
-          responsive={responsive}
-          ssr={true} // means to render carousel on server-side.
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={2000}
-          keyBoardControl={true}
-          customTransition="all .5"
-          transitionDuration={500}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={['tablet', 'mobile']}
-        //   deviceType={this.props.deviceType}
-          itemClass="carousel-item-padding-40-px"
-        >
-          <Card
-            hoverable
-            style={{
-              width: 240,
-            }}
-            cover={
-              <img
-                alt="ProductB"
-                src={ProductB}
-              />
-            }
+        <Homepage_clothes_title>
+          <h2>Sport shoes</h2>
+        </Homepage_clothes_title>
+        <div className="homepage-clothes-products">
+          <Carousel
+            swipeable={false}
+            draggable={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={['tablet', 'mobile']}
+            //   deviceType={this.props.deviceType}
+            itemClass="carousel-item-padding-40-px"
           >
-            <Meta
-              title="Apollo Running Short"
-              description="đ599.000"
-            />
-          </Card>
-          <Card
-            hoverable
-            style={{
-              width: 240,
-            }}
-            cover={
-              <img
-                alt="example"
-                src={ProductC}
-              />
-            }
-          >
-            <Meta
-              title="Apollo Running Short"
-              description="đ599.000"
-            />
-          </Card>
-          <Card
-            hoverable
-            style={{
-              width: 240,
-            }}
-            cover={
-              <img
-                alt="example"
-                src={ProductD}
-              />
-            }
-          >
-            <Meta
-              title="Apollo Running Short"
-              description="đ599.000"
-            />
-          </Card>
-          <Card
-            hoverable
-            style={{
-              width: 240,
-            }}
-            cover={
-              <img
-                alt="example"
-                src={ProductA}
-              />
-            }
-          >
-            <Meta
-              title="Apollo Running Short"
-              description="đ599.000"
-            />
-          </Card>
-        </Carousel>
+            <ProductCard src={ProductB} />
+            <ProductCard src={ProductC} />
+            <ProductCard src={ProductD} />
+            <ProductCard src={ProductA} />
+          </Carousel>
+        </div>
+        ;
       </div>
-      ;
-    </div>
     </div>
   );
 };
