@@ -1,10 +1,10 @@
-import { Button, Input, Form } from 'antd';
+import { Button, Form } from 'antd';
 import React from 'react';
 import { InputC } from '../../../Components/Input/Input';
-import { ButtonC } from '../../../Components/Button';
 import './Signup.css';
-// import axiosInstance from '../../../shared/services/http-client'
-import { Outlet, Link } from 'react-router-dom';
+import axiosInstance from '../../../shared/services/http-client';<<<<<<< product-detail
+import { Link } from 'react-router-dom';
+
 const styleTextbox = {
   borderRadius: 0,
   outline: 'none',
@@ -12,31 +12,32 @@ const styleTextbox = {
   padding: '5px 0',
 };
 
-// const postDataSignup = async newUser => {
-//   axiosInstance.post('/auth/local/register', newUser)
-//     .then(res => {
-//       let jwt = res.jwt
-//       console.log(jwt);
-//       localStorage.setItem('token', jwt)
-//   });
-// };
+
+
+const postDataSignup = async newUser => {
+  axiosInstance.post('/auth/local/register', newUser).then(res => {
+    let jwt = res.jwt;
+    console.log(jwt);
+    localStorage.setItem('token', jwt);
+  });
+};
 
 const SignupForm = () => {
   const [form] = Form.useForm();
   const onFinish = values => {
-    // let { email, password, fullname, username, address, phoneNumber } = values;
-    // let newUser = {
-    //   phoneNumber: phoneNumber,
-    //   username: username,
-    //   confirmed: true,
-    //   role: 2,
-    //   fullname: fullname,
-    //   address: address,
-    //   password: password,
-    //   email: email,
-    // };
-    // postDataSignup(newUser);
-    // onReset();
+    let { email, password, fullname, username, address, phoneNumber } = values;
+    let newUser = {
+      phoneNumber: phoneNumber,
+      username: username,
+      confirmed: true,
+      role: 2,
+      fullname: fullname,
+      address: address,
+      password: password,
+      email: email,
+    };
+    postDataSignup(newUser);
+    onReset();
   };
   const onReset = () => {
     form.resetFields();
@@ -153,7 +154,7 @@ const SignupForm = () => {
           </Button>
         </Form.Item>
         <a href="/some/valid/uri#top" className="signup_atag">
-          <Link to="/signin">  or log in to your account </Link>
+          <Link to="/signin"> or log in to your account </Link>
         </a>
       </Form>
     </div>

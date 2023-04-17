@@ -11,7 +11,7 @@
 }
 
 .left-nav {
-    width: 75%0;
+    width: fit-content;
     border-bottom: none;
    
 }
@@ -44,7 +44,7 @@
 
 .right-nav {
     border-bottom: 0;
-    width: 25%; 
+    width: fit-content;
 }
 /*  */
 
