@@ -1,9 +1,9 @@
 import { Button, Input, Form } from 'antd';
 import React from 'react';
+import { ACCESS_TOKEN } from '../../../shared/constants';
 
-import './Singup.css'
-import axiosInstance from '../../../shared/services/http-client'
-
+import './Signup.css';
+import axiosInstance from '../../../shared/services/http-client';
 
 const styleTextbox = {
   borderRadius: 0,
@@ -13,12 +13,10 @@ const styleTextbox = {
 };
 
 const postDataSignup = async newUser => {
-  axiosInstance.post('/auth/local/register', newUser)
-    .then(res => {
-      let jwt = res.jwt
-      console.log(jwt);
-      localStorage.setItem('token', jwt)
-  
+  axiosInstance.post('/auth/local/register', newUser).then(res => {
+    let jwt = res.jwt;
+    console.log(jwt);
+    localStorage.setItem(ACCESS_TOKEN, jwt);
   });
 };
 
