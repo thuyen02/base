@@ -1,9 +1,9 @@
 import axiosInstance from '../shared/services/http-client';
 
 const productApi = {
-  getAll: parmas => {
+  getAll: params => {
     const url = '/products';
-    return axiosInstance.get(url, { parmas });
+    return axiosInstance.get(url, { params });
   },
   getId: id => {
     const url = `/products/${id}`;

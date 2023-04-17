@@ -2,17 +2,8 @@ import { Button, Form } from 'antd';
 import React from 'react';
 import { InputC } from '../../../Components/Input/Input';
 import './Signup.css';
-import axiosInstance from '../../../shared/services/http-client';<<<<<<< product-detail
+import axiosInstance from '../../../shared/services/http-client';
 import { Link } from 'react-router-dom';
-
-const styleTextbox = {
-  borderRadius: 0,
-  outline: 'none',
-  boxShadow: 'none',
-  padding: '5px 0',
-};
-
-
 
 const postDataSignup = async newUser => {
   axiosInstance.post('/auth/local/register', newUser).then(res => {
