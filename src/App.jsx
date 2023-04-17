@@ -1,12 +1,10 @@
 import React from 'react';
-import ProductCard from './Components/ProductCard/ProductCard'
+import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 function App() {
   return (
-    <div>    
-      <ProductCard/>
-      
+    <div>
+      <ProductDetail />
     </div>
-    
   );
 }
 
