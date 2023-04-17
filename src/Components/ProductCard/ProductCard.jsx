@@ -52,22 +52,32 @@ const CardProductBody = styled.div`
    margin-top: 24px;
 `;
 
+  // ProductList.prototype = {
+  //   productList: PropTypes.array,
+  // };
+  // ProductList.deflaultProps = {
+  //   productList: [],
+  // };
+  // function ProductList(props) {
+  //   const { productList } = props;
+  // }
 
-const ProductCard = ({src}) => (
+const ProductCard = ({src}) => {
   
-   <CardProduct>
-      <CardProductImage
-        src={src}
-      alt=""
-    />
-      <CardProductBody >
-      <h3>Apolo Running</h3>
-      <p><sup>đ</sup>500,000</p>  
-      <IconCart><FiShoppingCart/></IconCart>
-    </CardProductBody>  
-    
-  </CardProduct>
+  return(
+    <CardProduct>
+    <CardProductImage
+      src={src}
+    alt=""
+  />
+    <CardProductBody >
+    <h3>Apolo Running</h3>
+    <p><sup>đ</sup>500,000</p>  
+    <IconCart><FiShoppingCart/></IconCart>
+  </CardProductBody>  
   
-);
+</CardProduct>
 
+  );
+  }
 export default ProductCard;

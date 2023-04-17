@@ -4,7 +4,7 @@ import { InputC } from '../../../components/Input/Input';
 import { ButtonC } from '../../../components/Button';
 import './Signup.css';
 // import axiosInstance from '../../../shared/services/http-client'
-
+import { Outlet, Link } from 'react-router-dom';
 const styleTextbox = {
   borderRadius: 0,
   outline: 'none',
@@ -18,7 +18,6 @@ const styleTextbox = {
 //       let jwt = res.jwt
 //       console.log(jwt);
 //       localStorage.setItem('token', jwt)
-
 //   });
 // };
 
@@ -154,7 +153,7 @@ const SignupForm = () => {
           </Button>
         </Form.Item>
         <a href="/some/valid/uri#top" className="signup_atag">
-          or log in to your account
+          <Link to="/signin">  or log in to your account </Link>
         </a>
       </Form>
     </div>

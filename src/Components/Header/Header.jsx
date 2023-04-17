@@ -7,17 +7,24 @@ import {
   ShoppingCartOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
+import { Outlet, Link } from 'react-router-dom';
 
-export class Header extends Component {
-  render() {
-    return (
+const Header = ({ isLoggedIn }) => {
+  return (
+    <div>
       <div className="navbar">
-        <Menu mode="horizontal" style={{ border: 0 }} className="left-nav">
+        <Menu mode="horizontal" className="left-nav">
           <Menu.Item key="logo">
-            <img src={logoIcon} alt="" />
+            <Link to="/">
+              <img src={logoIcon} alt="" />
+            </Link>
           </Menu.Item>
-          <Menu.Item key="home">HOME</Menu.Item>
-          <Menu.Item key="clothes">CLOTHES</Menu.Item>
+          <Menu.Item key="home">
+            <Link to="/">HOME</Link>
+          </Menu.Item>
+          <Menu.Item key="clothes">
+            <Link to="/category">CLOTHES</Link>
+          </Menu.Item>
           <Menu.Item key="sport-shoes">SPORT SHOES</Menu.Item>
         </Menu>
         <Menu mode="horizontal" className="right-nav">
@@ -28,16 +35,33 @@ export class Header extends Component {
               prefix={<SearchOutlined className="search-icon" />}
             />
           </Menu.Item>
-          <Menu.Item key="user">
-            <UserOutlined />
-          </Menu.Item>
-          <Menu.Item key="cart">
-            <ShoppingCartOutlined />
-          </Menu.Item>
+          {isLoggedIn ? (
+            <Menu.SubMenu key="user" icon={<UserOutlined />}>
+              <Menu.Item key="login">
+                <Link to="/updateprofile">Profile</Link>
+              </Menu.Item>
+              <Menu.Item key="register">
+                <Link to="/">Logout</Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+          ) : (
+            <Menu.SubMenu key="user" icon={<UserOutlined />}>
+              <Menu.Item key="login">
+                <Link to="/signin">Login</Link>
+              </Menu.Item>
+              <Menu.Item key="register">
+                <Link to="/signup">Register</Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+          )}
+          {isLoggedIn && (
+            <Menu.Item key="cart">
+              <ShoppingCartOutlined />
+            </Menu.Item>
+          )}
         </Menu>
       </div>
-    );
-  }
-}
-
+    </div>
+  );
+};
 export default Header;

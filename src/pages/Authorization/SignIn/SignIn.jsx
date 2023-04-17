@@ -4,9 +4,8 @@ import React, { Component } from 'react';
 import { InputC } from '../../../components/Input/Input';
 import { ButtonC } from '../../../components/Button';
 import './SignIn.css';
-
-export class SignIn extends Component {
-  render() {
+import { Outlet, Link } from 'react-router-dom';
+export const SignIn = () => {
     const onFinish = values => {
       console.log('Finish:', values);
       let data = {
@@ -80,14 +79,13 @@ export class SignIn extends Component {
           </Form.Item>
           <Form.Item className="create-account">
             <h2>Don't have an account yet?</h2>
-            <a href="" className="register">
-              Register now
+            <a href=""  className="register">
+        <Link to="/signup"> Register now </Link>
             </a>
           </Form.Item>
         </Form>
       </div>
     );
-  }
 }
 
 export default SignIn;
