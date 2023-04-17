@@ -1,15 +1,51 @@
 import React from 'react';
 import './Updateprofile.css';
-import { Layout, Menu} from 'antd';
-import {
-  Button,
-  Form,
-  Input,
-} from 'antd';
+import { Layout, Menu } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { InputC } from '../../../Components/Input/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axiosInstance from '../../../shared/services/http-client';
+import swal from 'sweetalert';
+
 const { Content, Footer } = Layout;
+
 const Updateprofile = () => {
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    axiosInstance
+      .get('users/me')
+      .then(res => {
+        setUserData(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const onFinish = (values) => {
+    axiosInstance
+    .put(`users/${userData.id}`, values)
+    .then(res => {
+      setUserData(res.data);
+      swal({
+        title: 'Good job!',
+        text: 'Update is successful!',
+        icon: 'success',
+        button: 'OK',
+        position: 'top-end',
+        width: 400,
+        padding: '2em',
+        backdrop: true,
+        timer: 1000,
+      });
+      console.log(values);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+ 
+ if(userData !== null) {
   return (
     <Layout className="layout">
       <Content
@@ -26,103 +62,110 @@ const Updateprofile = () => {
             <Menu.Item key="changepassword">Change password</Menu.Item>
           </Menu>
         </div>
- <div className="wrapper-update">
-         <Form
-          layout="vertical"
-          name="normal_update"
-          className="update-form"
-          initialValues={{
-            remember: true,
-          }}
-        //   onFinish={onFinish}
-        >
-          <div className="updateRow">
-          <InputC
-            label="Full name"
-            name="fullname"
-            rules={[
-              {
-                required: true,
-                message: 'Please input Full name!',
-              },
-            ]}
-            className='updateFormItem'
-            inputClassName="updateInputField" type='text'
-          />
-          <InputC
-            label="Username"
-            className="updateFormItem"
-            name="updateUsername"
-            rules={[
-              {
-                required: true,
-                message: 'Please input Username!',
-              },
-            ]}
-            inputClassName="updateInputField" type='text'
-          > 
-          </InputC>
-          </div>
-         <div className="updateRow">
-         <InputC
-            label="Your name"
-            className="updateFormItem"
-            name="updateYourname"
-            rules={[
-              {
-                required: true,
-                message: 'Please input Your name!',
-              },
-            ]}
-            inputClassName="updateInputField" type='text'
+        <div className="wrapper-update">
+          <Form
+            layout="vertical"
+            name="normal_update"
+            className="update-form"
+            initialValues={{
+              remember: true,
+              fullname: userData?.fullname,
+              updateUsername: userData?.username,
+              updateYourEmail: userData?.email,
+              updatePhoneNumber: userData?.phoneNumber,
+              updateAddress: userData?.address
+            }}
+
+              onFinish={onFinish}
           >
-          </InputC>
-          <InputC
-            label="Phone number"
-            className="updateFormItem"
-            name="updatePhoneNumber"
-            rules={[
-              {
-                required: true,
-                message: 'Please input Phone number!',
-              },
-            ]}
-            inputClassName="updateInputField" type='text'
-          >
-          </InputC>
-         </div>
-         <div className="updateAddress">
-         <InputC
-            label="Address"
-            className="updateFormItem"
-            name="updateAddress"
-            rules={[
-              {
-                required: true,
-                message: 'Please input Address!',
-              },
-            ]}
-            inputClassName="updateInputField" type='text'
-          >
-          </InputC>
-          
-         </div>
-         <div className="updateBtn">
-         <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="update-form-button"
-            >
-              update
-            </Button>
-          </Form.Item>
-         </div>
-        </Form>
-      </div>
+            <div className="updateRow">
+              <InputC
+                label="Full name"
+                name="fullname"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input Full name!',
+                  },
+                ]}
+                className="updateFormItem"
+                inputClassName="updateInputField"
+                type="text"
+              />
+              <InputC
+                label="Username"
+                className="updateFormItem"
+                name="updateUsername"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input Username!',
+                  },
+                ]}
+                inputClassName="updateInputField"
+                type="text"
+              ></InputC>
+            </div>
+            <div className="updateRow">
+              <InputC
+                label="Your email"
+                className="updateFormItem"
+                name="updateYourEmail"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input Your name!',
+                  },
+                ]}
+                inputClassName="updateInputField"
+                type="text"
+              ></InputC>
+              <InputC
+                label="Phone number"
+                className="updateFormItem"
+                name="updatePhoneNumber"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input Phone number!',
+                  },
+                ]}
+                inputClassName="updateInputField"
+                type="text"
+              ></InputC>
+            </div>
+            <div className="updateAddress">
+              <InputC
+                label="Address"
+                className="updateFormItem"
+                name="updateAddress"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input Address!',
+                  },
+                ]}
+                inputClassName="updateInputField"
+                type="text"
+              ></InputC>
+            </div>
+            <div className="updateBtn">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="update-form-button"
+                >
+                  update
+                </Button>
+              </Form.Item>
+            </div>
+          </Form>
+        </div>
       </Content>
     </Layout>
   );
+ }
 };
 
 export default Updateprofile;
