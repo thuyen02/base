@@ -1,91 +1,109 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import axios from 'axios';
-import React, { Component } from 'react';
+import { Checkbox, Form } from 'antd';
+import axiosInstance from '../../../shared/services/http-client';
+import {ACCESS_TOKEN} from '../../../shared/constants/index';
 import { InputC } from '../../../components/Input/Input';
 import { ButtonC } from '../../../components/Button';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import swal from 'sweetalert';
 import './SignIn.css';
 import { Outlet, Link } from 'react-router-dom';
 export const SignIn = () => {
-    const onFinish = values => {
-      console.log('Finish:', values);
-      let data = {
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    try {
+      const data = {
         identifier: values.email,
         password: values.password,
       };
-      console.log(data);
-      axios
-        .post('https://edison-shipping-api.savvycom.xyz/api/auth/local', data)
-        .then(res => {
-          console.log(res.data.jwt);
-          localStorage.setItem('userKey', res.data.jwt);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    };
+      const res = await axiosInstance.post('auth/local', data);
+      localStorage.setItem(ACCESS_TOKEN, res.jwt);
+      swal({
+        title: 'Good job!',
+        text: 'Loggin is successful!',
+        icon: 'success',
+        button: 'OK',
+        position: 'top-end',
+        width: 400,
+        padding: '2em',
+        backdrop: true,
+        timer: 1000,
+      });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    // const logout = () => {
-    //   localStorage.removeItem("userKey")
-    // }
-    return (
-      <div className="appBg">
-        <Form
-          layout="vertical"
-          name="normal_sigin"
-          className="signin-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          <InputC
-            label="Your email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Email!',
-              },
-            ]}
-            className="formItem"
-            inputClassName="inputField"
-            type="text"
-          />
+  return (
+    <div className="appBg">
+      <Form
+        layout="vertical"
+        name="normal_sigin"
+        className="signin-form"
+        // initialValues={{
+        //   remember: true,
+        // }}
+        onFinish={onFinish}
+      >
+        <InputC
+          label="Your email"
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Email!',
+            },
+          ]}
+          className="formItem"
+          inputClassName="inputField"
+          type="text"
+        />
 
-          <InputC
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Password!',
-              },
-            ]}
-            className="formItem"
-            inputClassName="inputField"
-            type="password"
+        <InputC
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Password!',
+            },
+          ]}
+          className="formItem"
+          inputClassName="inputField"
+          type="password"
+        />
+        <Form.Item>
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Checkbox
+              className="checkRemember"
+            >
+              Remember me
+            </Checkbox>
+          </Form.Item>
+        </Form.Item>
+        <Form.Item>
+          <ButtonC
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
           />
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox className="checkRemember">Remember me</Checkbox>
-            </Form.Item>
-          </Form.Item>
-          <Form.Item>
-            <ButtonC
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            />
-          </Form.Item>
-          <Form.Item className="create-account">
-            <h2>Don't have an account yet?</h2>
-            <a href=""  className="register">
-        <Link to="/signup"> Register now </Link>
-            </a>
-          </Form.Item>
-        </Form>
-      </div>
-    );
-}
+        </Form.Item>
+        <Form.Item className="create-account">
+          <h2>Don't have an account yet?</h2>
+          <a href="/signup" className="register">
+            Register now
+          </a>
+        </Form.Item>
+      </Form>
+      {/* <UserDetails/> */}
+    </div>
+  );
+};
 
 export default SignIn;

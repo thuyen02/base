@@ -3,6 +3,7 @@ import './Category.css';
 import { Pagination } from 'antd';
 import { Layout } from 'antd';
 import productApi from './ProductApi';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 const { Content, Footer, Sider } = Layout;
 
 const Category = () => {
@@ -63,9 +64,21 @@ const Category = () => {
             >
               
               <ul>
-                {Array.from(product => (
-                  <li key={product.id}>{product.name}</li>
-                ))}
+              {
+                Array.from(productList).map(product=>{
+                  let data = product.attributes;
+                  return(
+                    <div key={product.id}  >
+                    <ProductCard
+                      name={data.name}
+                      price={data.price}
+                      image={data.image}
+                      />
+                    </div >
+                    
+                  )
+                })
+              }
               </ul>
               {/* <CardProduct>
       <CardProductImage

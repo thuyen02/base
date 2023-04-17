@@ -1,15 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import logoIcon from './Icon.jpg';
+// import { isLoggedIn } from '../../pages/Authorization/SignIn/SignIn';
+import { ACCESS_TOKEN } from '../../shared/constants/index';
 import { Menu, Input } from 'antd';
 import {
   UserOutlined,
   ShoppingCartOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Header = ({ isLoggedIn }) => {
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('at') ? true : false
+  );
+  const handleLogout = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    setIsLoggedIn(false);
+  };
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('at') ? true : false;
+    setIsLoggedIn(loggedIn);
+  }, []);
   return (
     <div>
       <div className="navbar">
@@ -38,9 +51,9 @@ const Header = ({ isLoggedIn }) => {
           {isLoggedIn ? (
             <Menu.SubMenu key="user" icon={<UserOutlined />}>
               <Menu.Item key="login">
-                <Link to="/updateprofile">Profile</Link>
+                <Link to="/update-profile">Profile</Link>
               </Menu.Item>
-              <Menu.Item key="register">
+              <Menu.Item key="register" onClick={handleLogout}>
                 <Link to="/">Logout</Link>
               </Menu.Item>
             </Menu.SubMenu>

@@ -2,10 +2,50 @@ import React from 'react';
 import './Updateprofile.css';
 import { Layout, Menu } from 'antd';
 import { Button, Form, Input } from 'antd';
-import { InputC } from '../../../components/Input/Input';
-import { useState } from 'react';
+import { InputC } from '../../../components/Input/Input.jsx';
+import { useState, useEffect } from 'react';
+import axiosInstance from '../../../shared/services/http-client';
+import swal from 'sweetalert';
+
 const { Content, Footer } = Layout;
+
 const Updateprofile = () => {
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    axiosInstance
+      .get('users/me')
+      .then(res => {
+        setUserData(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const onFinish = (values) => {
+    axiosInstance
+    .put(`users/${userData.id}`, values)
+    .then(res => {
+      setUserData(res.data);
+      swal({
+        title: 'Good job!',
+        text: 'Update is successful!',
+        icon: 'success',
+        button: 'OK',
+        position: 'top-end',
+        width: 400,
+        padding: '2em',
+        backdrop: true,
+        timer: 1000,
+      });
+      console.log(values);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+ 
+ if(userData !== null) {
   return (
     <Layout className="layout">
       <Content
@@ -29,8 +69,14 @@ const Updateprofile = () => {
             className="update-form"
             initialValues={{
               remember: true,
+              fullname: userData?.fullname,
+              updateUsername: userData?.username,
+              updateYourEmail: userData?.email,
+              updatePhoneNumber: userData?.phoneNumber,
+              updateAddress: userData?.address
             }}
-            //   onFinish={onFinish}
+
+              onFinish={onFinish}
           >
             <div className="updateRow">
               <InputC
@@ -62,9 +108,9 @@ const Updateprofile = () => {
             </div>
             <div className="updateRow">
               <InputC
-                label="Your name"
+                label="Your email"
                 className="updateFormItem"
-                name="updateYourname"
+                name="updateYourEmail"
                 rules={[
                   {
                     required: true,
@@ -119,6 +165,7 @@ const Updateprofile = () => {
       </Content>
     </Layout>
   );
+ }
 };
 
 export default Updateprofile;
