@@ -2,7 +2,7 @@ import { Button, Form } from 'antd';
 import React from 'react';
 import { InputC } from '../../../Components/Input/Input';
 import './Signup.css';
-import axiosInstance from '../../../shared/services/http-client';<<<<<<< product-detail
+import axiosInstance from '../../../shared/services/http-client';
 import { Link } from 'react-router-dom';
 
 const styleTextbox = {

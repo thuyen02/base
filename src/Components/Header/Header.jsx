@@ -50,7 +50,7 @@ const Header = () => {
           {isLoggedIn ? (
             <Menu.SubMenu key="user" icon={<UserOutlined />}>
               <Menu.Item key="login">
-                <Link to="/updateprofile">Profile</Link>
+                <Link to="/update-profile">Profile</Link>
               </Menu.Item>
               <Menu.Item key="register" onClick={handleLogout}>
                 <Link to="/">Logout</Link>
