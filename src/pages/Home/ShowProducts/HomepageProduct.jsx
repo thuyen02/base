@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Carousel from '.../../';
+import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProductA from './Product A.png';
 import ProductB from './Product B.png';
