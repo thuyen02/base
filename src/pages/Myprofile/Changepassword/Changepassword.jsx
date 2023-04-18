@@ -30,11 +30,20 @@ function Changepassword() {
           // timer: 1000,
         });
         localStorage.setItem('token', response.data);
-        console.log(111);
         formRef.current.resetFields();
       });
     } catch (error) {
-      console.log(112);
+      swal({
+        title: 'Fail!',
+        text: 'Current password you entered is incorrect',
+        icon: 'warning',
+        button: 'OK',
+        position: 'top-end',
+        width: 400,
+        padding: '2em',
+        backdrop: true,
+        // timer: 1000,
+      });
       console.log(error);
     }
   };

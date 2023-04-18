@@ -52,7 +52,7 @@ const Updateprofile = () => {
       <div className="Updateprofile-nav">
     <Menu mode="horizontal" className=" Updateprofile-nav--left">
       <Menu.Item className="Updateprofile-nav--item" key="myprofile">
-        My profile
+        <Link to="/update-profile">My profile</Link>
       </Menu.Item>
       <Menu.Item key="changepassword"><Link to="/change-password">Change password</Link></Menu.Item>
     </Menu>
