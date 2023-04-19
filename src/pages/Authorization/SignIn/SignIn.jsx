@@ -42,9 +42,9 @@ export const SignIn = () => {
         layout="vertical"
         name="normal_sigin"
         className="signin-form"
-        // initialValues={{
-        //   remember: true,
-        // }}
+        initialValues={{
+          remember: true,
+        }}
         onFinish={onFinish}
       >
         <InputC

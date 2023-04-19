@@ -7,6 +7,7 @@ import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
 import Changepassword from './pages/Myprofile/Changepassword/Changepassword';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/change-password',
         element: <Changepassword />,
+      },
+      {
+        path: '/product/:id',
+        element: <ProductDetail />,
       },
     ],
   },
