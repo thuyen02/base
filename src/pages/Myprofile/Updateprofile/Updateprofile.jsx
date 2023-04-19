@@ -5,6 +5,7 @@ import { Button, Form } from 'antd';
 import { InputC } from '../../../Components/Input/Input';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../../shared/services/http-client';
+import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 
 const { Content} = Layout;
@@ -47,6 +48,15 @@ const Updateprofile = () => {
  
  if(userData !== null) {
   return (
+    <div>
+      <div className="Updateprofile-nav">
+    <Menu mode="horizontal" className=" Updateprofile-nav--left">
+      <Menu.Item className="Updateprofile-nav--item" key="myprofile">
+        My profile
+      </Menu.Item>
+      <Menu.Item key="changepassword"><Link to="/change-password">Change password</Link></Menu.Item>
+    </Menu>
+  </div>
     <Layout className="layout">
       <Content
         className="Updateprofile-conttent"
@@ -54,14 +64,6 @@ const Updateprofile = () => {
           padding: '0 50px',
         }}
       >
-        <div className="Updateprofile-nav">
-          <Menu mode="horizontal" className=" Updateprofile-nav--left">
-            <Menu.Item className="Updateprofile-nav--item" key="myprofile">
-              My profile
-            </Menu.Item>
-            <Menu.Item key="changepassword">Change password</Menu.Item>
-          </Menu>
-        </div>
         <div className="wrapper-update">
           <Form
             layout="vertical"
@@ -70,10 +72,10 @@ const Updateprofile = () => {
             initialValues={{
               remember: true,
               fullname: userData?.fullname,
-              updateUsername: userData?.username,
-              updateYourEmail: userData?.email,
-              updatePhoneNumber: userData?.phoneNumber,
-              updateAddress: userData?.address
+              username: userData?.username,
+              email: userData?.email,
+              phoneNumber: userData?.phoneNumber,
+              address: userData?.address
             }}
 
               onFinish={onFinish}
@@ -95,35 +97,37 @@ const Updateprofile = () => {
               <InputC
                 label="Username"
                 className="updateFormItem"
-                name="updateUsername"
+                name="username"
                 rules={[
                   {
                     required: true,
                     message: 'Please input Username!',
                   },
                 ]}
-                inputClassName="updateInputField"
+                inputClassName="updateInputField disableInput"
                 type="text"
+                disable={true}
               ></InputC>
             </div>
             <div className="updateRow">
               <InputC
                 label="Your email"
                 className="updateFormItem"
-                name="updateYourEmail"
+                name="email"
                 rules={[
                   {
                     required: true,
                     message: 'Please input Your name!',
                   },
                 ]}
-                inputClassName="updateInputField"
+                inputClassName="updateInputField disableInput"
                 type="text"
+                disable={true}
               ></InputC>
               <InputC
                 label="Phone number"
                 className="updateFormItem"
-                name="updatePhoneNumber"
+                name="phoneNumber"
                 rules={[
                   {
                     required: true,
@@ -138,7 +142,7 @@ const Updateprofile = () => {
               <InputC
                 label="Address"
                 className="updateFormItem"
-                name="updateAddress"
+                name="address"
                 rules={[
                   {
                     required: true,
@@ -164,6 +168,7 @@ const Updateprofile = () => {
         </div>
       </Content>
     </Layout>
+    </div>
   );
  }
 };
