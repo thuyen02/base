@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
-import { Form, Button, Menu, Layout, Content } from 'antd';
+import React, {useRef} from 'react';
+import {Form, Button, Layout, Menu} from 'antd';
+import './Changepassword.css';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { InputC } from '../../../components/Input/Input';
 import './Changepassword.css';
 import axiosInstance from '../../../shared/services/http-client';
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
+// import Menu from 'antd'
 function Changepassword() {
   const formRef = useRef(null);
   const onFinish = values => {

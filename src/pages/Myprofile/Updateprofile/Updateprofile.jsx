@@ -1,14 +1,14 @@
 import React from 'react';
 import './Updateprofile.css';
 import { Layout, Menu } from 'antd';
-import { Button, Form, Input } from 'antd';
+import { Button, Form} from 'antd';
 import { InputC } from '../../../components/Input/Input.jsx';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../../shared/services/http-client';
 import {Link} from 'react-router-dom';
 import swal from 'sweetalert';
 
-const { Content, Footer } = Layout;
+const { Content} = Layout;
 
 const Updateprofile = () => {
   const [userData, setUserData] = useState(null);
