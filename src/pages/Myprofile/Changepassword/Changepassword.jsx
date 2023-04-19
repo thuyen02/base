@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, Menu} from 'antd';
+import {Form, Button} from 'antd';
 import './Changepassword.css';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { InputC } from '../../../Components/Input/Input';

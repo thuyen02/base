@@ -1,34 +1,49 @@
 import React, { Component, useEffect, useState } from 'react';
 import './Category.css';
-import { Pagination } from 'antd';
+import { Button, Pagination } from 'antd';
 import { Layout } from 'antd';
-import productApi from './ProductApi';
+import productApi from '../../../API/productApi';
+import queryString from 'query-string';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
+import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
 const Category = () => {
+  const [productId, setProductId] = useState(1);
   const [productList, setproductList] = useState([]);
-
-
+  const [pageSize, setpageSize] = useState(8);
+  const [page, setpage] = useState(1);
+  const [total,settotal] = useState(17);
+  const [categoryId, setcategoryId] = useState(1);
   useEffect(() => {
-    const fetchProductList = async () => {
+    fetchProductList();
+  }, []);
+    const fetchProductList = async (pg = page,pgSize = pageSize) => {
       try {
         const params = {
-          [' pagination[pageSize]']: 5,
-          ['  pagination[page]']: 1,
+          ['pagination[pageSize]']: pgSize,
+          ['pagination[page]']: pg,
         };
         const response = await productApi.getAll(params);
-        
-        const hot = response.data; 
-      
-        setproductList(hot)
+        const hot = response.data;
+        setproductList(hot);
+        console.log(hot)
+       
       } catch (error) {
         console.log('Faild to fetch product list: ', error);
       }
     };
-    fetchProductList();
-  }, []);
 
+const prevPage = async() =>{
+  const pg = page === 1 ? 1 : page-1;
+  fetchProductList(pg)
+  setpage(pg)
+}
+const nextPage = async() =>{
+  const pg = page + 1 ;
+  fetchProductList(pg)
+  setpage(pg)
+}
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -36,7 +51,7 @@ const Category = () => {
           <div className="Category-header">
             <h2>Category</h2>
             <p>
-              Products found: <span>75</span>{' '}
+              Products found: <span>{total}</span>{' '}
             </p>
           </div>
 
@@ -62,42 +77,27 @@ const Category = () => {
                 justifyContent: 'space-around',
               }}
             >
-              
-              <ul>
-              {
-                Array.from(productList).map(product=>{
-                  let data = product.attributes;
-                  return(
-                    <div key={product.id}  >
+              {Array.from(productList).map(product => {
+                let data = product.attributes;
+                return (
+                  <Link style={{color:'black'}}  key={product.id} to={`/product/${product.id}`}>           
                     <ProductCard
                       name={data.name}
                       price={data.price}
                       image={data.image}
-                      />
-                    </div >
-                    
-                  )
-                })
-              }
-              </ul>
-              {/* <CardProduct>
-      <CardProductImage
-        src={src}
-      alt=""
-    />
-      <CardProductBody >
-      <h3>Apolo Running</h3>
-      <p><sup>đ</sup>500,000</p>  
-      <IconCart><FiShoppingCart/></IconCart>
-    </CardProductBody>  
-    
-  </CardProduct> */}
-            
+                    />
+                 
+                  </Link>
+                );
+              })}
+
             </div>
           </Layout>
         </Content>
         <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-          <Pagination defaultCurrent={6} total={100} />
+          <Pagination defaultCurrent={1} total={20} />
+         <button onClick={nextPage} >next</button>
+        <button onClick={prevPage} >back</button>
         </Footer>
       </Layout>
     </div>
