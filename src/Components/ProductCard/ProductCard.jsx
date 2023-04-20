@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
 
 import './ProductCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const IconCart = styled.div`
   display: flex;
@@ -48,6 +49,8 @@ const CardProductImage = styled.img`
 `;
 const CardProductBody = styled.div`
   margin-top: 24px;
+  width: 100%;
+  height: 100%;
   & > h4 {
     margin: 15px 0;
     font-weight: 300px;
@@ -60,8 +63,24 @@ const CardProductBody = styled.div`
 `;
 
 const ProductCard = props => {
+  const isLoggedIn = localStorage.getItem('at') ? true : false;
+
+  const navigate = useNavigate();
+  const handleClickCard = id => {
+    navigate(`/product/${id}`);
+  };
+  const handleAddToCart = (e, id) => {
+    e.stopPropagation();
+
+    if (isLoggedIn) {
+      alert('Add to cart');
+      //handle add to cart
+    } else {
+      navigate('/signin');
+    }
+  };
   return (
-    <CardProduct>
+    <CardProduct onClick={() => handleClickCard(props.productId)}>
       <CardProductImage src={props.image} alt={props.name} />
       <CardProductBody>
         <h4>{props.name}</h4>
@@ -69,7 +88,7 @@ const ProductCard = props => {
           <sup>đ</sup>
           {props.price}
         </p>
-        <IconCart>
+        <IconCart id="add" onClick={e => handleAddToCart(e, props.productId)}>
           <FiShoppingCart />
         </IconCart>
       </CardProductBody>

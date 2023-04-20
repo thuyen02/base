@@ -1,6 +1,6 @@
 import { Checkbox, Form } from 'antd';
 import axiosInstance from '../../../shared/services/http-client';
-import {ACCESS_TOKEN} from '../../../shared/constants/index';
+import { ACCESS_TOKEN } from '../../../shared/constants/index';
 import { InputC } from '../../../Components/Input/Input';
 import { ButtonC } from '../../../Components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { Outlet, Link } from 'react-router-dom';
 export const SignIn = () => {
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const onFinish = async values => {
     try {
       const data = {
         identifier: values.email,
@@ -80,11 +80,7 @@ export const SignIn = () => {
             valuePropName="checked"
             initialValue={false}
           >
-            <Checkbox
-              className="checkRemember"
-            >
-              Remember me
-            </Checkbox>
+            <Checkbox className="checkRemember">Remember me</Checkbox>
           </Form.Item>
         </Form.Item>
         <Form.Item>
@@ -96,9 +92,9 @@ export const SignIn = () => {
         </Form.Item>
         <Form.Item className="create-account">
           <h2>Don't have an account yet?</h2>
-          <a href="" className="register">
+          <Link to="/signup" className="register">
             Register now
-          </a>
+          </Link>
         </Form.Item>
       </Form>
       {/* <UserDetails/> */}
