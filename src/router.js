@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer';
 import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
+import Hasresult from './pages/Search/Hasresult/Hasresult';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <ProductDetail />,
+      },
+      {
+        path: '/search?',
+        element: <Hasresult />,
       },
     ],
   },
