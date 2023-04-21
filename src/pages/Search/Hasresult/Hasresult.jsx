@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Row, Col } from 'antd';
 import ProductB from './Product B.png';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
-import axiosInstance from '../../../shared/services/http-client';
+
 import productApi from '../../../API/productApi';
 
 const HasResult = styled.div`
