@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Row, Col } from 'antd';
 import ProductB from './Product B.png';
 import styled from 'styled-components';
