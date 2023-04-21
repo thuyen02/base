@@ -18,7 +18,7 @@ const IconCart = styled.div`
   z-index: 222;
   position: absolute;
   left: 170px;
-  top: 310px;
+  top: 291px;
   display: none;
   &:hover {
     width: 50px;

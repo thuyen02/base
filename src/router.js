@@ -11,6 +11,7 @@ import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
 import Sportshoes from './pages/Sportshoes/Shoes_sport/Sportshoes';
+import Hasresult from './pages/Search/Hasresult/Hasresult';
 const router = createBrowserRouter([
   {
     path: '/',
