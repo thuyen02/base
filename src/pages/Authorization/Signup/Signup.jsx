@@ -107,9 +107,9 @@ const SignupForm = () => {
             {
               pattern:
                 // eslint-disable-next-line no-useless-escape
-                /^(?!\s)(?!.*[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/,
+                /^(?=.{8,16})(?=.*[!@#])[a-zA-Z0-9!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]*$/,
               message:
-                'Please input a valid password (8-16 characters with no special characters or spaces)',
+                'Please input a valid password (8-16 characters with at least one special character)',
             },
           ]}
           inputClassName="inputField"

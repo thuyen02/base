@@ -2,7 +2,7 @@ import { Row, Col, Image } from 'antd';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
 import SimilarProduct from '../SimilarProduct/SimilarProduct';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // import axiosInstance from '../../../shared/services/http-client';
 
 import {
@@ -20,13 +20,14 @@ import {
 import productApi from '../../../API/productApi';
 
 export default function ProductDetail() {
+  const isLogin = localStorage.getItem('at') ? true : false;
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
   const [productId, setProductId] = useState(id);
-
+  const navigate = useNavigate();
   useEffect(() => {
     getDataProduct();
     window.scrollTo({
@@ -35,6 +36,27 @@ export default function ProductDetail() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
+
+  //Add to cart
+
+  const handleAddToCart = () => {
+    const data = {
+      size: size,
+      product: productId,
+      user: 1,
+      quantity: quantity,
+    };
+    if (isLogin) {
+      addtoCart(data);
+    } else {
+      navigate('/signin');
+    }
+  };
+
+  const addtoCart = async data => {
+    const postData = await productApi.postAddToCart(data);
+    console.log(postData);
+  };
 
   const getDataProduct = async () => {
     try {
@@ -65,15 +87,6 @@ export default function ProductDetail() {
   };
 
   // Add to card
-
-  const handleAddToCard = () => {
-    const productAddToCard = {
-      size: size,
-      quantity: quantity,
-      productId: productId,
-    };
-    console.log(productAddToCard);
-  };
 
   //Get id  product from similar  component
   const handleSelectedProduct = id => {
@@ -155,7 +168,7 @@ export default function ProductDetail() {
                   +
                 </span>
               </DetailQtyProduct>
-              <BtnAddToCard onClick={handleAddToCard}>ADD TO CARD</BtnAddToCard>
+              <BtnAddToCard onClick={handleAddToCart}>ADD TO CARD</BtnAddToCard>
             </QtyBtnContent>
             <div>
               <TitleDescription>Description</TitleDescription>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
+import productApi from '../../API/productApi';
 
 const IconCart = styled.div`
   display: flex;
@@ -68,12 +69,23 @@ const ProductCard = props => {
   const handleClickCard = id => {
     navigate(`/product/${id}`);
   };
-  const handleAddToCart = (e, id) => {
+  const handleAddToCart = async data => {
+    const res = await productApi.postAddToCart(data);
+    console.log(res.data);
+  };
+  const handleClikItemCart = (e, id, price) => {
     e.stopPropagation();
-
+    const dataProduct = {
+      size: 'M',
+      product: id,
+      user: 1,
+      quantity: 1,
+      total: price,
+    };
     if (isLoggedIn) {
-      alert('Add to cart');
       //handle add to cart
+      handleAddToCart(dataProduct);
+      alert('Add to cart');
     } else {
       navigate('/signin');
     }
@@ -87,7 +99,10 @@ const ProductCard = props => {
           <sup>đ</sup>
           {props.price}
         </p>
-        <IconCart id="add" onClick={e => handleAddToCart(e, props.productId)}>
+        <IconCart
+          id="add"
+          onClick={e => handleClikItemCart(e, props.productId, props.price)}
+        >
           <FiShoppingCart />
         </IconCart>
       </CardProductBody>

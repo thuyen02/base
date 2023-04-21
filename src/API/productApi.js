@@ -13,6 +13,11 @@ const productApi = {
     const url = `/categories/${id}?populate=products`;
     return axiosInstance.get(url, { params });
   },
+
+  postAddToCart: data => {
+    const url = `orders`;
+    return axiosInstance.post(url, { data });
+};
   getCategoryId: id =>{
     const url=`/categories/${id}?populate=products`
     return axiosInstance.get(url);
