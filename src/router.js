@@ -11,6 +11,7 @@ import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
 import Hasresult from './pages/Search/Hasresult/Hasresult';
+import Noresult from './pages/Search/Noresult/Noresult';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/search?',
         element: <Hasresult />,
+      },
+      {
+        path: '/noresults?',
+        element: <Noresult />,
       },
     ],
   },
