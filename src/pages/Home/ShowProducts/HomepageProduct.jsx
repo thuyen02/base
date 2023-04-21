@@ -6,7 +6,6 @@ import './Card.css';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import productApi from '../../../API/productApi';
-import { Link } from 'react-router-dom';
 // import QueryString from 'qs';
 
 const responsive = {
@@ -39,7 +38,8 @@ const HomepageClothesTitle = styled.div`
 `;
 
 const HomepageProduct = props => {
-  const [listProduct, setListProduct] = useState([]);
+  const [listClothes, setListClothes] = useState([]);
+  const [listShoes, setListShoes] = useState([]);
 
   useEffect(() => {
     getListProduct();
@@ -49,12 +49,12 @@ const HomepageProduct = props => {
     try {
       const params = {
         // eslint-disable-next-line no-useless-computed-key
-        ['pagination[pageSize]']: 4,
-        // eslint-disable-next-line no-useless-computed-key
-        [' panigation[page]']: 1,
+        ['_limit']: 5,
       };
-      const res = await productApi.getAll(params);
-      setListProduct(res.data);
+      const resClother = await productApi.getCategory(params, 1);
+      setListClothes(resClother.data.attributes.products.data);
+      const res = await productApi.getCategory(params, 2);
+      setListShoes(res.data.attributes.products.data);
     } catch (err) {
       console.log(err.message);
     }
@@ -83,16 +83,17 @@ const HomepageProduct = props => {
             //   deviceType={this.props.deviceType}
             itemClass="carousel-item-padding-40-px"
           >
-            {Array.from(listProduct).map(product => {
+            {Array.from(listClothes).map(product => {
               const productData = product.attributes;
               return (
-                <Link key={product.id} to={`/product/${product.id}`}>
+                <div key={product.id}>
                   <ProductCard
+                    productId={product.id}
                     name={productData.name}
                     price={productData.price}
                     image={productData.image}
                   />
-                </Link>
+                </div>
               );
             })}
           </Carousel>
@@ -120,16 +121,17 @@ const HomepageProduct = props => {
             //   deviceType={this.props.deviceType}
             itemClass="carousel-item-padding-40-px"
           >
-            {Array.from(listProduct).map(product => {
+            {Array.from(listShoes).map(product => {
               const productData = product.attributes;
               return (
-                <Link key={product.id} to={`/product/${product.id}`}>
+                <div key={product.id}>
                   <ProductCard
+                    productId={product.id}
                     name={productData.name}
                     price={productData.price}
                     image={productData.image}
                   />
-                </Link>
+                </div>
               );
             })}
           </Carousel>

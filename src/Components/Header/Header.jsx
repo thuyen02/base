@@ -1,27 +1,38 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import logoIcon from './Icon.jpg';
 // import { isLoggedIn } from '../../pages/Authorization/SignIn/SignIn';
-import {ACCESS_TOKEN} from '../../shared/constants/index';
+import { ACCESS_TOKEN } from '../../shared/constants/index';
 import { Menu, Input } from 'antd';
 import {
   UserOutlined,
   ShoppingCartOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import {Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('at') ? true : false);
+  const [query, setQuery] = useState();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('at') ? true : false
+  );
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     setIsLoggedIn(false);
-  }
+  };
   useEffect(() => {
     const loggedIn = localStorage.getItem('at') ? true : false;
     setIsLoggedIn(loggedIn);
-  }, [])
+  }, []);
+  const params = new URLSearchParams();
+  params.append('key', query);
+  const navigate = useNavigate();
+  const handleSumitSearch = e => {
+    e.preventDefault();
+    navigate(`/search?${params.toString()}`);
+  };
+
   return (
     <div>
       <div className="navbar">
@@ -42,12 +53,17 @@ const Header = () => {
             </Menu.Item>
         </Menu>
         <Menu mode="horizontal" className="right-nav">
+          {/* Input search */}
           <Menu.Item className="search-item" key="search">
-            <Input
-              placeholder="Search products"
-              className="search-field"
-              prefix={<SearchOutlined className="search-icon" />}
-            />
+            <form onSubmit={handleSumitSearch}>
+              <Input
+                placeholder="Search products"
+                className="search-field"
+                prefix={<SearchOutlined className="search-icon" />}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+              />
+            </form>
           </Menu.Item>
           {isLoggedIn ? (
             <Menu.SubMenu key="user" icon={<UserOutlined />}>
