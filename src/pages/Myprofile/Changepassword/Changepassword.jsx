@@ -1,91 +1,120 @@
 import React from 'react';
-import { Button, Input, Form, Col, Row } from 'antd';
-import { Validator } from 'react';
+import { Form, Button, Menu } from 'antd';
 import './Changepassword.css';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import axiosInstance from '../../../shared/services/http-client';
+import { InputC } from '../../../Components/Input/Input';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 function Changepassword() {
+  const onFinish = values => {
+    const data = {
+      currentPassword: values.currentPassword,
+      password: values.password,
+      passwordConfirmation: values.passwordConfirmation,
+    };
+    try {
+      axiosInstance.post('auth/change-password', data).then(
+        swal({
+          title: 'Good job!',
+          text: 'Changepassword is successful!',
+          icon: 'success',
+          button: 'OK',
+          position: 'top-end',
+          width: 400,
+          padding: '2em',
+          backdrop: true,
+          timer: 1000,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <Row justify={'center'}>
-      <Col xs={24} sm={16} md={12} lg={16}>
-        <Form className="form--password__change">
-          <Form.Item
-            name="old-password"
-            rules={[
-              { require: true, message: 'Please input old password' },
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__old"
-              placeholder="Current Password *"
-            />
-          </Form.Item>
-          <Form.Item
-            name="new-password"
-            rules={[
-              { required: true, message: 'Please input new password' },
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
-              },
-              { min: 6, message: 'Password must be at least 6' },
-              {
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).+$/,
-                message:
-                  'Password must contain at least one lowercase, one uppercase letter and one special character',
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__new"
-              placeholder="New Password *"
-            />
-          </Form.Item>
-          <Form.Item
-            name="repeat-password"
-            dependencies={['repeat_password']}
+    <div>
+      <div className="Updateprofile-nav">
+        <Menu mode="horizontal" className=" Updateprofile-nav--left">
+          <Menu.Item className="Updateprofile-nav--item" key="myprofile">
+            <Link to="/update-profile">My profile</Link>
+          </Menu.Item>
+          <Menu.Item key="changepassword">
+            <Link to="/change-password">Change password</Link>
+          </Menu.Item>
+        </Menu>
+      </div>
+      <div className="appBg">
+        <Form
+          layout="vertical"
+          name="normal_sigin"
+          className="signup_form"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+        >
+          <InputC
+            label="Current password"
+            name="currentPassword"
             rules={[
               {
                 required: true,
-                message: 'Please confirm your password',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('new-password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      'The passwords that you entered do not match the new passwords'
-                    )
-                  );
-                },
-              }),
-              {
-                pattern: /^\S+$/,
-                message: 'Password cannot contain whitespace',
+                message: 'Please input Current Password!',
               },
             ]}
-            hasFeedback
-          >
-            <Input.Password
-              className="input--password input--password__repeat"
-              placeholder="Repeat Password *"
-            />
-          </Form.Item>
+            className="formItem"
+            inputClassName="inputField"
+            type="password"
+            iconRender={visible =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          ></InputC>
+          <InputC
+            label="New password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input New Password!',
+              },
+            ]}
+            className="formItem"
+            inputClassName="inputField"
+            type="password"
+            iconRender={visible =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          ></InputC>
+          <InputC
+            label="Repeat password"
+            name="passwordConfirmation"
+            rules={[
+              {
+                required: true,
+                message: 'Please input Repeat Password!',
+              },
+            ]}
+            className="formItem"
+            inputClassName="inputField"
+            type="password"
+            iconRender={visible =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+          ></InputC>
           <Form.Item>
-            <Button className="btn" type="primary" htmlType="submit">
-              UPDATE
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="changepassword-form-button"
+            >
+              update
             </Button>
           </Form.Item>
         </Form>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
 export default Changepassword;

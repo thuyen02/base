@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import ProductA from './Product A.png';
-import ProductB from './Product B.png';
-import ProductC from './Product C.png';
-import ProductD from './Product D.png';
-import './Card.css';
-import { Card } from 'antd';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
 
-const { Meta } = Card;
+import './Card.css';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
+import { useEffect, useState } from 'react';
+import productApi from '../../../API/productApi';
+// import QueryString from 'qs';
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -29,7 +27,7 @@ const responsive = {
   },
 };
 
-const Homepage_clothes_title = styled.div`
+const HomepageClothesTitle = styled.div`
   margin-top: 40px;
   padding: 10px 50px;
   font-family: 'Raleway';
@@ -39,21 +37,35 @@ const Homepage_clothes_title = styled.div`
   line-height: 160%;
 `;
 
-// const CustomCard = styled(Card)`
-//   & .react-multi-carousel-track li {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-// `;
+const HomepageProduct = props => {
+  const [listClothes, setListClothes] = useState([]);
+  const [listShoes, setListShoes] = useState([]);
 
-const HomepageProduct = () => {
+  useEffect(() => {
+    getListProduct();
+  }, []);
+  // Get list product from api
+  const getListProduct = async () => {
+    try {
+      const params = {
+        // eslint-disable-next-line no-useless-computed-key
+        ['_limit']: 5,
+      };
+      const resClother = await productApi.getCategory(params, 1);
+      setListClothes(resClother.data.attributes.products.data);
+      const res = await productApi.getCategory(params, 2);
+      setListShoes(res.data.attributes.products.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <div>
       <div className="homepage-clothes">
-        <Homepage_clothes_title>
+        <HomepageClothesTitle>
           <h2>Clothes</h2>
-        </Homepage_clothes_title>
+        </HomepageClothesTitle>
         <div className="homepage-clothes-products">
           <Carousel
             swipeable={false}
@@ -61,8 +73,8 @@ const HomepageProduct = () => {
             responsive={responsive}
             ssr={true} // means to render carousel on server-side.
             infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={2000}
+            // autoPlay={true}
+            // autoPlaySpeed={2000}
             keyBoardControl={true}
             customTransition="all .5"
             transitionDuration={500}
@@ -71,18 +83,27 @@ const HomepageProduct = () => {
             //   deviceType={this.props.deviceType}
             itemClass="carousel-item-padding-40-px"
           >
-            <ProductCard src={ProductB} />
-            <ProductCard src={ProductC} />
-            <ProductCard src={ProductD} />
-            <ProductCard src={ProductA} />
+            {Array.from(listClothes).map(product => {
+              const productData = product.attributes;
+              return (
+                <div key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    name={productData.name}
+                    price={productData.price}
+                    image={productData.image}
+                  />
+                </div>
+              );
+            })}
           </Carousel>
         </div>
         ;
       </div>
       <div className="homepage-clothes">
-        <Homepage_clothes_title>
+        <HomepageClothesTitle>
           <h2>Sport shoes</h2>
-        </Homepage_clothes_title>
+        </HomepageClothesTitle>
         <div className="homepage-clothes-products">
           <Carousel
             swipeable={false}
@@ -90,7 +111,7 @@ const HomepageProduct = () => {
             responsive={responsive}
             ssr={true} // means to render carousel on server-side.
             infinite={true}
-            autoPlay={true}
+            // autoPlay={true}
             autoPlaySpeed={2000}
             keyBoardControl={true}
             customTransition="all .5"
@@ -100,10 +121,19 @@ const HomepageProduct = () => {
             //   deviceType={this.props.deviceType}
             itemClass="carousel-item-padding-40-px"
           >
-            <ProductCard src={ProductB} />
-            <ProductCard src={ProductC} />
-            <ProductCard src={ProductD} />
-            <ProductCard src={ProductA} />
+            {Array.from(listShoes).map(product => {
+              const productData = product.attributes;
+              return (
+                <div key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    name={productData.name}
+                    price={productData.price}
+                    image={productData.image}
+                  />
+                </div>
+              );
+            })}
           </Carousel>
         </div>
         ;

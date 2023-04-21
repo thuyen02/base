@@ -1,32 +1,30 @@
-
 import React from 'react';
 import styled from 'styled-components';
-import {FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingCart } from 'react-icons/fi';
 
-import './ProductCard.css'
-
-
+import './ProductCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const IconCart = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    color: white;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    font-size: 25px; 
-    z-index:222;
-    position: absolute;
-    left: 170px;
-    top: 310px;
-    display: none;
-    &:hover{
-      width: 50px;
-      height: 50px;
-    }
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 25px;
+  z-index: 222;
+  position: absolute;
+  left: 170px;
+  top: 310px;
+  display: none;
+  &:hover {
+    width: 50px;
+    height: 50px;
+  }
+`;
 const CardProduct = styled.div`
   width: 256px;
   height: 444px;
@@ -34,40 +32,68 @@ const CardProduct = styled.div`
   padding: 16px;
   align-items: center;
   position: relative;
-  &:hover{
-    box-shadow: 0px 0px 1px 1px  rgba(72, 72, 72, 0.2);
+  box-shadow: 0 0 1px 1px rgba(152, 150, 150, 0.3);
+  &:hover {
+    box-shadow: 0px 0px 2px 2px rgba(72, 72, 72, 0.2);
     cursor: pointer;
-    ${IconCart}{
+    ${IconCart} {
       display: flex;
     }
-  } 
-  
+  }
 `;
 
 const CardProductImage = styled.img`
-   width: 100%;
-  height: 320px;
+  width: 100%;
+  height: 312px;
+  object-fit: cover;
 `;
 const CardProductBody = styled.div`
-   margin-top: 24px;
+  margin-top: 24px;
+  width: 100%;
+  height: 100%;
+  & > h4 {
+    margin: 15px 0;
+    font-weight: 300px;
+  }
+  & > p {
+    font-size: 18px;
+    font-weight: 500px;
+    color: #1d1f22;
+  }
 `;
 
+const ProductCard = props => {
+  const isLoggedIn = localStorage.getItem('at') ? true : false;
 
-const ProductCard = ({src}) => (
-  
-   <CardProduct>
-      <CardProductImage
-        src={src}
-      alt=""
-    />
-      <CardProductBody >
-      <h3>Apolo Running</h3>
-      <p><sup>đ</sup>500,000</p>  
-      <IconCart><FiShoppingCart/></IconCart>
-    </CardProductBody>  
-    
-  </CardProduct>
-  
-);
+  const navigate = useNavigate();
+  const handleClickCard = id => {
+    navigate(`/product/${id}`);
+  };
+  const handleAddToCart = (e, id) => {
+    e.stopPropagation();
+
+    if (isLoggedIn) {
+      alert('Add to cart');
+      //handle add to cart
+    } else {
+      navigate('/signin');
+    }
+  };
+  return (
+    <CardProduct onClick={() => handleClickCard(props.productId)}>
+      <CardProductImage src={props.image} alt={props.name} />
+      <CardProductBody>
+        <h4>{props.name}</h4>
+        <p>
+          <sup>đ</sup>
+          {props.price}
+        </p>
+        <IconCart id="add" onClick={e => handleAddToCart(e, props.productId)}>
+          <FiShoppingCart />
+        </IconCart>
+      </CardProductBody>
+    </CardProduct>
+  );
+};
 
 export default ProductCard;

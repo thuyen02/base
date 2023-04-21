@@ -1,16 +1,14 @@
 import React from 'react';
-import ProductCard from './components/ProductCard/ProductCard'
-import HasOrders from './pages/Cart/Hasorders/Hasorders';
-import NoOrder from './pages/Cart/Noorder/Noorder';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 function App() {
-
   return (
-    <div>    
-      <ProductCard/>
-      <HasOrders />
-      <NoOrder/>
-    </div>
-    
+    <RouterProvider router={router}>
+      {/* <div>
+      <Category/>   
+    </div> */}
+      <App />
+    </RouterProvider>
   );
 }
 
