@@ -12,6 +12,7 @@ import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
 import Sportshoes from './pages/Sportshoes/Shoes_sport/Sportshoes';
 import Hasresult from './pages/Search/Hasresult/Hasresult';
+import Noresult from './pages/Search/Noresult/Noresult';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/search?',
         element: <Hasresult />,
+      },
+      {
+        path: '/noresults?',
+        element: <Noresult />,
       },
     ],
   },

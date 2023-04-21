@@ -26,7 +26,7 @@ const Header = () => {
     setIsLoggedIn(loggedIn);
   }, []);
   const params = new URLSearchParams();
-  params.append('key', query);
+  params.append('q', query);
   const navigate = useNavigate();
   const handleSumitSearch = e => {
     e.preventDefault();
