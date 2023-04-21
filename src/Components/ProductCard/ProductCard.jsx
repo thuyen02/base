@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
-
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 
