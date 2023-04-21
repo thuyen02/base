@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
-
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 import productApi from '../../API/productApi';
@@ -19,7 +18,7 @@ const IconCart = styled.div`
   z-index: 222;
   position: absolute;
   left: 170px;
-  top: 310px;
+  top: 291px;
   display: none;
   &:hover {
     width: 50px;

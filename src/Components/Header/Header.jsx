@@ -48,7 +48,9 @@ const Header = () => {
           <Menu.Item key="clothes">
             <Link to="/category">CLOTHES</Link>
           </Menu.Item>
-          <Menu.Item key="sport-shoes">SPORT SHOES</Menu.Item>
+          <Menu.Item key="sport-shoes">
+           <Link to="/sportshoes"> SPORT SHOES</Link>
+            </Menu.Item>
         </Menu>
         <Menu mode="horizontal" className="right-nav">
           {/* Input search */}
