@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import cartIcon from '../Noorder/cart.png';
 import Image from './Product B.png';
 import close from '../Noorder/Common.png';
+import axios from 'axios';
+import axiosInstance from './../../../shared/services/http-client';
 const Container = styled(Drawer)`
   display: flex;
   flex-direction: row;
@@ -62,10 +64,10 @@ const CardInfo = styled.div`
 const RemoveButton = styled.div`
   padding: 8px;
 `;
-const ProductName = styled.p`
+const ProductName = styled.div`
   font-size: 14px;
 `;
-const ProductPrice = styled.p`
+const ProductPrice = styled.div`
   font-size: 18px;
   font-weight: 500;
 `;
@@ -104,67 +106,143 @@ const CheckOutButton = styled.button`
   padding: 16px;
   width: 100%;
 `;
-const Total = styled.p`
+const Total = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 export default function HasOrders() {
+  // Tạo các state
+  const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState(products.map(product => product.id));
   const [open, setOpen] = useState(false);
+  const [total, setTotal] = useState(0);
+
+  //Lấy danh sách sản phẩm từ API
+  useEffect(() => {
+    axiosInstance
+      .get('/orders')
+      .then(response => {
+        setProducts(response.data);
+        console.log(response.data);
+      })
+      .catch(error => console.log(error));
+  }, []);
+
+  //Cập nhật số lượng sản phẩm
+  /*useEffect(() => {
+    const updatedProducts = products.filter(
+      (product, index) => quantity[index] !== product.attributes.quantity
+    );
+    updatedProducts.forEach((product, index) => {
+      const data = {
+        data: {
+          quantity: quantity[index],
+        },
+      };
+      axiosInstance
+        .put(`/orders/${product.id}`, data)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
+  }, [quantity]);*/
+
+  //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
+  useEffect(() => {
+    let newTotal = 0;
+    products.forEach(product => {
+      newTotal += product.attributes.total * product.attributes.quantity;
+    });
+    setTotal(newTotal);
+  }, [products, total]);
+
+  //Hàm xử lý đóng mở giỏ hàng
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
-  const addQuantity = index => {
-    const addProduct = [...products];
-    addProduct[index].quantity += 1;
-    setProducts(addProduct);
+
+  //Hàm xử lý khi thanh toán
+  const handleCheckOut = total => {
+    const data = {
+      data: {
+        total: total,
+        orders: products.map(product => product.id),
+      },
+    };
+    axiosInstance
+      .post('/payments', data)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-  const subQuantity = index => {
-    const subProduct = [...products];
-    if (subProduct[index].quantity > 1) {
-      subProduct[index].quantity -= 1;
-    }
-    setProducts(subProduct);
+
+  //Hàm xử lý xoá sản phẩm
+  const handleDelete = id => {
+    axiosInstance
+      .delete(`/orders/${id}`)
+      .then(response => {
+        console.log(response.data);
+        const newProducts = products.filter(product => product.id !== id);
+        setProducts(newProducts);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-  const [products, setProducts] = useState([
-    {
-      name: 'Cotton dress',
-      price: '599.000',
-      size: 'XS',
-      quantity: 1,
-    },
-    {
-      name: 'Cotton dress',
-      price: '599.000',
-      size: 'XS',
-      quantity: 1,
-    },
-    {
-      name: 'Cotton dress',
-      price: '599.000',
-      size: 'XS',
-      quantity: 1,
-    },
-  ]);
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
-    let newTotal = 0;
-    products.forEach(product => {
-      newTotal += product.price.replace('.', '') * product.quantity;
-    });
-    setTotal(newTotal);
-  }, [products]);
-  const removeItem = index => {
-    setProducts(prevProducts => {
-      const newProducts = [...prevProducts];
-      newProducts.splice(index, 1);
-      return newProducts;
-    });
-    setOpen(true);
+
+  //Hàm xử lý khi tăng số lượng
+  // const quantity = [];
+  const handleAddQuantity = id => {
+    quantity[id] += 1;
+    const data = {
+      quantity: quantity[id],
+    };
+    axiosInstance
+      .put(`/orders/${id}`, data)
+      .then(response => {
+        console.log(response.data);
+        // prevQuantity[id] = response.data.quantity;
+        setQuantity(quantity[id]);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
+
+  //Hàm xử lý khi giảm số lượng
+  // const handleSubQuantity = id => {
+  //   setQuantity(prevQuantity => {
+  //     if (prevQuantity[id] > 1) {
+  //       prevQuantity[id] -= 1;
+  //       const data = {
+  //         data: {
+  //           quantity: prevQuantity[id],
+  //         },
+  //       };
+  //       axiosInstance
+  //         .put(`/orders/${id}`, data)
+  //         .then(response => {
+  //           console.log(response.data);
+  //         })
+  //         .catch(error => {
+  //           console.log(error);
+  //         });
+  //     }
+  //   });
+  // };
+
+  //Lấy số lượng sản phẩm trong giỏ hàng
   const totalProducts = products.length;
+
   return (
     <>
       <img
@@ -193,60 +271,51 @@ export default function HasOrders() {
               <CardBody>
                 <CardInfo>
                   <ProductName>{product.name}</ProductName>
-                  <ProductPrice>đ{product.price}</ProductPrice>
+                  <ProductPrice>đ{product.attributes.total}</ProductPrice>
                   <ProductSize>
                     Size:{' '}
                     <span style={{ fontWeight: 600 }}>{product.size}</span>
                   </ProductSize>
                   <Quantity>
-                    <QuantityButton onClick={() => subQuantity(index)}>
+                    <QuantityButton
+                      onClick={
+                        () =>
+                          console.log(
+                            product.id
+                          ) /*handleSubQuantity(product.id)*/
+                      }
+                    >
                       -
                     </QuantityButton>
-                    <div>{product.quantity}</div>
-                    <QuantityButton onClick={() => addQuantity(index)}>
+                    <div>{product.attributes.quantity}</div>
+                    <QuantityButton
+                      onClick={() => handleAddQuantity(product.id)}
+                    >
                       +
                     </QuantityButton>
                   </Quantity>
                 </CardInfo>
-                <RemoveButton onClick={() => removeItem(index)}>
+                <RemoveButton onClick={() => handleDelete(product.id)}>
                   <img src={close} alt="" className="remove" />
                 </RemoveButton>
               </CardBody>
             </CardContent>
           ))}
-          {/* <CardContent
-            cover={
-              <img
-                src={Image}
-                style={{ width: 140, margin: 0, padding: 8, borderRadius: 0 }}
-              />
-            }
-          >
-            <CardBody>
-              <CardInfo>
-                <ProductName>Cotton dress</ProductName>
-                <ProductPrice>đ599,000</ProductPrice>
-                <ProductSize>
-                  Size: <span style={{ fontWeight: 600 }}>XS</span>
-                </ProductSize>
-                <Quantity>
-                  <QuantityButton onClick={subQuantity}>-</QuantityButton>
-                  <div>{quantity}</div>
-                  <QuantityButton onClick={addQuantity}>+</QuantityButton>
-                </Quantity>
-              </CardInfo>
-              <RemoveButton>
-                <img src={close} alt="" className="remove" />
-              </RemoveButton>
-            </CardBody>
-          </CardContent> */}
         </ProductList>
         <CheckOut>
           <Total>
             <p>Subtotal: </p>
             <p style={{ fontWeight: 500 }}>đ{total.toLocaleString()}</p>
           </Total>
-          <CheckOutButton>CHECKOUT</CheckOutButton>
+          <CheckOutButton
+            onClick={() =>
+              /*console.log(
+                  products.map(product => product.id)
+                )*/ handleCheckOut(total)
+            }
+          >
+            CHECKOUT
+          </CheckOutButton>
         </CheckOut>
       </Container>
     </>
