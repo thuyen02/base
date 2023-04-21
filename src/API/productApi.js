@@ -13,6 +13,10 @@ const productApi = {
     const url='/categories/1?populate=products'
     return axiosInstance.get(url, { params });
   },
+  getCategoryId: id =>{
+    const url=`/categories/${id}?populate=products`
+    return axiosInstance.get(url);
+  },
 };
 
 export default productApi;
