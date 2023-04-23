@@ -45,16 +45,13 @@ const HomepageProduct = props => {
     getListProduct();
   }, []);
   // Get list product from api
+
   const getListProduct = async () => {
     try {
-      const params = {
-        // eslint-disable-next-line no-useless-computed-key
-        ['_limit']: 5,
-      };
-      const resClother = await productApi.getCategory(params, 1);
+      const resClother = await productApi.getCategory(1);
       setListClothes(resClother.data.attributes.products.data);
-      const res = await productApi.getCategory(params, 2);
-      setListShoes(res.data.attributes.products.data);
+      const resShoes = await productApi.getCategory(2);
+      setListShoes(resShoes.data.attributes.products.data);
     } catch (err) {
       console.log(err.message);
     }
