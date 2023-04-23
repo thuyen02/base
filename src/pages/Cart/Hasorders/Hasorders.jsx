@@ -3,10 +3,11 @@ import { Drawer, Card } from 'antd';
 import './Hasorders.css';
 import styled from 'styled-components';
 import cartIcon from '../Noorder/cart.png';
+// import {ShoppingCartOutLined} from '@ant-design/icons'
 import Image from './Product B.png';
 import close from '../Noorder/Common.png';
-import axios from 'axios';
 import axiosInstance from './../../../shared/services/http-client';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 const Container = styled(Drawer)`
   display: flex;
   flex-direction: row;
@@ -162,9 +163,11 @@ export default function HasOrders() {
   //Hàm xử lý đóng mở giỏ hàng
   const showDrawer = () => {
     setOpen(true);
+    // setCartIcon(true);
   };
   const onClose = () => {
     setOpen(false);
+    // setCartIcon(false)
   };
 
   //Hàm xử lý khi thanh toán
@@ -245,11 +248,7 @@ export default function HasOrders() {
 
   return (
     <>
-      <img
-        src={cartIcon}
-        onClick={showDrawer}
-        style={{ cursor: 'pointer', width: 30 }}
-      />
+      <ShoppingCartOutlined onClick={showDrawer}/>
       <Container
         placement="right"
         onClose={onClose}
@@ -289,7 +288,7 @@ export default function HasOrders() {
                     </QuantityButton>
                     <div>{product.attributes.quantity}</div>
                     <QuantityButton
-                      onClick={() => handleAddQuantity(product.id)}
+                      onClick={() => console.log(product.id)}
                     >
                       +
                     </QuantityButton>

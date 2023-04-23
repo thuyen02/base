@@ -43,6 +43,8 @@
 
 
 .right-nav {
+    display: flex;
+    justify-content: right;
     border-bottom: 0;
     width: 25%;
 }

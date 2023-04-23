@@ -5,7 +5,7 @@ import { Layout,Radio,Button } from 'antd';
 import productApi from '../../../API/productApi';
 import {LeftOutlined,RightOutlined } from '@ant-design/icons';
 
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
