@@ -5,6 +5,7 @@ import cartIcon from './cart.png';
 import emptyCart from './empty cart.png';
 import close from './Common.png';
 import Header from '../../../components/Header/Header';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 const Container = styled(Drawer)`
   display: flex;
   flex-direction: column;
@@ -51,11 +52,12 @@ export default function NoOrder() {
   };
   return (
     <>
-      <img
+      {/* <img
         src={cartIcon}
         onClick={showDrawer}
         style={{ cursor: 'pointer', width: 30 }}
-      />
+      /> */}
+      <ShoppingCartOutlined onClick={showDrawer}/>
       <Container
         placement="right"
         onClose={onClose}

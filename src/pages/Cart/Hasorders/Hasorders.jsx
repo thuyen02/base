@@ -121,7 +121,7 @@ export default function HasOrders() {
   //Lấy danh sách sản phẩm từ API
   useEffect(() => {
     axiosInstance
-      .get('/orders')
+      .get('/orders?populate=product')
       .then(response => {
         setProducts(response.data);
         console.log(response.data);
@@ -248,7 +248,7 @@ export default function HasOrders() {
 
   return (
     <>
-      <ShoppingCartOutlined onClick={showDrawer}/>
+      <ShoppingCartOutlined onClick={showDrawer} />
       <Container
         placement="right"
         onClose={onClose}
@@ -262,18 +262,24 @@ export default function HasOrders() {
               key={index}
               cover={
                 <img
-                  src={Image}
+                  src={product.attributes.product.data.attributes.image}
                   style={{ width: '100%', padding: 8, borderRadius: 0 }}
                 />
               }
             >
               <CardBody>
                 <CardInfo>
-                  <ProductName>{product.name}</ProductName>
-                  <ProductPrice>đ{product.attributes.total}</ProductPrice>
+                  <ProductName>
+                    {product.attributes.product.data.attributes.name}
+                  </ProductName>
+                  <ProductPrice>
+                    đ{product.attributes.product.data.attributes.price}
+                  </ProductPrice>
                   <ProductSize>
                     Size:{' '}
-                    <span style={{ fontWeight: 600 }}>{product.size}</span>
+                    <span style={{ fontWeight: 600 }}>
+                      {product.attributes.product.data.attributes.size}
+                    </span>
                   </ProductSize>
                   <Quantity>
                     <QuantityButton
@@ -286,10 +292,10 @@ export default function HasOrders() {
                     >
                       -
                     </QuantityButton>
-                    <div>{product.attributes.quantity}</div>
-                    <QuantityButton
-                      onClick={() => console.log(product.id)}
-                    >
+                    <div>
+                      {product.attributes.product.data.attributes.quantity}
+                    </div>
+                    <QuantityButton onClick={() => console.log(product.id)}>
                       +
                     </QuantityButton>
                   </Quantity>
