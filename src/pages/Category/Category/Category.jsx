@@ -4,7 +4,7 @@ import { Button, Pagination } from 'antd';
 import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
 import queryString from 'query-string';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 

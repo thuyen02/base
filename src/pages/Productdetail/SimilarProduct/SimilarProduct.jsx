@@ -3,7 +3,7 @@ import { Row } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../../shared/services/http-client';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import {
   SimilarProductContainer,
   TitleSimilarProduct,
