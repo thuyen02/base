@@ -1,36 +1,26 @@
 import React, { Component, useEffect, useState } from 'react';
-import './Category.css';
-
-import { Layout,Radio,Button } from 'antd';
+import './Sportshoes.css'
+import { Button, Pagination } from 'antd';
+import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
-import {LeftOutlined,RightOutlined } from '@ant-design/icons';
-
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
-const Category = () => {
+const  Sportshoes = () => {
   const [productId, setProductId] = useState(1);
   const [productList, setproductList] = useState([]);
   const [pageSize, setpageSize] = useState(8);
   const [page, setpage] = useState(1);
-  const [total,settotal] = useState(12);
-  const [category, setcategoryId] = useState({
-    value : 'clothes'
-  });
-  const [size, setSize] = useState('large');
+  const [total,settotal] = useState(7);
+  const [categoryId] = useState(2);
   useEffect(() => {
     fetchProductList();
   }, []);
-    const fetchProductList = async (pg = page,pgSize = pageSize) => {
+    const fetchProductList = async () => {
       try {
-        const params = {
-          ["filters[category]"]: category.value === "clothes" ? 1:2,
-          ['pagination[pageSize]']: pgSize,
-          ['pagination[page]']: pg,
-        };
-        const response = await productApi.getAll(params);
-        const hot = response.data;
+        const response = await productApi.getCategoryId(categoryId);
+        const hot = response.data.attributes.products.data;
         setproductList(hot);
         console.log(hot)
        
@@ -39,17 +29,6 @@ const Category = () => {
       }
     };
 
-const prevPage = async() =>{
-  
-  const pg = page === 1 ? 1 : page-1;
-  fetchProductList(pg)
-  setpage(pg)
-}
-const nextPage = async() =>{
-  const pg = page + 1;
-  fetchProductList(pg)
-  setpage(pg)
-}
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -66,12 +45,12 @@ const nextPage = async() =>{
               <div className="category-menu">
                 <ul className="category-menu_ul">
                   <li>
-                    <a href="" style={{ color: 'blue ' }} >Clothes</a>
+                    <a href="" style={{ color: 'blue ' }} >Shoes</a>
                   </li>
-                  <li>                
-                  <Link to="/sportshoes">Sport Shoes</Link>
+                  <li>
+                  <Link to="/category">Clothes</Link>
                   </li>
-                 
+                
                 </ul>
               </div>
             </Sider>
@@ -81,13 +60,13 @@ const nextPage = async() =>{
                 minHeight: 280,
                 display: 'flex',
                 flexWrap: 'wrap',
-                justifyContent: 'space-around',
+                justifyContent: 'space-between',
               }}
             >
               {Array.from(productList).map(product => {
                 let data = product.attributes;
                 return (
-                  <Link  style={{color:'black',paddingTop:'24px'}}   key={product.id} to={`/product/${product.id}`}>           
+                  <Link style={{color:'black',paddingTop:'24px'}}  key={product.id} to={`/product/${product.id}`}>           
                     <ProductCard
                       name={data.name}
                       price={data.price}
@@ -101,24 +80,11 @@ const nextPage = async() =>{
             </div>
           </Layout>
         </Content>
-        
-        <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
-        
-        <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
-        <LeftOutlined style={{color:''}} />
-    </Button>
-    <Button disabled={page >=2 } onClick={prevPage} type="text" danger>
-        1
-    </Button>
-    <Button disabled={page <=1 } onClick={nextPage} type="text" danger>
-       2
-    </Button>
-    <Button  disabled={page >=2 } onClick={nextPage} type="text" danger>
-    <RightOutlined />
-    </Button>
-        </Footer>  
+        <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
+          <Pagination defaultCurrent={1} total={10} />
+        </Footer>
       </Layout>
     </div>
   );
 };
-export default Category;
+export default Sportshoes;

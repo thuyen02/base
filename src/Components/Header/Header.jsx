@@ -25,7 +25,7 @@ const Header = () => {
     setIsLoggedIn(loggedIn);
   }, []);
   const params = new URLSearchParams();
-  params.append('key', query);
+  params.append('q', query);
   const navigate = useNavigate();
   const handleSumitSearch = e => {
     e.preventDefault();
@@ -47,7 +47,9 @@ const Header = () => {
           <Menu.Item key="clothes">
             <Link to="/category">CLOTHES</Link>
           </Menu.Item>
-          <Menu.Item key="sport-shoes">SPORT SHOES</Menu.Item>
+          <Menu.Item key="sport-shoes">
+           <Link to="/sportshoes"> SPORT SHOES</Link>
+            </Menu.Item>
         </Menu>
         <Menu mode="horizontal" className="right-nav">
           {/* Input search */}
