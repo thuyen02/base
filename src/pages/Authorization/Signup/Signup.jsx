@@ -1,6 +1,6 @@
 import { Button, Form } from 'antd';
 import React from 'react';
-import { InputC } from '../../../components/Input/Input';
+import { InputC } from '../../../Components/Input/Input';
 import './Signup.css';
 import axiosInstance from '../../../shared/services/http-client';
 import { Link, useNavigate } from 'react-router-dom';

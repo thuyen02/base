@@ -10,7 +10,7 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import HasOrders from './../../pages/Cart/Hasorders/Hasorders';
+import HasOrders from '../../pages/Cart/Hasorders/Hasorders';
 const Header = () => {
   const [query, setQuery] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(
