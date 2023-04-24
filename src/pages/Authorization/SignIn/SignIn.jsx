@@ -2,7 +2,7 @@ import { Checkbox, Form } from 'antd';
 import axiosInstance from '../../../shared/services/http-client';
 import { ACCESS_TOKEN } from '../../../shared/constants/index';
 import { InputC } from '../../../Components/Input/Input';
-import { ButtonC } from '../../../Components/Button';
+import { ButtonC } from '../../../Components/Button/index';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';

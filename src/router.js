@@ -38,8 +38,8 @@ const router = createBrowserRouter([
         element: <Category />,
       },
       {
-        path:'/sportshoes',
-        element:<Sportshoes/>
+        path: '/sportshoes',
+        element: <Sportshoes />,
       },
       {
         path: '/update-profile',

@@ -10,10 +10,9 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-
+import HasOrders from '../../pages/Cart/Hasorders/Hasorders';
 const Header = () => {
   const [query, setQuery] = useState();
-
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('at') ? true : false
   );
@@ -86,7 +85,8 @@ const Header = () => {
           )}
           {isLoggedIn && (
             <Menu.Item key="cart">
-              <ShoppingCartOutlined />
+              {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
+              <HasOrders/>
             </Menu.Item>
           )}
         </Menu>
