@@ -51,7 +51,7 @@ const CardProductImage = styled.img`
 const CardProductBody = styled.div`
   margin-top: 24px;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   & > h4 {
     margin: 15px 0;
     font-weight: 300px;

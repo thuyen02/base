@@ -7,6 +7,7 @@ import {LeftOutlined,RightOutlined } from '@ant-design/icons';
 
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;
 
 const Category = () => {
@@ -50,6 +51,12 @@ const nextPage = async() =>{
   fetchProductList(pg)
   setpage(pg)
 }
+
+const [current, setCurrent] = useState(1);
+const onChange = (page) => {
+  console.log(page);
+  setCurrent(page);
+};
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -82,42 +89,44 @@ const nextPage = async() =>{
                 display: 'flex',
                 flexWrap: 'wrap',
                 justifyContent: 'space-around',
+                // gap:24,
               }}
             >
               {Array.from(productList).map(product => {
                 let data = product.attributes;
                 return (
-                  <Link  style={{color:'black',paddingTop:'24px'}}   key={product.id} to={`/product/${product.id}`}>           
+                  <div style={{color:'black',marginTop:'24px'}} key={product.id} >           
                     <ProductCard
+                    productId = {product.id}
                       name={data.name}
                       price={data.price}
                       image={data.image}
                     />
                  
-                  </Link>
+                  </div>
                 );
               })}
-
             </div>
           </Layout>
         </Content>
         
         <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
         
-        <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
+        {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
         <LeftOutlined style={{color:''}} />
     </Button>
-    <Button disabled={page >=2 } onClick={prevPage} type="text" danger>
+    <Button onClick={prevPage} type="text" danger>
         1
     </Button>
-    <Button disabled={page <=1 } onClick={nextPage} type="text" danger>
+    <Button onClick={nextPage} type="text" danger>
        2
     </Button>
     <Button  disabled={page >=2 } onClick={nextPage} type="text" danger>
     <RightOutlined />
-    </Button>
+    </Button> */}
         </Footer>  
       </Layout>
+    <Pagination defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
     </div>
   );
 };
