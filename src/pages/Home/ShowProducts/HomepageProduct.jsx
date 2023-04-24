@@ -105,6 +105,9 @@ const HomepageProduct = props => {
           <h2>Sport shoes</h2>
         </HomepageClothesTitle>
         <div className="homepage-clothes-products">
+          <div>
+            
+          </div>
           <Carousel
             swipeable={false}
             draggable={false}
@@ -134,6 +137,7 @@ const HomepageProduct = props => {
                 </div>
               );
             })}
+     
           </Carousel>
         </div>
         ;
