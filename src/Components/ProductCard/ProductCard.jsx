@@ -26,6 +26,7 @@ const IconCart = styled.div`
   }
 `;
 const CardProduct = styled.div`
+  margin-top: 20px;
   width: 256px;
   height: 444px;
   box-sizing: border-box;
@@ -64,11 +65,15 @@ const CardProductBody = styled.div`
 
 const ProductCard = props => {
   const isLoggedIn = localStorage.getItem('at') ? true : false;
+  const userId = localStorage.getItem('ut')
 
   const navigate = useNavigate();
   const handleClickCard = id => {
     navigate(`/product/${id}`);
   };
+  const getOrderlist = () => {
+    
+  }
   const handleAddToCart = async data => {
     const res = await productApi.postAddToCart(data);
     console.log(res.data);
@@ -76,7 +81,7 @@ const ProductCard = props => {
   const handleClikItemCart = (e, id, price) => {
     e.stopPropagation();
     const dataProduct = {
-      size: 'M',
+      size: '1',
       product: id,
       user: 1,
       quantity: 1,

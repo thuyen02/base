@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NoresultWrapper = styled.div`
@@ -29,10 +30,12 @@ const NoresultSubtitle = styled.p`
 `;
 
 export default function Noresult() {
+  const [searchParams] = useSearchParams();
+  const key = searchParams.get('q');
   return (
     <NoresultWrapper>
       <NoresultContent>
-        <NoresultTitle>We couldn't find anything for "phone"</NoresultTitle>
+        <NoresultTitle>We couldn't find anything for "{key}"</NoresultTitle>
         <NoresultSubtitle>
           These popular items might interest you
         </NoresultSubtitle>

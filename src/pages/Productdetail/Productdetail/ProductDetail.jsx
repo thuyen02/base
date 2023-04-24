@@ -139,19 +139,19 @@ export default function ProductDetail() {
               onChange={handleChange}
               options={[
                 {
-                  value: 'xl',
+                  value: 4,
                   label: 'XL',
                 },
                 {
-                  value: 'l',
+                  value: 3,
                   label: 'L',
                 },
                 {
-                  value: 'm',
+                  value: 2,
                   label: 'M',
                 },
                 {
-                  value: 's',
+                  value: 1,
                   label: 'S',
                 },
               ]}
