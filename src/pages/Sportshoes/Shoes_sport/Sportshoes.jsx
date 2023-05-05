@@ -1,33 +1,32 @@
 import React, { Component, useEffect, useState } from 'react';
-import './Sportshoes.css'
+import './Sportshoes.css';
 import { Button, Pagination } from 'antd';
 import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
-const  Sportshoes = () => {
+const Sportshoes = () => {
   const [productId, setProductId] = useState(1);
   const [productList, setproductList] = useState([]);
   const [pageSize, setpageSize] = useState(8);
   const [page, setpage] = useState(1);
-  const [total,settotal] = useState(7);
+  const [total, settotal] = useState(7);
   const [categoryId] = useState(2);
   useEffect(() => {
     fetchProductList();
   }, []);
-    const fetchProductList = async () => {
-      try {
-        const response = await productApi.getCategoryId(categoryId);
-        const hot = response.data.attributes.products.data;
-        setproductList(hot);
-        console.log(hot)
-       
-      } catch (error) {
-        console.log('Faild to fetch product list: ', error);
-      }
-    };
+  const fetchProductList = async () => {
+    try {
+      const response = await productApi.getCategoryId(categoryId);
+      const hot = response.data.attributes.products.data;
+      setproductList(hot);
+      console.log(hot);
+    } catch (error) {
+      console.log('Faild to fetch product list: ', error);
+    }
+  };
 
   return (
     <div>
@@ -45,12 +44,13 @@ const  Sportshoes = () => {
               <div className="category-menu">
                 <ul className="category-menu_ul">
                   <li>
-                    <a href="" style={{ color: 'blue ' }} >Shoes</a>
+                    <a href="" style={{ color: 'blue ' }}>
+                      Shoes
+                    </a>
                   </li>
                   <li>
-                  <Link to="/category">Clothes</Link>
+                    <Link to="/category">Clothes</Link>
                   </li>
-                
                 </ul>
               </div>
             </Sider>
@@ -66,17 +66,19 @@ const  Sportshoes = () => {
               {Array.from(productList).map(product => {
                 let data = product.attributes;
                 return (
-                  <Link style={{color:'black',paddingTop:'24px'}}  key={product.id} to={`/product/${product.id}`}>           
+                  <Link
+                    style={{ color: 'black', paddingTop: '24px' }}
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                  >
                     <ProductCard
                       name={data.name}
                       price={data.price}
                       image={data.image}
                     />
-                 
                   </Link>
                 );
               })}
-
             </div>
           </Layout>
         </Content>
