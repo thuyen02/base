@@ -36,11 +36,11 @@ export default function NoOrder() {
           </EmptyText>
           <EmptyText>Start shopping to fill it in.</EmptyText>
         </EmptyContent>
-        <EmptyButton onClick={onClose}>
           <Link to="/category" style={{ color: 'white' }}>
+        <EmptyButton onClick={onClose}>
             START SHOPPING
-          </Link>
         </EmptyButton>
+          </Link>
       </Container>
     </>
   );
