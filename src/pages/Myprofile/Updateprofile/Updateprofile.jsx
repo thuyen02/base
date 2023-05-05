@@ -2,7 +2,7 @@ import React from 'react';
 import './Updateprofile.css';
 import { Layout, Menu } from 'antd';
 import { Button, Form } from 'antd';
-import { InputC } from '../../../components/Input/Input';
+import { InputC } from '../../../Components/Input/Input';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../../shared/services/http-client';
 import { Link } from 'react-router-dom';
@@ -48,7 +48,7 @@ const Updateprofile = () => {
 
   if (userData !== null) {
     return (
-      <Layout className='update_profile'>
+      <Layout className="update_profile">
         <div className="Updateprofile-nav">
           <Menu mode="horizontal" className=" Updateprofile-nav--left">
             <Menu.Item className="Updateprofile-nav--item" key="myprofile">
