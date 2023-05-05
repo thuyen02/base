@@ -37,7 +37,7 @@ export default function HasOrders() {
         // console.log(response.data);
       })
       .catch(error => console.log(error));
-  }, []);
+  }, [open]);
 
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
