@@ -22,14 +22,16 @@ import NoOrder from '../Noorder/Noorder';
 export default function HasOrders() {
   // Tạo các state
   const [products, setProducts] = useState([]);
-  let [quantity, setQuantity] = useState(1);
+  // let [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0);
+  const userID = localStorage.getItem('ut');
+  // console.log(userID);
 
   //Lấy danh sách sản phẩm từ API
   useEffect(() => {
     axiosInstance
-      .get('/orders?populate=product&filters[user][id]=5')
+      .get(`/orders?populate=product&filters[user][id]=${userID}`)
       .then(response => {
         setProducts(response.data);
         // console.log(response.data);
@@ -111,25 +113,23 @@ export default function HasOrders() {
   };
 
   //Hàm xử lý khi giảm số lượng
-  const handleSubQuantity = id => {
-    if (quantity > 1) {
-      quantity -= 1;
-      const data = {
-        data: {
-          quantity: quantity,
-        },
-      };
-      axiosInstance
-        .put(`/orders/${id}`, data)
-        .then(response => {
-          console.log(response.data);
-          setQuantity(quantity);
-        })
-        .catch(error => {
-          console.log(error);
+  const handleSubQuantity = async product => {
+    try {
+      if (product.attributes.quantity > 1) {
+        const data = {
+          data: {
+            quantity: product.attributes.quantity - 1,
+          },
+        };
+        await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
+          console.log(response.data.attributes.quantity);
+          // setQuantity(quantity);
         });
-    } else {
-      console.log('Số lượng nhỏ hơn 1');
+      } else {
+        console.log('Số lượng nhỏ hơn 1');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -177,15 +177,15 @@ export default function HasOrders() {
                         <sup style={{ fontSize: 14 }}>đ</sup>
                         {product.attributes.product.data.attributes.price.toLocaleString()}
                       </ProductPrice>
-                      <ProductSize>
+                      {/* <ProductSize>
                         Size:{' '}
                         <span style={{ fontWeight: 600 }}>
                           {product.attributes.product.data.attributes.size}
                         </span>
-                      </ProductSize>
+                      </ProductSize> */}
                       <Quantity>
                         <QuantityButton
-                          onClick={() => handleSubQuantity(product.id)}
+                          onClick={() => handleSubQuantity(product)}
                         >
                           -
                         </QuantityButton>

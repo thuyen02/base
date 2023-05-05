@@ -7,7 +7,9 @@ import { useSearchParams } from 'react-router-dom';
 import productApi from '../../../API/productApi';
 
 const HasResult = styled.div`
-  padding: 50px !important;
+  padding-top: 50px;
+  max-width: 1200px;
+  margin: auto;
 `;
 
 const HasResultTitle = styled.div`
@@ -16,7 +18,6 @@ const HasResultTitle = styled.div`
 
 const HasResultTitleH4 = styled.h4`
   width: fit-content;
-  margin-left: 50px;
 `;
 
 const ColC = styled(Col)`
@@ -44,16 +45,13 @@ export default function Hasresult() {
     try {
       const res = await productApi.getAll(params);
       if (res.data.length === 0) {
-        directions();
+        navigate(`/noresults?q=${key}`);
       }
+
       setProducts(res.data);
     } catch (error) {
       console.log(error);
     }
-  };
-  console.log(products);
-  const directions = () => {
-    navigate(`/noresults?${key}`);
   };
 
   return (
