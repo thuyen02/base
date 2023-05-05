@@ -1,10 +1,17 @@
-import axiosInstance from "../shared/services/http-client";
+import axiosInstance from '../shared/services/http-client';
 
 const orderApi = {
-  getOrderById: id => {
-    const url = `/api/order/${id}`,
-    
-    return axiosInstance.get()
-      
-  }
-}
+  getOrderList: params => {
+    const url = '/orders';
+    return axiosInstance.get(url, { params });
+  },
+  createOrder: product => {
+    const url = '/orders';
+    return axiosInstance.post(url, { data: product });
+  },
+  updateOrder: (id, data) => {
+    const url = `/orders/${id}`;
+    return axiosInstance.put(url, { data });
+  },
+};
+export default orderApi;

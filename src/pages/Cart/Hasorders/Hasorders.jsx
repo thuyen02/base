@@ -124,7 +124,6 @@ export default function HasOrders() {
       .get('/orders')
       .then(response => {
         setProducts(response.data);
-        console.log(response.data);
       })
       .catch(error => console.log(error));
   }, []);
@@ -248,7 +247,7 @@ export default function HasOrders() {
 
   return (
     <>
-      <ShoppingCartOutlined onClick={showDrawer}/>
+      <ShoppingCartOutlined onClick={showDrawer} />
       <Container
         placement="right"
         onClose={onClose}
@@ -287,9 +286,7 @@ export default function HasOrders() {
                       -
                     </QuantityButton>
                     <div>{product.attributes.quantity}</div>
-                    <QuantityButton
-                      onClick={() => console.log(product.id)}
-                    >
+                    <QuantityButton onClick={() => console.log(product.id)}>
                       +
                     </QuantityButton>
                   </Quantity>

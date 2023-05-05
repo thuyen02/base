@@ -21,6 +21,7 @@ export const SignIn = () => {
       localStorage.setItem(ACCESS_TOKEN, res.jwt);
 
       localStorage.setItem(USER_ID, res.user.id);
+      console.log(res);
       swal({
         title: 'Good job!',
         text: 'Loggin is successful!',

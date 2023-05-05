@@ -28,7 +28,6 @@ function SimilarProduct(props) {
         // ['filters[name][$contains]']: ,
       };
       const res = await productApi.getAll(params);
-      console.log(res);
       setListProduct(res.data);
     } catch (err) {
       console.log(err.message);
