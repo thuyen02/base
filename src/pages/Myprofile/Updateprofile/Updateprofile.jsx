@@ -48,7 +48,7 @@ const Updateprofile = () => {
 
   if (userData !== null) {
     return (
-      <Layout className='update_profile'>
+      <Layout className="update_profile">
         <div className="Updateprofile-nav">
           <Menu mode="horizontal" className=" Updateprofile-nav--left">
             <Menu.Item className="Updateprofile-nav--item" key="myprofile">

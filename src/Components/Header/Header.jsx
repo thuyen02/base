@@ -6,16 +6,24 @@ import { ACCESS_TOKEN } from '../../shared/constants/index';
 import { Menu, Input } from 'antd';
 import { UserOutlined, SearchOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import HasOrders from '../../pages/Cart/Hasorders/Hasorders';
+import HasOrders from './../../pages/Cart/Hasorders/Hasorders';
+import axiosInstance from '../../shared/services/http-client';
+import NoOrder from './../../pages/Cart/Noorder/Noorder';
 const Header = () => {
   const [query, setQuery] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('at') ? true : false
   );
+  const [quantity, setQuantity] = useState(0);
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     setIsLoggedIn(false);
   };
+  useEffect(() => {
+    axiosInstance.get('/orders').then(response => {
+      setQuantity(response.meta.pagination.total);
+    }).catch(error=> {console.log(error)})
+  }, [])
   useEffect(() => {
     const loggedIn = localStorage.getItem('at') ? true : false;
     setIsLoggedIn(loggedIn);
@@ -83,7 +91,9 @@ const Header = () => {
           {isLoggedIn && (
             <Menu.Item key="cart">
               {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
-              <HasOrders />
+              {/* <HasOrders />
+              <NoOrder /> */}
+              {quantity === 0 ? <NoOrder/> : <HasOrders/>}
             </Menu.Item>
           )}
         </Menu>

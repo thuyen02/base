@@ -26,7 +26,7 @@ export default function NoOrder() {
         placement="right"
         onClose={onClose}
         open={open}
-        closeIcon={<img src={close} alt={ close} />}
+        closeIcon={<img src={close} alt={close} />}
       >
         <EmptyContent>
           <img src={emptyCart} alt="emptycart" style={{ paddingBottom: 80 }} />
@@ -36,11 +36,9 @@ export default function NoOrder() {
           </EmptyText>
           <EmptyText>Start shopping to fill it in.</EmptyText>
         </EmptyContent>
-        <EmptyButton onClick={onClose}>
-          <Link to="/category" style={{ color: 'white' }}>
-            START SHOPPING
-          </Link>
-        </EmptyButton>
+        <Link to="/category" style={{ color: 'white' }}>
+          <EmptyButton onClick={onClose}>START SHOPPING</EmptyButton>
+        </Link>
       </Container>
     </>
   );
