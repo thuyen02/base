@@ -3,7 +3,7 @@
 import { Row } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import {
   SimilarProductContainer,
   TitleSimilarProduct,
@@ -28,7 +28,6 @@ function SimilarProduct(props) {
         // ['filters[name][$contains]']: ,
       };
       const res = await productApi.getAll(params);
-      console.log(res);
       setListProduct(res.data);
     } catch (err) {
       console.log(err.message);

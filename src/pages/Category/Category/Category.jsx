@@ -1,11 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import './Category.css';
 
-import { Layout,Radio,Button } from 'antd';
+import { Layout, Radio, Button } from 'antd';
 import productApi from '../../../API/productApi';
-import {LeftOutlined,RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;
@@ -15,48 +15,46 @@ const Category = () => {
   const [productList, setproductList] = useState([]);
   const [pageSize, setpageSize] = useState(8);
   const [page, setpage] = useState(1);
-  const [total,settotal] = useState(12);
+  const [total, settotal] = useState(12);
   const [category, setcategoryId] = useState({
-    value : 'clothes'
+    value: 'clothes',
   });
   const [size, setSize] = useState('large');
   useEffect(() => {
     fetchProductList();
   }, []);
-    const fetchProductList = async (pg = page,pgSize = pageSize) => {
-      try {
-        const params = {
-          ["filters[category]"]: category.value === "clothes" ? 1:2,
-          ['pagination[pageSize]']: pgSize,
-          ['pagination[page]']: pg,
-        };
-        const response = await productApi.getAll(params);
-        const hot = response.data;
-        setproductList(hot);
-        console.log(hot)
-       
-      } catch (error) {
-        console.log('Faild to fetch product list: ', error);
-      }
-    };
+  const fetchProductList = async (pg = page, pgSize = pageSize) => {
+    try {
+      const params = {
+        ['filters[category]']: category.value === 'clothes' ? 1 : 2,
+        ['pagination[pageSize]']: pgSize,
+        ['pagination[page]']: pg,
+      };
+      const response = await productApi.getAll(params);
+      const hot = response.data;
+      setproductList(hot);
+      console.log(hot);
+    } catch (error) {
+      console.log('Faild to fetch product list: ', error);
+    }
+  };
 
-const prevPage = async() =>{
-  
-  const pg = page === 1 ? 1 : page-1;
-  fetchProductList(pg)
-  setpage(pg)
-}
-const nextPage = async() =>{
-  const pg = page + 1;
-  fetchProductList(pg)
-  setpage(pg)
-}
+  const prevPage = async () => {
+    const pg = page === 1 ? 1 : page - 1;
+    fetchProductList(pg);
+    setpage(pg);
+  };
+  const nextPage = async () => {
+    const pg = page + 1;
+    fetchProductList(pg);
+    setpage(pg);
+  };
 
-const [current, setCurrent] = useState(1);
-const onChange = (page) => {
-  console.log(page);
-  setCurrent(page);
-};
+  const [current, setCurrent] = useState(1);
+  const onChange = page => {
+    console.log(page);
+    setCurrent(page);
+  };
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -73,12 +71,13 @@ const onChange = (page) => {
               <div className="category-menu">
                 <ul className="category-menu_ul">
                   <li>
-                    <a href="" style={{ color: 'blue ' }} >Clothes</a>
+                    <a href="" style={{ color: 'blue ' }}>
+                      Clothes
+                    </a>
                   </li>
-                  <li>                
-                  <Link to="/sportshoes">Sport Shoes</Link>
+                  <li>
+                    <Link to="/sportshoes">Sport Shoes</Link>
                   </li>
-                 
                 </ul>
               </div>
             </Sider>
@@ -95,24 +94,25 @@ const onChange = (page) => {
               {Array.from(productList).map(product => {
                 let data = product.attributes;
                 return (
-                  <div style={{color:'black',marginTop:'24px'}} key={product.id} >           
+                  <div
+                    style={{ color: 'black', marginTop: '24px' }}
+                    key={product.id}
+                  >
                     <ProductCard
-                    productId = {product.id}
+                      productId={product.id}
                       name={data.name}
                       price={data.price}
                       image={data.image}
                     />
-                 
                   </div>
                 );
               })}
             </div>
           </Layout>
         </Content>
-        
-        <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
-        
-        {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
+
+        <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
+          {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
         <LeftOutlined style={{color:''}} />
     </Button>
     <Button onClick={prevPage} type="text" danger>
@@ -124,9 +124,13 @@ const onChange = (page) => {
     <Button  disabled={page >=2 } onClick={nextPage} type="text" danger>
     <RightOutlined />
     </Button> */}
-        </Footer>  
+        </Footer>
       </Layout>
-    <Pagination defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
+      <Pagination
+        defaultCurrent={1}
+        total={20}
+        style={{ textAlign: 'center' }}
+      />
     </div>
   );
 };

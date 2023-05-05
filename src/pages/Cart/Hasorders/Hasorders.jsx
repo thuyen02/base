@@ -121,10 +121,12 @@ export default function HasOrders() {
             quantity: product.attributes.quantity - 1,
           },
         };
-        await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
-          console.log(response.data.attributes.quantity);
-          // setQuantity(quantity);
-        });
+        await axiosInstance
+          .put(`/orders/${product.id}`, data)
+          .then(response => {
+            console.log(response.data.attributes.quantity);
+            // setQuantity(quantity);
+          });
       } else {
         console.log('Số lượng nhỏ hơn 1');
       }
