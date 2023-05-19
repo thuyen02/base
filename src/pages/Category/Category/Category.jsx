@@ -39,23 +39,23 @@ const Category = () => {
     }
   };
 
-  // const prevPage = async () => {
-  //   const pg = page === 1 ? 1 : page - 1;
-  //   fetchProductList(pg);
-  //   setpage(pg);
-  // };
-  // const nextPage = async () => {
-  //   const pg = page + 1;
-  //   fetchProductList(pg);
-  //   setpage(pg);
-  // };
+const prevPage = async() =>{
+  
+  const pg = page === 1 ? 1 : page-1;
+  fetchProductList(pg)
+  setpage(pg)
+}
+const nextPage = async() =>{
+  const pg = page + 1;
+  fetchProductList(pg)
+  setpage(pg)
+}
 
-  const [current, setCurrent] = useState(1);
-  const onChange = (page) => {
-    fetchProductList(page)
-
-    setCurrent(page);
-  }
+const [current, setCurrent] = useState(1);
+const onChange = (page) => {
+  console.log(page);
+  setCurrent(page);
+};
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -111,9 +111,10 @@ const Category = () => {
             </div>
           </Layout>
         </Content>
-
-        <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-{/*        
+        
+        <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
+        
+        {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
         <LeftOutlined style={{color:''}} />
 
     <Button onClick={prevPage} type="text" danger>
@@ -124,14 +125,10 @@ const Category = () => {
     </Button>
   
     <RightOutlined />
-    */}
-        </Footer>
+    </Button> */}
+        </Footer>  
       </Layout>
-      <Pagination
-       onChange={onChange}
-        total={20}
-        style={{ textAlign: 'center' }}
-      />
+    <Pagination defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
     </div>
   );
 };

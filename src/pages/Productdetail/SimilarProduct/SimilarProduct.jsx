@@ -1,8 +1,8 @@
+/* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Row } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
-import axiosInstance from '../../../shared/services/http-client';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import {
   SimilarProductContainer,
@@ -10,33 +10,37 @@ import {
   BtnNextProductSimilar,
   ItemProduct,
 } from './SimilarProductStyle';
+import productApi from '../../../API/productApi';
 
 function SimilarProduct(props) {
   const [listProduct, setListProduct] = useState([]);
-  const [filter, setFilter] = useState(1);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getListProduct();
-  }, [filter]);
+  }, [page]);
   // Get list product from api
   const getListProduct = async () => {
     try {
-      const res = await axiosInstance.get(
-        `/products?pagination[pageSize]=4&pagination[page]=${filter}`
-      );
-      const limittedProduct = res.data;
-      setListProduct(limittedProduct);
+      const params = {
+        ['pagination[pageSize]']: 4,
+        ['pagination[page]']: page,
+        // ['filters[name][$contains]']: ,
+      };
+      const res = await productApi.getAll(params);
+      setListProduct(res.data);
     } catch (err) {
       console.log(err.message);
     }
   };
+
   const handleNextProduct = () => {
     if (listProduct.length < 4) return;
-    setFilter(filter + 1);
+    setPage(page + 1);
   };
   const handlePrevProduct = () => {
-    if (filter === 1) return;
-    setFilter(filter - 1);
+    if (page === 1) return;
+    setPage(page - 1);
   };
   const handleClickProductItem = id => {
     props.onIdSelected(id);

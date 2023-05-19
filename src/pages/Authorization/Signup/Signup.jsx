@@ -4,6 +4,7 @@ import { InputC } from '../../../Components/Input/Input';
 import './Signup.css';
 import axiosInstance from '../../../shared/services/http-client';
 import { Link, useNavigate } from 'react-router-dom';
+import { ACCESS_TOKEN, USER_ID } from '../../../shared/constants';
 //get data from
 const SignupForm = () => {
   const [form] = Form.useForm();
@@ -21,8 +22,9 @@ const SignupForm = () => {
     const postsData = await axiosInstance
       .post('/auth/local/register', newUser)
       .then(res => {
-        let jwt = res.jwt;
-        localStorage.setItem('at', jwt);
+        localStorage.setItem(ACCESS_TOKEN, res.jwt);
+        localStorage.setItem(USER_ID, res.user.id);
+
         onReset();
       });
   };

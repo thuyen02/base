@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-computed-key */
 import { Row, Col, Image } from 'antd';
 import { useState, useEffect } from 'react';
 import Parser from 'html-react-parser';
@@ -18,15 +19,19 @@ import {
   PriceProductDetail,
 } from './ProductDetailStyle';
 import productApi from '../../../API/productApi';
+import orderApi from '../../../API/orderApi';
 
 export default function ProductDetail() {
   const isLogin = localStorage.getItem('at') ? true : false;
+  const userId = localStorage.getItem('ut');
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
-  const [productId, setProductId] = useState(id);
+  const [productId, setProductId] = useState(
+    id && Math.floor(Math.random() * 10)
+  );
   const navigate = useNavigate();
   useEffect(() => {
     getDataProduct();
@@ -39,23 +44,59 @@ export default function ProductDetail() {
 
   //Add to cart
 
-  const handleAddToCart = () => {
-    const data = {
-      size: size,
+  const handleAddToCart = async () => {
+    if (!isLogin) return navigate('/signin');
+    const dataInput = {
+      // size: size,
       product: productId,
-      user: 1,
+      user: userId,
       quantity: quantity,
+      total: quantity * dataProduct.price,
     };
-    if (isLogin) {
-      addtoCart(data);
-    } else {
-      navigate('/signin');
+    const params = {
+      populate: 'product',
+      ['filters[user][id]']: userId,
+    };
+    try {
+      const res = await orderApi.getOrderList(params);
+      const orders = res.data;
+      let foundOrder = false;
+      orders.forEach(order => {
+        const getProductInOrder = order.attributes.product.data
+          ? order.attributes.product.data
+          : false;
+        if (getProductInOrder && getProductInOrder.id === dataInput.product) {
+          foundOrder = true;
+          updateOrder(order, dataInput);
+        }
+      });
+      if (!foundOrder) {
+        if (dataInput === {}) return;
+        createOrder(dataInput);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const addtoCart = async data => {
-    const postData = await productApi.postAddToCart(data);
-    console.log(postData);
+  const updateOrder = async (order, dataInput) => {
+    try {
+      const orderId = order.id;
+      const res = await orderApi.updateOrder(orderId, dataInput);
+
+      console.log('Updated', res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const createOrder = async data => {
+    try {
+      const res = await orderApi.createOrder(data);
+
+      console.log('created', res);
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 
   const getDataProduct = async () => {
@@ -69,7 +110,6 @@ export default function ProductDetail() {
 
   const handleChange = value => {
     setSize(size);
-    console.log(size, quantity);
   };
 
   // Change quantity
@@ -139,19 +179,19 @@ export default function ProductDetail() {
               onChange={handleChange}
               options={[
                 {
-                  value: 'xl',
+                  value: 4,
                   label: 'XL',
                 },
                 {
-                  value: 'l',
+                  value: 3,
                   label: 'L',
                 },
                 {
-                  value: 'm',
+                  value: 2,
                   label: 'M',
                 },
                 {
-                  value: 's',
+                  value: 1,
                   label: 'S',
                 },
               ]}

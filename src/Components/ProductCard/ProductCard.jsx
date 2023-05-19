@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
-import productApi from '../../API/productApi';
+import orderApi from '../../API/orderApi';
 
 const IconCart = styled.div`
   display: flex;
@@ -26,6 +25,7 @@ const IconCart = styled.div`
   }
 `;
 const CardProduct = styled.div`
+  margin-top: 20px;
   width: 256px;
   height: 444px;
   box-sizing: border-box;
@@ -63,31 +63,79 @@ const CardProductBody = styled.div`
 `;
 
 const ProductCard = props => {
+  // const [dataInput, setDataInput] = useState({});
   const isLoggedIn = localStorage.getItem('at') ? true : false;
-
+  const userId = localStorage.getItem('ut');
   const navigate = useNavigate();
   const handleClickCard = id => {
     navigate(`/product/${id}`);
   };
-  const handleAddToCart = async data => {
-    const res = await productApi.postAddToCart(data);
-    console.log(res.data);
-  };
-  const handleClikItemCart = (e, id, price) => {
+
+  const handleClikItemCart = async (e, id, price) => {
     e.stopPropagation();
-    const dataProduct = {
-      size: 'M',
-      product: id,
-      user: 1,
+    const dataInput = {
       quantity: 1,
+      product: id,
       total: price,
     };
-    if (isLoggedIn) {
-      //handle add to cart
-      handleAddToCart(dataProduct);
-      alert('Add to cart');
+    if (!isLoggedIn) {
+      return navigate('/signin');
     } else {
-      navigate('/signin');
+      await getOrderList(id, dataInput);
+    }
+  };
+
+  const getOrderList = async (productId, dataInput) => {
+    const params = {
+      populate: 'product',
+      // eslint-disable-next-line no-useless-computed-key
+      ['filters[user][id]']: userId,
+    };
+    try {
+      const res = await orderApi.getOrderList(params);
+      const orders = res.data;
+      let foundOrder = false;
+      orders.forEach(order => {
+        const getProductInOrder = order.attributes.product.data
+          ? order.attributes.product.data
+          : false;
+
+        if (getProductInOrder && getProductInOrder.id === productId) {
+          foundOrder = true;
+          updateOrder(order, productId);
+        }
+      });
+      if (!foundOrder) {
+        if (dataInput === {}) return;
+        createOrder(dataInput);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateOrder = async (order, productId) => {
+    try {
+      const dataRes = order.attributes;
+      const orderId = order.id;
+      const data = {
+        ...dataRes,
+        quantity: dataRes.quantity + 1,
+        total: dataRes.total + dataRes.total / dataRes.quantity,
+      };
+      const res = await orderApi.updateOrder(orderId, data);
+      console.log('Updated', res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const createOrder = async dataInput => {
+    try {
+      const data = { ...dataInput, user: userId };
+      const res = await orderApi.createOrder(data);
+      console.log('Created', res);
+    } catch (err) {
+      console.log(err);
     }
   };
   return (

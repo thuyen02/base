@@ -1,6 +1,6 @@
 import { Checkbox, Form } from 'antd';
 import axiosInstance from '../../../shared/services/http-client';
-import { ACCESS_TOKEN } from '../../../shared/constants/index';
+import { ACCESS_TOKEN, USER_ID } from '../../../shared/constants/index';
 import { InputC } from '../../../Components/Input/Input';
 import { ButtonC } from '../../../Components/Button/index';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,9 @@ export const SignIn = () => {
       };
       const res = await axiosInstance.post('auth/local', data);
       localStorage.setItem(ACCESS_TOKEN, res.jwt);
+
+      localStorage.setItem(USER_ID, res.user.id);
+      console.log(res);
       swal({
         title: 'Good job!',
         text: 'Loggin is successful!',
