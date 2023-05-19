@@ -5,12 +5,13 @@ import logoIcon from './Icon.jpg';
 import { ACCESS_TOKEN } from '../../shared/constants/index';
 import { Menu, Input } from 'antd';
 import { UserOutlined, SearchOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import HasOrders from './../../pages/Cart/Hasorders/Hasorders';
 import axiosInstance from '../../shared/services/http-client';
 import NoOrder from './../../pages/Cart/Noorder/Noorder';
 const Header = () => {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('q'));
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('at') ? true : false
   );
@@ -20,20 +21,25 @@ const Header = () => {
     setIsLoggedIn(false);
   };
   useEffect(() => {
-    axiosInstance.get('/orders').then(response => {
-      setQuantity(response.meta.pagination.total);
-    }).catch(error=> {console.log(error)})
-  }, [])
+    axiosInstance
+      .get('/orders')
+      .then(response => {
+        setQuantity(response.meta.pagination.total);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
   useEffect(() => {
     const loggedIn = localStorage.getItem('at') ? true : false;
     setIsLoggedIn(loggedIn);
   }, []);
-  const params = new URLSearchParams();
-  params.append('q', query);
+
   const navigate = useNavigate();
   const handleSumitSearch = e => {
+    setSearchParams({ q: query });
     e.preventDefault();
-    navigate(`/search?${params.toString()}`);
+    navigate(`/search?${query}`);
     setQuery('');
   };
 
@@ -93,7 +99,7 @@ const Header = () => {
               {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
               {/* <HasOrders />
               <NoOrder /> */}
-              {quantity === 0 ? <NoOrder/> : <HasOrders/>}
+              {quantity === 0 ? <NoOrder /> : <HasOrders />}
             </Menu.Item>
           )}
         </Menu>

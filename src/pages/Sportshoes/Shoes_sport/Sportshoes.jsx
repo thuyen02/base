@@ -66,7 +66,7 @@ const Sportshoes = () => {
               {Array.from(productList).map(product => {
                 let data = product.attributes;
                 return (
-                  <Link
+                  <div
                     style={{ color: 'black', paddingTop: '24px' }}
                     key={product.id}
                     to={`/product/${product.id}`}
@@ -75,8 +75,9 @@ const Sportshoes = () => {
                       name={data.name}
                       price={data.price}
                       image={data.image}
+                      productId={product.id}
                     />
-                  </Link>
+                  </div>
                 );
               })}
             </div>

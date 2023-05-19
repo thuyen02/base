@@ -70,6 +70,7 @@ function SimilarProduct(props) {
                 name={data.name}
                 price={data.price}
                 image={data.image}
+                productId={product.id}
               />
             </ItemProduct>
           );

@@ -3,7 +3,7 @@ import { Col } from 'antd';
 // import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
 export const SimilarProductContainer = styled.div`
-  max-width: 1440px;
+  max-width: 100%;
   position: relative;
   margin: 80px auto 80px;
   font-family: 'Raleway';
