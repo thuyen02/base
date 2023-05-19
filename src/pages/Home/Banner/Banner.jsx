@@ -12,8 +12,11 @@ const BannerContainer = styled.div`
 `;
 
 const Banner = styled.div`
-  width: 100%;
-  height: 100vh;
+width: 100vw;
+height: 100vh;
+  width: 1240px;
+  height: 500px;
+  object-fit: cover;
   background-image: url(${bannerImage});
   background-size: cover;
   background-position: 60%;

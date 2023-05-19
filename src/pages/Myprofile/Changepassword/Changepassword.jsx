@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Form, Button, Layout, Menu } from 'antd';
 import './Changepassword.css';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { InputC } from '../../../components/Input/Input';
+import { InputC } from '../../../Components/Input/Input';
 import './Changepassword.css';
 import axiosInstance from '../../../shared/services/http-client';
 import swal from 'sweetalert';
