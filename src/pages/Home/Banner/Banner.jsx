@@ -5,17 +5,15 @@ import { Carousel } from 'antd';
 
 const BannerContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 77vh;
   padding: 0 50px;
   display: flex;
   justify-content: center;
 `;
 
 const Banner = styled.div`
-width: 100vw;
-height: 100vh;
-  width: 1240px;
-  height: 500px;
+width: 100%;
+height: 76vh;
   object-fit: cover;
   background-image: url(${bannerImage});
   background-size: cover;

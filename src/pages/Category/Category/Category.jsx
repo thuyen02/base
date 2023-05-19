@@ -96,7 +96,7 @@ const onChange = (page) => {
                 let data = product.attributes;
                 return (
                   <div
-                    style={{ color: 'black', marginTop: '24px' }}
+                    style={{ color: 'black', marginTop: '24px', marginRight:'24px'}}
                     key={product.id}
                   >
                     <ProductCard
