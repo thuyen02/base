@@ -53,7 +53,7 @@ const nextPage = async() =>{
 
 const [current, setCurrent] = useState(1);
 const onChange = (page) => {
-  console.log(page);
+  fetchProductList(page)
   setCurrent(page);
 };
   return (
@@ -128,7 +128,7 @@ const onChange = (page) => {
     </Button> */}
         </Footer>  
       </Layout>
-    <Pagination defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
+    <Pagination onChange={onChange} defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
     </div>
   );
 };
