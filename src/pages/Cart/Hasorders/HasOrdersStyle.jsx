@@ -71,7 +71,7 @@ export const ProductName = styled.div`
 export const ProductPrice = styled.div`
   font-size: 18px;
   font-weight: 500;
-`;
+`; 
 export const Quantity = styled.div`
   display: flex;
   justify-content: space-around;
