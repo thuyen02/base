@@ -3,6 +3,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 import orderApi from '../../API/orderApi';
+import swal from 'sweetalert';
 
 const IconCart = styled.div`
   display: flex;
@@ -61,6 +62,17 @@ const CardProductBody = styled.div`
     color: #1d1f22;
   }
 `;
+const notification = {
+  title: 'Successful!',
+  text: 'Add to cart successful!',
+  icon: 'success',
+  button: 'OK',
+  position: 'top-end',
+  width: 400,
+  padding: '2em',
+  backdrop: true,
+  timer: 1000,
+};
 
 const ProductCard = props => {
   // const [dataInput, setDataInput] = useState({});
@@ -75,8 +87,8 @@ const ProductCard = props => {
     e.stopPropagation();
     const dataInput = {
       quantity: 1,
-      product: id,
-      total: price,
+      product: +id,
+      total: +price,
     };
     if (!isLoggedIn) {
       return navigate('/signin');
@@ -84,7 +96,6 @@ const ProductCard = props => {
       await getOrderList(id, dataInput);
     }
   };
-
   const getOrderList = async (productId, dataInput) => {
     const params = {
       populate: 'product',
@@ -123,17 +134,18 @@ const ProductCard = props => {
         quantity: dataRes.quantity + 1,
         total: dataRes.total + dataRes.total / dataRes.quantity,
       };
-      const res = await orderApi.updateOrder(orderId, data);
-      console.log('Updated', res);
+      await orderApi.updateOrder(orderId, data);
+      swal(notification);
     } catch (err) {
       console.log(err);
     }
   };
   const createOrder = async dataInput => {
     try {
-      const data = { ...dataInput, user: userId };
-      const res = await orderApi.createOrder(data);
-      console.log('Created', res);
+      const data = { ...dataInput, user: +userId };
+      console.log(data);
+      await orderApi.createOrder(data);
+      swal(notification);
     } catch (err) {
       console.log(err);
     }

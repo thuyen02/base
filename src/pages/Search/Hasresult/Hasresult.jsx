@@ -31,10 +31,10 @@ export default function Hasresult() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const key = searchParams.get('q');
+  console.log(key);
   //Get api from search
   useEffect(() => {
     getDataFromSearch();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
   const getDataFromSearch = async () => {

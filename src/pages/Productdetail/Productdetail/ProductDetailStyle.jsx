@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Button, Select, Col } from 'antd';
 
 export const ProductDetailContainer = styled.div`
-  max-width: 1440px;
+  max-width: 100%;
   margin: auto;
   padding: 40px 0 40px 0;
   font-family: 'Raleway';
@@ -82,7 +82,7 @@ export const ContentDescription = styled.div`
     font-size: 16px;
     line-height: 25.6px;
     font-style: 'Roboto';
-    width: 522px;
+    max-width: 522px;
     height: 248px;
     box-sizing: border-box;
   }

@@ -1,25 +1,38 @@
 /* eslint-disable no-useless-computed-key */
-import { Row, Col, Image } from 'antd';
-import { useState, useEffect } from 'react';
+import { Col, Image, Row } from 'antd';
 import Parser from 'html-react-parser';
-import SimilarProduct from '../SimilarProduct/SimilarProduct';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import SimilarProduct from '../SimilarProduct/SimilarProduct';
+import swal from 'sweetalert';
 // import axiosInstance from '../../../shared/services/http-client';
 
-import {
-  ProductDetailContainer,
-  ImageDetailStyles,
-  TitleProductDetail,
-  SelectSize,
-  DetailQtyProduct,
-  BtnAddToCard,
-  TitleDescription,
-  ContentDescription,
-  QtyBtnContent,
-  PriceProductDetail,
-} from './ProductDetailStyle';
-import productApi from '../../../API/productApi';
 import orderApi from '../../../API/orderApi';
+import productApi from '../../../API/productApi';
+import {
+  BtnAddToCard,
+  ContentDescription,
+  DetailQtyProduct,
+  ImageDetailStyles,
+  PriceProductDetail,
+  ProductDetailContainer,
+  QtyBtnContent,
+  SelectSize,
+  TitleDescription,
+  TitleProductDetail,
+} from './ProductDetailStyle';
+
+const notification = {
+  title: 'Successful!',
+  text: 'Loggin is successful!',
+  icon: 'success',
+  button: 'OK',
+  position: 'top-end',
+  width: 400,
+  padding: '2em',
+  backdrop: true,
+  timer: 1000,
+};
 
 export default function ProductDetail() {
   const isLogin = localStorage.getItem('at') ? true : false;
@@ -29,10 +42,9 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
-  const [productId, setProductId] = useState(
-    id && Math.floor(Math.random() * 10)
-  );
+
   const navigate = useNavigate();
+
   useEffect(() => {
     getDataProduct();
     window.scrollTo({
@@ -40,7 +52,7 @@ export default function ProductDetail() {
       behavior: 'smooth',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [id]);
 
   //Add to cart
 
@@ -48,9 +60,9 @@ export default function ProductDetail() {
     if (!isLogin) return navigate('/signin');
     const dataInput = {
       // size: size,
-      product: productId,
-      user: userId,
-      quantity: quantity,
+      product: +id,
+      user: +userId,
+      quantity: +quantity,
       total: quantity * dataProduct.price,
     };
     const params = {
@@ -82,18 +94,23 @@ export default function ProductDetail() {
   const updateOrder = async (order, dataInput) => {
     try {
       const orderId = order.id;
-      const res = await orderApi.updateOrder(orderId, dataInput);
-
-      console.log('Updated', res);
+      await orderApi.updateOrder(orderId, dataInput);
+      setQuantity(1);
+      swal({
+        ...notification,
+        text: `The Quantity of products has changed in the cart`,
+      });
     } catch (err) {
       console.log(err);
     }
   };
-  const createOrder = async data => {
-    try {
-      const res = await orderApi.createOrder(data);
+  const createOrder = async dataInput => {
+    if (!id) return;
 
-      console.log('created', res);
+    try {
+      await orderApi.createOrder(dataInput);
+      setQuantity(1);
+      swal({ ...notification, text: `Add to cart successfully` });
     } catch (err) {
       throw new Error(err);
     }
@@ -101,7 +118,7 @@ export default function ProductDetail() {
 
   const getDataProduct = async () => {
     try {
-      const res = await productApi.getId(productId);
+      const res = await productApi.getId(id);
       setDataProduct(res.data.attributes);
     } catch (error) {
       console.log(error);
@@ -130,7 +147,8 @@ export default function ProductDetail() {
 
   //Get id  product from similar  component
   const handleSelectedProduct = id => {
-    setProductId(id);
+    // setProductId(id);
+    navigate(`/product/${id}`);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
