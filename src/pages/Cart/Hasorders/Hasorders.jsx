@@ -8,9 +8,9 @@ import {
   RemoveButton,
   ProductName,
   ProductPrice,
-  ProductSize,
   Quantity,
   QuantityButton,
+  QuantityButtonNone,
   CheckOut,
   CheckOutButton,
   Total,
@@ -22,11 +22,10 @@ import NoOrder from '../Noorder/Noorder';
 export default function HasOrders() {
   // Tạo các state
   const [products, setProducts] = useState([]);
-  // let [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0);
+  const [updateQuantiy, setUpdateQuantity] = useState({});
   const userID = localStorage.getItem('ut');
-  // console.log(userID);
 
   //Lấy danh sách sản phẩm từ API
   useEffect(() => {
@@ -34,10 +33,9 @@ export default function HasOrders() {
       .get(`/orders?populate=product&filters[user][id]=${userID}`)
       .then(response => {
         setProducts(response.data);
-        // console.log(response.data);
       })
       .catch(error => console.log(error));
-  }, []);
+  }, [userID, open]);
 
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
@@ -106,6 +104,7 @@ export default function HasOrders() {
       };
       await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
         console.log(response.data.attributes.quantity);
+        setUpdateQuantity({ ...updateQuantiy, [product.id]: response.data });
       });
     } catch (error) {
       console.log(error);
@@ -115,26 +114,37 @@ export default function HasOrders() {
   //Hàm xử lý khi giảm số lượng
   const handleSubQuantity = async product => {
     try {
-      if (product.attributes.quantity > 1) {
-        const data = {
-          data: {
-            quantity: product.attributes.quantity - 1,
-          },
-        };
-        await axiosInstance
-          .put(`/orders/${product.id}`, data)
-          .then(response => {
-            console.log(response.data.attributes.quantity);
-            // setQuantity(quantity);
-          });
-      } else {
-        console.log('Số lượng nhỏ hơn 1');
-      }
+      const data = {
+        data: {
+          quantity: product.attributes.quantity - 1,
+        },
+      };
+      await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
+        console.log(response.data.attributes.quantity);
+        setUpdateQuantity({
+          ...updateQuantiy,
+          [product.id]: response.data,
+        });
+        // setQuantity(quantity);
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/orders?populate=product&filters[user][id]=${userID}`
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, [userID, updateQuantiy]);
   //Lấy số lượng sản phẩm trong giỏ hàng
   const totalProducts = products.length;
 
@@ -179,18 +189,16 @@ export default function HasOrders() {
                         <sup style={{ fontSize: 14 }}>đ</sup>
                         {product.attributes.product.data.attributes.price.toLocaleString()}
                       </ProductPrice>
-                      {/* <ProductSize>
-                        Size:{' '}
-                        <span style={{ fontWeight: 600 }}>
-                          {product.attributes.product.data.attributes.size}
-                        </span>
-                      </ProductSize> */}
                       <Quantity>
-                        <QuantityButton
-                          onClick={() => handleSubQuantity(product)}
-                        >
-                          -
-                        </QuantityButton>
+                        {product.attributes.quantity > 1 ? (
+                          <QuantityButton
+                            onClick={() => handleSubQuantity(product)}
+                          >
+                            -
+                          </QuantityButton>
+                        ) : (
+                          <QuantityButtonNone>-</QuantityButtonNone>
+                        )}
                         <div>{product.attributes.quantity}</div>
                         <QuantityButton
                           onClick={() => handleAddQuantity(product)}

@@ -58,7 +58,6 @@ export const CardInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  /* padding-left: 16px; */
   padding: 8px;
   font-size: 14px;
   font-weight: 400;
@@ -72,10 +71,7 @@ export const ProductName = styled.div`
 export const ProductPrice = styled.div`
   font-size: 18px;
   font-weight: 500;
-`;
-export const ProductSize = styled.span`
-  font-size: 16px;
-`;
+`; 
 export const Quantity = styled.div`
   display: flex;
   justify-content: space-around;
@@ -91,6 +87,11 @@ export const QuantityButton = styled.button`
   width: 33%;
   cursor: pointer;
 `;
+export const QuantityButtonNone = styled.button`
+  border: none;
+  width: 33%;
+  cursor: not-allowed;
+`
 export const CheckOut = styled.div`
   padding: 24px;
   height: auto;
