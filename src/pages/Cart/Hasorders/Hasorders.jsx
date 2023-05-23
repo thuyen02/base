@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { React, useEffect, useState } from 'react';
 import {
   Container,
@@ -26,7 +27,6 @@ export default function HasOrders() {
   const [total, setTotal] = useState(0);
   const [updateQuantiy, setUpdateQuantity] = useState({});
   const userID = localStorage.getItem('ut');
-
   //Lấy danh sách sản phẩm từ API
   useEffect(() => {
     axiosInstance
@@ -35,8 +35,7 @@ export default function HasOrders() {
         setProducts(response.data);
       })
       .catch(error => console.log(error));
-  }, [userID, open]);
-
+  }, [products]);
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
     let newTotal = 0;
@@ -49,11 +48,11 @@ export default function HasOrders() {
   }, [products, total]);
 
   //Hàm xử lý đóng mở giỏ hàng
-  const showDrawer = () => {
-    setOpen(true);
-  };
   const onClose = () => {
     setOpen(false);
+  };
+  const showDrawer = () => {
+    setOpen(true);
   };
 
   //Hàm xử lý khi thanh toán
@@ -88,6 +87,9 @@ export default function HasOrders() {
         console.log(response.data);
         const newProducts = products.filter(product => product.id !== id);
         setProducts(newProducts);
+        if (newProducts.length === 0) {
+          setOpen(false);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -145,12 +147,10 @@ export default function HasOrders() {
     };
     getProducts();
   }, [userID, updateQuantiy]);
-  //Lấy số lượng sản phẩm trong giỏ hàng
-  const totalProducts = products.length;
 
   return (
     <>
-      {totalProducts === 0 ? (
+      {products.length === 0 ? (
         <NoOrder />
       ) : (
         <>
@@ -160,7 +160,7 @@ export default function HasOrders() {
             onClose={onClose}
             open={open}
             closeIcon={<img src={close} alt="close button" />}
-            title={`Total items: ${totalProducts}`}
+            title={`Total items: ${products.length}`}
           >
             <ProductList>
               {products.map(product => (
