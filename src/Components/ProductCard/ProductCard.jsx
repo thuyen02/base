@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-computed-key */
 import styled from 'styled-components';
 import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
@@ -75,7 +76,6 @@ const notification = {
 };
 
 const ProductCard = props => {
-  // const [dataInput, setDataInput] = useState({});
   const isLoggedIn = localStorage.getItem('at') ? true : false;
   const userId = localStorage.getItem('ut');
   const navigate = useNavigate();
@@ -99,7 +99,6 @@ const ProductCard = props => {
   const getOrderList = async (productId, dataInput) => {
     const params = {
       populate: 'product',
-      // eslint-disable-next-line no-useless-computed-key
       ['filters[user][id]']: userId,
     };
     try {
@@ -143,7 +142,7 @@ const ProductCard = props => {
   const createOrder = async dataInput => {
     try {
       const data = { ...dataInput, user: +userId };
-      console.log(data);
+
       await orderApi.createOrder(data);
       swal(notification);
     } catch (err) {
