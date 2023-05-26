@@ -8,26 +8,51 @@ import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
 const Sportshoes = () => {
-  const [productId, setProductId] = useState(1);
-  const [productList, setproductList] = useState([]);
-  const [pageSize, setpageSize] = useState(8);
-  const [page, setpage] = useState(1);
-  const [total, settotal] = useState(7);
-  const [categoryId] = useState(2);
-  useEffect(() => {
-    fetchProductList();
-  }, []);
-  const fetchProductList = async () => {
-    try {
-      const response = await productApi.getCategoryId(categoryId);
-      const hot = response.data.attributes.products.data;
-      setproductList(hot);
-      console.log(hot);
-    } catch (error) {
-      console.log('Faild to fetch product list: ', error);
-    }
-  };
+ // const [productId, setProductId] = useState(1);
+ const [productList, setproductList] = useState([]);
+ const [pageSize, setpageSize] = useState(8);
+ const [page, setpage] = useState(1);
+ const [total, settotal] = useState(12);
+ const [category, setcategoryId] = useState({
+   value: 'sports',
+ });
+ const [size, setSize] = useState('large');
+ useEffect(() => {
+   fetchProductList();
+ }, []);
+ const fetchProductList = async (pg = page, pgSize = pageSize) => {
+   try {
+     const params = {
+       ['filters[category]']: category.value === 'sport' ? 1 : 2,
+       ['pagination[pageSize]']: pgSize,
+       ['pagination[page]']: pg,
+     };
+     const response = await productApi.getAll(params);
+     const hot = response.data;
+     setproductList(hot);
+     console.log(hot);
+   } catch (error) {
+     console.log('Faild to fetch product list: ', error);
+   }
+ };
 
+// const prevPage = async() =>{
+ 
+//   const pg = page === 1 ? 1 : page-1;
+//   fetchProductList(pg)
+//   setpage(pg)
+// }
+// const nextPage = async() =>{
+//   const pg = page + 1;
+//   fetchProductList(pg)
+//   setpage(pg)
+// }
+
+const [current, setCurrent] = useState(1);
+const onChange = (page) => {
+ fetchProductList(page)
+ setCurrent(page);
+};
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -84,7 +109,7 @@ const Sportshoes = () => {
           </Layout>
         </Content>
         <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-          <Pagination defaultCurrent={1} total={10} />
+          <Pagination onChange={onChange} defaultCurrent={1} total={20} />
         </Footer>
       </Layout>
     </div>

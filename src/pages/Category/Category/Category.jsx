@@ -11,7 +11,7 @@ import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;
 
 const Category = () => {
-  const [productId, setProductId] = useState(1);
+  // const [productId, setProductId] = useState(1);
   const [productList, setproductList] = useState([]);
   const [pageSize, setpageSize] = useState(8);
   const [page, setpage] = useState(1);
@@ -39,17 +39,17 @@ const Category = () => {
     }
   };
 
-const prevPage = async() =>{
+// const prevPage = async() =>{
   
-  const pg = page === 1 ? 1 : page-1;
-  fetchProductList(pg)
-  setpage(pg)
-}
-const nextPage = async() =>{
-  const pg = page + 1;
-  fetchProductList(pg)
-  setpage(pg)
-}
+//   const pg = page === 1 ? 1 : page-1;
+//   fetchProductList(pg)
+//   setpage(pg)
+// }
+// const nextPage = async() =>{
+//   const pg = page + 1;
+//   fetchProductList(pg)
+//   setpage(pg)
+// }
 
 const [current, setCurrent] = useState(1);
 const onChange = (page) => {
