@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Form, Button, Layout, Menu } from 'antd';
 import './Changepassword.css';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { InputC } from '../../../Components/Input/Input';
+import { InputC } from '../../../components/Input/Input';
 import './Changepassword.css';
 import axiosInstance from '../../../shared/services/http-client';
 import swal from 'sweetalert';
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 // import Menu from 'antd'
 function Changepassword() {
   const formRef = useRef(null);
-  const onFinish = values => {
+  const onFinish = async values => {
     const { current_password, new_password, repeat_password } = values;
     const data = {
       currentPassword: current_password,
@@ -18,7 +18,7 @@ function Changepassword() {
       passwordConfirmation: repeat_password,
     };
     try {
-      axiosInstance.post('/auth/change-password', data).then(response => {
+      await axiosInstance.post('/auth/change-password', data).then(response => {
         // console.log(response.data.current_password);
         swal({
           title: 'Good job!',
@@ -29,24 +29,35 @@ function Changepassword() {
           width: 400,
           padding: '2em',
           backdrop: true,
-          // timer: 1000,
+          timer: 3000,
         });
-        localStorage.setItem('token', response.data);
         formRef.current.resetFields();
       });
     } catch (error) {
-      swal({
-        title: 'Fail!',
-        text: 'Current password you entered is incorrect',
-        icon: 'warning',
-        button: 'OK',
-        position: 'top-end',
-        width: 400,
-        padding: '2em',
-        backdrop: true,
-        // timer: 1000,
-      });
-      console.log(error);
+      if (
+        error.request.response.includes(
+          'The provided current password is invalid'
+        )
+      ) {
+        swal({
+          title: 'Password change failed!',
+          text: 'Current password is incorrect',
+          icon: 'error',
+          button: 'OK',
+          position: 'top-end',
+          width: 400,
+          padding: '2em',
+          backdrop: true,
+          timer: 3000,
+        });
+      } else {
+        swal({
+          title: 'An error occurred when changing password',
+          text: 'Please try again later',
+          icon: 'error',
+          timer: 3000,
+        });
+      }
     }
   };
   return (
@@ -74,7 +85,7 @@ function Changepassword() {
             rules={[
               {
                 required: true,
-                message: 'Please input Current Password!',
+                message: 'Please enter Current Password!',
               },
               {
                 pattern: /^\S+$/,
@@ -95,7 +106,7 @@ function Changepassword() {
             rules={[
               {
                 required: true,
-                message: 'Please input New Password!',
+                message: 'Please enter New Password!',
               },
               {
                 pattern: /^\S+$/,
@@ -141,7 +152,7 @@ function Changepassword() {
             rules={[
               {
                 required: true,
-                message: 'Please input Repeat Password!',
+                message: 'Please enter Repeat Password!',
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {

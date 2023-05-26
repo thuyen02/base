@@ -25,6 +25,7 @@ export default function HasOrders() {
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0);
   const [updateQuantiy, setUpdateQuantity] = useState({});
+  const [hasOrder, setHasOrder] = useState(false);
   const userID = localStorage.getItem('ut');
 
   //Lấy danh sách sản phẩm từ API
@@ -33,6 +34,7 @@ export default function HasOrders() {
       .get(`/orders?populate=product&filters[user][id]=${userID}`)
       .then(response => {
         setProducts(response.data);
+        setHasOrder(response.data.length > 0);
       })
       .catch(error => console.log(error));
   }, [userID, open]);
@@ -150,11 +152,12 @@ export default function HasOrders() {
 
   return (
     <>
-      {totalProducts === 0 ? (
-        <NoOrder />
-      ) : (
+      {hasOrder ? (
         <>
-          <ShoppingCartOutlined onClick={showDrawer} />
+          <div onClick={showDrawer}>
+            <ShoppingCartOutlined />
+            <sup>{totalProducts}</sup>
+          </div>
           <Container
             placement="right"
             onClose={onClose}
@@ -234,6 +237,8 @@ export default function HasOrders() {
             </CheckOut>
           </Container>
         </>
+      ) : (
+        <NoOrder />
       )}
     </>
   );

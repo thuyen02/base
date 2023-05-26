@@ -5,8 +5,8 @@ import SignIn from './pages/Authorization/SignIn/SignIn';
 import SignUp from './pages/Authorization//Signup/Signup';
 import Updateprofile from './pages/Myprofile/Updateprofile/Updateprofile';
 import Changepassword from './pages/Myprofile/Changepassword/Changepassword';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import ProductDetail from './pages/Productdetail/Productdetail/ProductDetail';
 import { Outlet } from 'react-router-dom';
 import Category from './pages/Category/Category/Category';
@@ -17,11 +17,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
+      <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
         <Header />
         <Outlet />
         <Footer />
-      </>
+      </div>
     ),
     children: [
       {
