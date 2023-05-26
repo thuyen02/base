@@ -55,64 +55,78 @@ const onChange = (page) => {
 };
   return (
     <div>
-      <Layout style={{ backgroundColor: '#fff ' }}>
-        <Content style={{ padding: '0 50px' }}>
-          <div className="Category-header">
-            <h2>Category</h2>
-            <p>
-              Products found: <span>{total}</span>{' '}
-            </p>
-          </div>
+    <Layout style={{ backgroundColor: '#fff ' }}>
+      <Content style={{ padding: '0 50px' }}>
+        <div className="Category-header">
+          <h2>Category</h2>
+          <p>
+            Products found: <span>{total}</span>{' '}
+          </p>
+        </div>
 
-          <Layout style={{ padding: '0 0', backgroundColor: '#fff' }}>
-            <Sider style={{ backgroundColor: '#fff ' }} width={200}>
-              <div className="category-menu">
-                <ul className="category-menu_ul">
-                  <li>
-                    <a href="" style={{ color: 'blue ' }}>
-                      Shoes
-                    </a>
-                  </li>
-                  <li>
-                    <Link to="/category">Clothes</Link>
-                  </li>
-                </ul>
-              </div>
-            </Sider>
-            <div
-              style={{
-                padding: '0 24px',
-                minHeight: 280,
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-              }}
-            >
-              {Array.from(productList).map(product => {
-                let data = product.attributes;
-                return (
-                  <div
-                    style={{ color: 'black', paddingTop: '24px' }}
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                  >
-                    <ProductCard
-                      name={data.name}
-                      price={data.price}
-                      image={data.image}
-                      productId={product.id}
-                    />
-                  </div>
-                );
-              })}
+        <Layout style={{ padding: '0 0', backgroundColor: '#fff' }}>
+          <Sider style={{ backgroundColor: '#fff ' }} width={200}>
+            <div className="category-menu">
+              <ul className="category-menu_ul">
+                <li>
+                  <a href="" style={{ color: 'blue ' }}>
+                    Clothes
+                  </a>
+                </li>
+                <li>
+                  <Link to="/sportshoes">Sport Shoes</Link>
+                </li>
+              </ul>
             </div>
-          </Layout>
-        </Content>
-        <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-          <Pagination onChange={onChange} defaultCurrent={1} total={20} />
-        </Footer>
-      </Layout>
-    </div>
+          </Sider>
+          <div
+            style={{
+              padding: '0 24px',
+              minHeight: 280,
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              // gap:24,
+            }}
+          >
+            {Array.from(productList).map(product => {
+              let data = product.attributes;
+              return (
+                <div
+                  style={{ color: 'black', marginTop: '24px', marginRight:'24px'}}
+                  key={product.id}
+                >
+                  <ProductCard
+                    productId={product.id}
+                    name={data.name}
+                    price={data.price}
+                    image={data.image}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </Layout>
+      </Content>
+      
+      <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
+      
+      {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
+      <LeftOutlined style={{color:''}} />
+
+  <Button onClick={prevPage} type="text" danger>
+      1
+  </Button>
+  <Button onClick={nextPage} type="text" danger>
+     2
+  </Button>
+
+  <RightOutlined />
+  </Button> */}
+      </Footer>  
+    </Layout>
+  <Pagination onChange={onChange} defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
+  </div>
   );
 };
 export default Sportshoes;
