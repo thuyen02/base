@@ -19,36 +19,42 @@ import close from '../Noorder/Common.png';
 import axiosInstance from './../../../shared/services/http-client';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import NoOrder from '../Noorder/Noorder';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addQuantity,
+  checkoutOrder,
+  deleteOrder,
+  fetchOrderAction,
+  selectOrder,
+  subQuantity,
+} from '../../../OrderRedux/order';
+import swal from 'sweetalert';
 export default function HasOrders() {
   // Tạo các state
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0);
-  const [updateQuantiy, setUpdateQuantity] = useState({});
-  const [hasOrder, setHasOrder] = useState(false);
+  const [isCheckOut, setIsCheckOut] = useState(false);
   const userID = localStorage.getItem('ut');
+  const dispatch = useDispatch();
+  const { orders } = useSelector(selectOrder);
+  // console.log(orders);
 
   //Lấy danh sách sản phẩm từ API
   useEffect(() => {
-    axiosInstance
-      .get(`/orders?populate=product&filters[user][id]=${userID}`)
-      .then(response => {
-        setProducts(response.data);
-        setHasOrder(response.data.length > 0);
-      })
-      .catch(error => console.log(error));
-  }, [userID, open]);
+    dispatch(fetchOrderAction(userID));
+  }, [dispatch, userID]);
 
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
     let newTotal = 0;
-    products.forEach(product => {
+    orders.forEach(order => {
       newTotal +=
-        product.attributes.product.data.attributes.price *
-        product.attributes.quantity;
+        order.attributes.product.data.attributes.price *
+        order.attributes.quantity;
     });
     setTotal(newTotal);
-  }, [products, total]);
+  }, [orders, total]);
 
   //Hàm xử lý đóng mở giỏ hàng
   const showDrawer = () => {
@@ -59,100 +65,96 @@ export default function HasOrders() {
   };
 
   //Hàm xử lý khi thanh toán
-  const handleCheckOut = total => {
-    const data = {
-      data: {
-        total: total,
-        orders: products.map(product => product.id),
-      },
-    };
-    axiosInstance
-      .post('/payments', data)
-      .then(response => {
-        console.log(response.data);
-        products.forEach(product => {
-          axiosInstance.delete(`/orders/${product.id}`).then(res => {
-            console.log(res.data);
-            setOpen(false);
-          });
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const handleCheckOut = async total => {
+    // const orderID = orders.map(order => order.id);
+    // try {
+    //   const data = {
+    //     data: {
+    //       total: total,
+    //       orders: orderID,
+    //     },
+    //   };
+    //   await axiosInstance.post('/payments', data).then(() => {
+    //     console.log(data);
+    //     orders.forEach(order => {
+    //       axiosInstance.delete(`/orders/${order.id}`);
+    //     });
+    //     dispatch(fetchOrderAction(userID));
+
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await dispatch(checkoutOrder({ orders, total, userID }));
+    setIsCheckOut(true);
+    swal({
+      title: 'Payments success',
+      text: 'Thank you for shopping at the website',
+      icon: 'success',
+      buttons: 'OK',
+      // ,
+      timer: 3000,
+    });
   };
 
   //Hàm xử lý xoá sản phẩm
-  const handleDelete = id => {
-    axiosInstance
-      .delete(`/orders/${id}`)
-      .then(response => {
-        console.log(response.data);
-        const newProducts = products.filter(product => product.id !== id);
-        setProducts(newProducts);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const handleDelete = async id => {
+    // try {
+    //   axiosInstance.delete(`/orders/${id}`).then(response => {
+    //     console.log(response.data);
+    //     dispatch(fetchOrderAction(userID));
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await dispatch(deleteOrder({ id: id, userID: userID }));
   };
 
   //Hàm xử lý khi tăng số lượng
   const handleAddQuantity = async product => {
-    try {
-      const data = {
-        data: {
-          quantity: product.attributes.quantity + 1,
-        },
-      };
-      await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
-        console.log(response.data.attributes.quantity);
-        setUpdateQuantity({ ...updateQuantiy, [product.id]: response.data });
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const data = {
+    //     data: {
+    //       quantity: product.attributes.quantity + 1,
+    //     },
+    //   };
+    //   await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
+    //     console.log(response.data.attributes.quantity);
+    //     dispatch(fetchOrderAction(userID));
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await dispatch(addQuantity({ product, userID }));
+    // await dispatch(fetchOrderAction(userID));
   };
 
   //Hàm xử lý khi giảm số lượng
   const handleSubQuantity = async product => {
-    try {
-      const data = {
-        data: {
-          quantity: product.attributes.quantity - 1,
-        },
-      };
-      await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
-        console.log(response.data.attributes.quantity);
-        setUpdateQuantity({
-          ...updateQuantiy,
-          [product.id]: response.data,
-        });
-        // setQuantity(quantity);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const data = {
+    //     data: {
+    //       quantity: product.attributes.quantity - 1,
+    //     },
+    //   };
+    //   await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
+    //     console.log(response.data.attributes.quantity);
+    //     dispatch(fetchOrderAction(userID));
+    //     // setQuantity(quantity);
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await dispatch(subQuantity({ product, userID }));
   };
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/orders?populate=product&filters[user][id]=${userID}`
-        );
-        setProducts(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getProducts();
-  }, [userID, updateQuantiy]);
   //Lấy số lượng sản phẩm trong giỏ hàng
-  const totalProducts = products.length;
+  const totalProducts = orders.length;
 
   return (
     <>
-      {hasOrder ? (
+      {orders.length === 0 || isCheckOut ? (
+        <NoOrder noOrder={true} />
+      ) : (
         <>
           <div onClick={showDrawer}>
             <ShoppingCartOutlined />
@@ -166,7 +168,7 @@ export default function HasOrders() {
             title={`Total items: ${totalProducts}`}
           >
             <ProductList>
-              {products.map(product => (
+              {orders.map(product => (
                 <CardContent
                   key={product.id}
                   cover={
@@ -237,8 +239,6 @@ export default function HasOrders() {
             </CheckOut>
           </Container>
         </>
-      ) : (
-        <NoOrder />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import {
   Container,
   EmptyContent,
@@ -11,7 +11,7 @@ import close from './Common.png';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-export default function NoOrder() {
+export default function NoOrder({ noOrder }) {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -19,9 +19,14 @@ export default function NoOrder() {
   const onClose = () => {
     setOpen(false);
   };
+  // useEffect(() => {
+  //   if (noOrder) {
+  //     setOpen(true)
+  //   }
+  // }, [noOrder])
   return (
     <>
-      <ShoppingCartOutlined onClick={showDrawer} />
+      <ShoppingCartOutlined onClick={()=>showDrawer()} />
       <Container
         placement="right"
         onClose={onClose}

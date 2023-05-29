@@ -7,7 +7,7 @@ function App() {
       {/* <div>
       <Category/>   
     </div> */}
-      <App />
+        <App />
     </RouterProvider>
   );
 }

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { Drawer, Card } from 'antd';
 
 export const Container = styled(Drawer)`
@@ -16,8 +16,12 @@ export const Container = styled(Drawer)`
     display: flex;
     flex-direction: row-reverse;
   }
+  .ant-card-cover {
+    width: 50%;
+  }
   .ant-card-body {
-    padding: 0;
+    padding: 10px;
+    width: 50%;
   }
 `;
 export const ProductList = styled.div`
@@ -61,9 +65,11 @@ export const CardInfo = styled.div`
   padding: 8px;
   font-size: 14px;
   font-weight: 400;
+  width: 80%;
 `;
 export const RemoveButton = styled.div`
   padding: 8px;
+  /* width: 20% */
 `;
 export const ProductName = styled.div`
   font-size: 14px;
@@ -71,7 +77,7 @@ export const ProductName = styled.div`
 export const ProductPrice = styled.div`
   font-size: 18px;
   font-weight: 500;
-`; 
+`;
 export const Quantity = styled.div`
   display: flex;
   justify-content: space-around;
@@ -91,7 +97,7 @@ export const QuantityButtonNone = styled.button`
   border: none;
   width: 33%;
   cursor: not-allowed;
-`
+`;
 export const CheckOut = styled.div`
   padding: 24px;
   height: auto;
