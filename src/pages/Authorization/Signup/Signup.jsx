@@ -3,35 +3,38 @@ import React from 'react';
 import { InputC } from '../../../components/Input/Input';
 import './Signup.css';
 import axiosInstance from '../../../shared/services/http-client';
-import { Link } from 'react-router-dom';
-
-const postDataSignup = async newUser => {
-  axiosInstance.post('/auth/local/register', newUser).then(res => {
-    let jwt = res.jwt;
-    console.log(jwt);
-    localStorage.setItem('token', jwt);
-  });
-};
-
+import { Link, useNavigate } from 'react-router-dom';
+import { ACCESS_TOKEN, USER_ID } from '../../../shared/constants';
+//get data from
 const SignupForm = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const onFinish = values => {
-    let { email, password, fullname, username, address, phoneNumber } = values;
     let newUser = {
-      phoneNumber: phoneNumber,
-      username: username,
-      confirmed: true,
-      role: 2,
-      fullname: fullname,
-      address: address,
-      password: password,
-      email: email,
+      ...values,
     };
     postDataSignup(newUser);
-    onReset();
   };
+  //postDataSignup(newUser);
+
+  const postDataSignup = async newUser => {
+    // eslint-disable-next-line no-unused-vars
+    const postsData = await axiosInstance
+      .post('/auth/local/register', newUser)
+      .then(res => {
+        localStorage.setItem(ACCESS_TOKEN, res.jwt);
+        localStorage.setItem(USER_ID, res.user.id);
+
+        onReset();
+      });
+  };
+
+  //Direc user register
+
   const onReset = () => {
-    form.resetFields();
+    localStorage.getItem('at');
+    navigate('/');
+    // form.resetFields();
   };
 
   return (
@@ -103,6 +106,13 @@ const SignupForm = () => {
               required: true,
               message: 'Please input Password!',
             },
+            {
+              pattern:
+                // eslint-disable-next-line no-useless-escape
+                /^(?=.{8,16})(?=.*[!@#])[a-zA-Z0-9!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]*$/,
+              message:
+                'Please input a valid password (8-16 characters with at least one special character)',
+            },
           ]}
           inputClassName="inputField"
           type="password"
@@ -110,11 +120,15 @@ const SignupForm = () => {
         <InputC
           className="signup-field"
           label="Phone number"
-          name="phonenumber"
+          name="phoneNumber"
           rules={[
             {
               required: true,
               message: 'Please input Phone number!',
+            },
+            {
+              pattern: /^[0-9]{10}$/,
+              message: 'Please input a valid phone number with 10 digits.',
             },
           ]}
           inputClassName="inputField"
@@ -144,9 +158,9 @@ const SignupForm = () => {
             CREATE ACCOUNT
           </Button>
         </Form.Item>
-        <a href="/some/valid/uri#top" className="signup_atag">
+        <div href="/some/valid/uri#top" className="signup_atag">
           <Link to="/signin"> or log in to your account </Link>
-        </a>
+        </div>
       </Form>
     </div>
   );

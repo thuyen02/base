@@ -56,7 +56,6 @@
 
 .signup-field label {
   position: absolute;
-  /* top: 10px; */
   padding-bottom: 0;
 }
 
@@ -76,8 +75,8 @@
 }
 
 .btn-signup {
-  background-color: #1D1F22;
-  color: #FFFFFF;
+  background-color: #1d1f22;
+  color: #ffffff;
   border-radius: 0;
   height: 52px;
   margin-bottom: 0;

@@ -1,7 +1,7 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .appBg {
@@ -12,14 +12,13 @@
 }
 
 .signin-form {
-  /* width: 380px; */
-  height: auto;
+  height: 400px;
   padding: 20px;
   /* border: 1px solid black; */
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 
-.signup_form{
+.signup_form {
   width: 400px;
   height: 400px;
   padding: 20px;
@@ -28,13 +27,12 @@
 }
 
 .formItem {
-    position: relative;
+  position: relative;
 }
 
 .formItem label {
-    position: absolute;
-    /* top: 10px; */
-    padding-bottom: 0;
+  position: absolute;
+  padding-bottom: 0;
 }
 
 .formItem .inputField {
@@ -46,8 +44,8 @@
   border-radius: 0;
 }
 
-.checkRemember{
-    border-radius: 0;
+.checkRemember {
+  border-radius: 0;
 }
 
 .login-form-button {
@@ -62,7 +60,7 @@
   justify-content: center;
 }
 
-.create-account h2{
+.create-account h2 {
   color: black;
 }
 

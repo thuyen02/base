@@ -1,31 +1,49 @@
-import { Row, Col, Image } from 'antd';
-import { useState, useEffect } from 'react';
+/* eslint-disable no-useless-computed-key */
+import { Col, Image, Row } from 'antd';
 import Parser from 'html-react-parser';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import SimilarProduct from '../SimilarProduct/SimilarProduct';
-import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 // import axiosInstance from '../../../shared/services/http-client';
 
-import {
-  ProductDetailContainer,
-  ImageDetailStyles,
-  TitleProductDetail,
-  SelectSize,
-  DetailQtyProduct,
-  BtnAddToCard,
-  TitleDescription,
-  ContentDescription,
-  QtyBtnContent,
-  PriceProductDetail,
-} from './ProductDetailStyle';
+import orderApi from '../../../API/orderApi';
 import productApi from '../../../API/productApi';
+import {
+  BtnAddToCard,
+  ContentDescription,
+  DetailQtyProduct,
+  ImageDetailStyles,
+  PriceProductDetail,
+  ProductDetailContainer,
+  QtyBtnContent,
+  SelectSize,
+  TitleDescription,
+  TitleProductDetail,
+} from './ProductDetailStyle';
+
+const notification = {
+  title: 'Successful!',
+  text: 'Loggin is successful!',
+  icon: 'success',
+  button: 'OK',
+  position: 'top-end',
+  width: 400,
+  padding: '2em',
+  backdrop: true,
+  timer: 1000,
+};
 
 export default function ProductDetail() {
+  const isLogin = localStorage.getItem('at') ? true : false;
+  const userId = localStorage.getItem('ut');
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
-  const [productId, setProductId] = useState(id);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDataProduct();
@@ -34,11 +52,73 @@ export default function ProductDetail() {
       behavior: 'smooth',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [id]);
+
+  //Add to cart
+
+  const handleAddToCart = async () => {
+    if (!isLogin) return navigate('/signin');
+    const dataInput = {
+      // size: size,
+      product: +id,
+      user: +userId,
+      quantity: +quantity,
+      total: quantity * dataProduct.price,
+    };
+    const params = {
+      populate: 'product',
+      ['filters[user][id]']: userId,
+    };
+    try {
+      const res = await orderApi.getOrderList(params);
+      const orders = res.data;
+      let foundOrder = false;
+      orders.forEach(order => {
+        const getProductInOrder = order.attributes.product.data
+          ? order.attributes.product.data
+          : false;
+        if (getProductInOrder && getProductInOrder.id === dataInput.product) {
+          foundOrder = true;
+          updateOrder(order, dataInput);
+        }
+      });
+      if (!foundOrder) {
+        if (dataInput === {}) return;
+        createOrder(dataInput);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateOrder = async (order, dataInput) => {
+    try {
+      const orderId = order.id;
+      await orderApi.updateOrder(orderId, dataInput);
+      setQuantity(1);
+      swal({
+        ...notification,
+        text: `The Quantity of products has changed in the cart`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const createOrder = async dataInput => {
+    if (!id) return;
+
+    try {
+      await orderApi.createOrder(dataInput);
+      setQuantity(1);
+      swal({ ...notification, text: `Add to cart successfully` });
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   const getDataProduct = async () => {
     try {
-      const res = await productApi.getId(productId);
+      const res = await productApi.getId(id);
       setDataProduct(res.data.attributes);
     } catch (error) {
       console.log(error);
@@ -47,7 +127,6 @@ export default function ProductDetail() {
 
   const handleChange = value => {
     setSize(size);
-    console.log(size, quantity);
   };
 
   // Change quantity
@@ -66,18 +145,10 @@ export default function ProductDetail() {
 
   // Add to card
 
-  const handleAddToCard = () => {
-    const productAddToCard = {
-      size: size,
-      quantity: quantity,
-      productId: productId,
-    };
-    console.log(productAddToCard);
-  };
-
   //Get id  product from similar  component
   const handleSelectedProduct = id => {
-    setProductId(id);
+    // setProductId(id);
+    navigate(`/product/${id}`);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -126,19 +197,19 @@ export default function ProductDetail() {
               onChange={handleChange}
               options={[
                 {
-                  value: 'xl',
+                  value: 4,
                   label: 'XL',
                 },
                 {
-                  value: 'l',
+                  value: 3,
                   label: 'L',
                 },
                 {
-                  value: 'm',
+                  value: 2,
                   label: 'M',
                 },
                 {
-                  value: 's',
+                  value: 1,
                   label: 'S',
                 },
               ]}
@@ -155,7 +226,7 @@ export default function ProductDetail() {
                   +
                 </span>
               </DetailQtyProduct>
-              <BtnAddToCard onClick={handleAddToCard}>ADD TO CARD</BtnAddToCard>
+              <BtnAddToCard onClick={handleAddToCart}>ADD TO CARD</BtnAddToCard>
             </QtyBtnContent>
             <div>
               <TitleDescription>Description</TitleDescription>
