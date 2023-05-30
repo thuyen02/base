@@ -1,6 +1,6 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sportshoes.css';
-import { Button, Pagination } from 'antd';
+import { Pagination } from 'antd';
 import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
@@ -8,12 +8,11 @@ import { Link } from 'react-router-dom';
 const { Content, Footer, Sider } = Layout;
 
 const Sportshoes = () => {
- // const [productId, setProductId] = useState(1);
  const [productList, setproductList] = useState([]);
  const [pageSize, setpageSize] = useState(8);
  const [page, setpage] = useState(1);
- const [total, settotal] = useState(12);
- const [category, setcategoryId] = useState({
+ const [total, settotal] = useState(30);
+ const [category, setcategory] = useState({
    value: 'sports',
  });
  const [size, setSize] = useState('large');
@@ -48,10 +47,9 @@ const Sportshoes = () => {
 //   setpage(pg)
 // }
 
-const [current, setCurrent] = useState(1);
 const onChange = (page) => {
  fetchProductList(page)
- setCurrent(page);
+ setpage(page);
 };
   return (
     <div>
@@ -60,7 +58,7 @@ const onChange = (page) => {
         <div className="Category-header">
           <h2>Category</h2>
           <p>
-            Products found: <span>{total}</span>{' '}
+            Products found: <span>{productList.length}</span>{' '}
           </p>
         </div>
 
@@ -85,7 +83,7 @@ const onChange = (page) => {
               minHeight: 280,
               display: 'flex',
               flexWrap: 'wrap',
-              justifyContent: 'space-around',
+
               // gap:24,
             }}
           >
@@ -125,7 +123,7 @@ const onChange = (page) => {
   </Button> */}
       </Footer>  
     </Layout>
-  <Pagination onChange={onChange} defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
+  <Pagination onChange={onChange} defaultCurrent={1} total={40}  style={{textAlign: 'center'}}/>
   </div>
   );
 };
