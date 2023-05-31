@@ -41,9 +41,9 @@ export default function HasOrders() {
   // console.log(orders);
 
   //Lấy danh sách sản phẩm từ API
-  useEffect(() => {
-    dispatch(fetchOrderAction(userID));
-  }, [dispatch, userID]);
+  // useEffect(() => {
+  //   dispatch(fetchOrderAction(userID));
+  // }, [dispatch, userID]);
 
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
@@ -54,16 +54,18 @@ export default function HasOrders() {
         order.attributes.quantity;
     });
     setTotal(newTotal);
-  }, [orders, total]);
+  }, [orders]);
 
   //Hàm xử lý đóng mở giỏ hàng
   const showDrawer = () => {
     setOpen(true);
   };
+  console.log(open);
   const onClose = () => {
     setOpen(false);
   };
 
+  
   //Hàm xử lý khi thanh toán
   const handleCheckOut = async total => {
     // const orderID = orders.map(order => order.id);
@@ -107,9 +109,9 @@ export default function HasOrders() {
     // } catch (error) {
     //   console.log(error);
     // }
-    await dispatch(deleteOrder({ id: id, userID: userID }));
+    await dispatch(deleteOrder({ id, userID }));
+    await orders.length === 0 ? setOpen(false) : setOpen(true)
   };
-
   //Hàm xử lý khi tăng số lượng
   const handleAddQuantity = async product => {
     // try {
@@ -149,15 +151,15 @@ export default function HasOrders() {
   };
   //Lấy số lượng sản phẩm trong giỏ hàng
   const totalProducts = orders.length;
-
+order
   return (
-    <>
+    <div>
       {orders.length === 0 || isCheckOut ? (
-        <NoOrder noOrder={true} />
+        <NoOrder noOrder={orders.length === 0}/>
       ) : (
-        <>
+          <div>
           <div onClick={showDrawer}>
-            <ShoppingCartOutlined />
+            <ShoppingCartOutlined style={{ width: 50 }} />
             <sup>{totalProducts}</sup>
           </div>
           <Container
@@ -238,8 +240,8 @@ export default function HasOrders() {
               </CheckOutButton>
             </CheckOut>
           </Container>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Header.css';
 import logoIcon from './Icon.jpg';
 // import { isLoggedIn } from '../../pages/Authorization/SignIn/SignIn';
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Menu } from 'antd';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../shared/constants/index';
@@ -93,12 +93,12 @@ const Header = () => {
             </Menu.SubMenu>
           )}
           {isLoggedIn && (
-            <Menu.Item key="cart">
-              {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
-              {/* <HasOrders />
-              <NoOrder /> */}
-              <HasOrders />
-            </Menu.Item>
+              <Menu.Item key="cart" >
+                {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
+                {/* <HasOrders />
+                <NoOrder /> */}
+                <HasOrders />
+              </Menu.Item>
           )}
         </Menu>
       </div>

@@ -12,12 +12,12 @@ export const fetchOrderAction = createAsyncThunk(
 );
 export const deleteOrder = createAsyncThunk(
   'order/deleteOrder',
-  async ({ id, userID }, thunkAPI) => {
+  async (params, thunkAPI) => {
     try {
       const listOrders = await axiosInstance
-        .delete(`/orders/${id}`)
+        .delete(`/orders/${params.id}`)
         .then(response => console.log(response.data));
-      thunkAPI.dispatch(fetchOrderAction(userID));
+      thunkAPI.dispatch(fetchOrderAction(params.userID));
       return listOrders;
     } catch (error) {
       console.log(error);

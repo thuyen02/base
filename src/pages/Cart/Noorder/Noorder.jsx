@@ -19,11 +19,11 @@ export default function NoOrder({ noOrder }) {
   const onClose = () => {
     setOpen(false);
   };
-  // useEffect(() => {
-  //   if (noOrder) {
-  //     setOpen(true)
-  //   }
-  // }, [noOrder])
+  useEffect(() => {
+    if (noOrder) {
+      setOpen(true)
+    }
+  }, [noOrder])
   return (
     <>
       <ShoppingCartOutlined onClick={()=>showDrawer()} />

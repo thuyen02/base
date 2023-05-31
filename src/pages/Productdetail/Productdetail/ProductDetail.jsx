@@ -21,6 +21,8 @@ import {
   TitleDescription,
   TitleProductDetail,
 } from './ProductDetailStyle';
+import { useDispatch } from 'react-redux';
+import { fetchOrderAction } from '../../../OrderRedux/order';
 
 const notification = {
   title: 'Successful!',
@@ -44,6 +46,7 @@ export default function ProductDetail() {
   const [dataProduct, setDataProduct] = useState({});
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     getDataProduct();
@@ -100,6 +103,7 @@ export default function ProductDetail() {
         ...notification,
         text: `The Quantity of products has changed in the cart`,
       });
+      dispatch(fetchOrderAction(userId))
     } catch (err) {
       console.log(err);
     }
@@ -111,6 +115,7 @@ export default function ProductDetail() {
       await orderApi.createOrder(dataInput);
       setQuantity(1);
       swal({ ...notification, text: `Add to cart successfully` });
+      dispatch(fetchOrderAction(userId))
     } catch (err) {
       throw new Error(err);
     }

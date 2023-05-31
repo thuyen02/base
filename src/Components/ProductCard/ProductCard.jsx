@@ -5,6 +5,8 @@ import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 import orderApi from '../../API/orderApi';
 import swal from 'sweetalert';
+import { useDispatch } from 'react-redux';
+import { fetchOrderAction } from '../../OrderRedux/order';
 
 const IconCart = styled.div`
   display: flex;
@@ -79,6 +81,7 @@ const ProductCard = props => {
   const isLoggedIn = localStorage.getItem('at') ? true : false;
   const userId = localStorage.getItem('ut');
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const handleClickCard = id => {
     navigate(`/product/${id}`);
   };
@@ -135,6 +138,7 @@ const ProductCard = props => {
       };
       await orderApi.updateOrder(orderId, data);
       swal(notification);
+      dispatch(fetchOrderAction(userId))
     } catch (err) {
       console.log(err);
     }
@@ -145,6 +149,7 @@ const ProductCard = props => {
 
       await orderApi.createOrder(data);
       swal(notification);
+      dispatch(fetchOrderAction(userId));
     } catch (err) {
       console.log(err);
     }
