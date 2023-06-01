@@ -4,7 +4,7 @@ import './Category.css';
 import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
 
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;

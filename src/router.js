@@ -17,11 +17,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
+      <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
         <Header />
         <Outlet />
         <Footer />
-      </>
+      </div>
     ),
     children: [
       {

@@ -63,7 +63,7 @@ const HomepageProduct = props => {
         <HomepageClothesTitle>
           <h2>Clothes</h2>
         </HomepageClothesTitle>
-        <div className="homepage-clothes-products">
+        <div className="homepage-clothes-products" style={{padding: '0px 100px'}}>
           <Carousel
             swipeable={false}
             draggable={false}
@@ -95,7 +95,7 @@ const HomepageProduct = props => {
             })}
           </Carousel>
         </div>
-        ;
+        
       </div>
       <div className="homepage-clothes">
         <HomepageClothesTitle>
@@ -134,7 +134,6 @@ const HomepageProduct = props => {
             })}
           </Carousel>
         </div>
-        ;
       </div>
     </div>
   );

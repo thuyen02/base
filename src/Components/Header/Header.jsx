@@ -2,32 +2,27 @@ import React, { useEffect, useState } from 'react';
 import './Header.css';
 import logoIcon from './Icon.jpg';
 // import { isLoggedIn } from '../../pages/Authorization/SignIn/SignIn';
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Input, Menu } from 'antd';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../shared/constants/index';
 import HasOrders from './../../pages/Cart/Hasorders/Hasorders';
+import { useSelector } from 'react-redux';
+import { selectOrder } from '../../OrderRedux/order';
+import NoOrder from '../../pages/Cart/Noorder/Noorder';
 const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q'));
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('at') ? true : false
   );
-  // const [quantity, setQuantity] = useState(0);
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     setIsLoggedIn(false);
   };
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get('/orders')
-  //     .then(response => {
-  //       setQuantity(response.meta.pagination.total);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
   useEffect(() => {
     const loggedIn = localStorage.getItem('at') ? true : false;
     setIsLoggedIn(loggedIn);
@@ -40,7 +35,17 @@ const Header = () => {
     navigate(`/search?q=${query}`);
     setQuery('');
   };
-
+  // const showCart = () => {
+  //   if (orders.length === 0) {
+  //     return <NoOrder noOrder={true}/>
+  //   } else {
+  //     return <HasOrders hasOrders={true}/>
+  //   }
+  // }
+  const { orders } = useSelector(selectOrder);
+  // useEffect(() => {
+  //   dispatch(fetchOrderAction(userID));
+  // }, [dispatch, userID]);
   return (
     <div>
       <div className="navbar">
@@ -94,10 +99,7 @@ const Header = () => {
           )}
           {isLoggedIn && (
             <Menu.Item key="cart">
-              {/* <ShoppingCartOutlined onClick={handleShowCart} /> */}
-              {/* <HasOrders />
-              <NoOrder /> */}
-              <HasOrders />
+              {orders.length === 0 ? <NoOrder /> : <HasOrders />}
             </Menu.Item>
           )}
         </Menu>
