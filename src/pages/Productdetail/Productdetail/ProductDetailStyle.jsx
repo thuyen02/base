@@ -4,7 +4,7 @@ import { Button, Select, Col } from 'antd';
 export const ProductDetailContainer = styled.div`
   max-width: 100%;
   margin: auto;
-  padding: 40px 0 40px 0;
+  padding: 40px 0 0 0;
   font-family: 'Raleway';
 `;
 
@@ -77,15 +77,8 @@ export const ContentDescription = styled.div`
   height: 248px;
   padding: 24px 0px 0 0;
   box-sizing: border-box;
-  & > p {
-    padding: 24px 16px;
-    font-size: 16px;
-    line-height: 25.6px;
-    font-style: 'Roboto';
-    max-width: 522px;
-    height: 248px;
-    box-sizing: border-box;
-  }
+  white-space: pre-wrap;
+  line-height: 30px;
   &::-webkit-scrollbar {
     width: 6px;
   }

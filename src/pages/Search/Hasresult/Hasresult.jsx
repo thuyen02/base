@@ -66,7 +66,7 @@ export default function Hasresult() {
           {Array.from(products).map(product => {
             const productAtri = product.attributes;
             return (
-              <ColC md={8} sm={12} xs={24} key={product.id}>
+              <ColC md={6} sm={12} xs={24} key={product.id}>
                 <ProductCard
                   productId={product.id}
                   name={productAtri.name}

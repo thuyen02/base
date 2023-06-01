@@ -6,7 +6,7 @@ const productApi = {
     return axiosInstance.get(url, { params });
   },
   getId: id => {
-    const url = `/products/${id}`;
+    const url = `/products/${id}?populate=category`;
     return axiosInstance.get(url);
   },
   getCategory: id => {

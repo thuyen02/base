@@ -35,7 +35,7 @@ export default function HasOrders() {
         setProducts(response.data);
       })
       .catch(error => console.log(error));
-  }, [products]);
+  }, [userID, open]);
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
     let newTotal = 0;
