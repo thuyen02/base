@@ -30,8 +30,8 @@ const IconCart = styled.div`
 `;
 const CardProduct = styled.div`
   margin-top: 20px;
-  width: 256px;
-  height: 444px;
+  width: 278px;
+  height: 440px;
   box-sizing: border-box;
   padding: 16px;
   align-items: center;

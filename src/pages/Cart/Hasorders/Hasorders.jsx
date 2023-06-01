@@ -41,10 +41,14 @@ export default function HasOrders() {
   // console.log(orders);
 
   //Lấy danh sách sản phẩm từ API
-  // useEffect(() => {
-  //   dispatch(fetchOrderAction(userID));
-  // }, [dispatch, userID]);
-
+  useEffect(() => {
+    axiosInstance
+      .get(`/orders?populate=product&filters[user][id]=${userID}`)
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => console.log(error));
+  }, [products]);
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
     let newTotal = 0;

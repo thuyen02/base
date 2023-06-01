@@ -1,34 +1,36 @@
-import styled from 'styled-components';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import styled from 'styled-components';
 
 import './Card.css';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import productApi from '../../../API/productApi';
+import ProductSlide from '../../../Components/ProductSlide/ProductSlide';
+import './Card.css';
+import { Row } from 'antd';
 // import QueryString from 'qs';
 
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 4,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
+// const responsive = {
+//   superLargeDesktop: {
+//     breakpoint: { max: 4000, min: 3000 },
+//     items: 4,
+//   },
+//   desktop: {
+//     breakpoint: { max: 3000, min: 1024 },
+//     items: 4,
+//   },
+//   tablet: {
+//     breakpoint: { max: 1024, min: 464 },
+//     items: 2,
+//   },
+//   mobile: {
+//     breakpoint: { max: 464, min: 0 },
+//     items: 1,
+//   },
+// };
 
-const HomepageClothesTitle = styled.div`
-  margin-top: 40px;
+const HomepageClothesTitle = styled(Row)`
+  margin: 40px 50px 0;
   padding: 10px 50px;
   font-family: 'Raleway';
   font-style: normal;

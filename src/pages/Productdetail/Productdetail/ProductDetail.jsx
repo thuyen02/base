@@ -1,11 +1,9 @@
 /* eslint-disable no-useless-computed-key */
 import { Col, Image, Row } from 'antd';
-import Parser from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SimilarProduct from '../SimilarProduct/SimilarProduct';
 import swal from 'sweetalert';
-// import axiosInstance from '../../../shared/services/http-client';
 
 import orderApi from '../../../API/orderApi';
 import productApi from '../../../API/productApi';
@@ -44,6 +42,8 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('M');
   const [dataProduct, setDataProduct] = useState({});
+  const [categoryId, setCategoryId] = useState();
+  const [productId, setProductId] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -56,6 +56,21 @@ export default function ProductDetail() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+  const getDataProduct = async () => {
+    try {
+      const res = await productApi.getId(id);
+
+      setDataProduct(res.data.attributes);
+      setCategoryId(res.data.attributes.category.data.id);
+      setProductId(res.data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = value => {
+    setSize(size);
+  };
 
   //Add to cart
 
@@ -121,19 +136,6 @@ export default function ProductDetail() {
     }
   };
 
-  const getDataProduct = async () => {
-    try {
-      const res = await productApi.getId(id);
-      setDataProduct(res.data.attributes);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = value => {
-    setSize(size);
-  };
-
   // Change quantity
   const handleChangeQty = e => {
     if (e.target.id === 'add') {
@@ -152,18 +154,16 @@ export default function ProductDetail() {
 
   //Get id  product from similar  component
   const handleSelectedProduct = id => {
-    // setProductId(id);
     navigate(`/product/${id}`);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
   };
-
   return (
     <ProductDetailContainer>
       <Row>
-        <ImageDetailStyles md={12}>
+        <ImageDetailStyles md={13}>
           <Image
             height={622}
             style={{ boxShadow: '0 0 1px 1px rgba(72, 72, 72, 0.2)' }}
@@ -189,7 +189,7 @@ export default function ProductDetail() {
             </Image.PreviewGroup>
           </div>
         </ImageDetailStyles>
-        <Col md={12}>
+        <Col md={11}>
           <TitleProductDetail>{dataProduct.name}</TitleProductDetail>
           <PriceProductDetail>
             <sup>đ</sup>
@@ -236,13 +236,17 @@ export default function ProductDetail() {
             <div>
               <TitleDescription>Description</TitleDescription>
               <ContentDescription>
-                <div>{Parser(`${dataProduct.description}`)}</div>
+                <div>{dataProduct.description}</div>
               </ContentDescription>
             </div>
           </div>
         </Col>
       </Row>
-      <SimilarProduct onIdSelected={handleSelectedProduct} />
+      <SimilarProduct
+        productId={productId}
+        categoryId={categoryId}
+        onIdSelected={handleSelectedProduct}
+      />
     </ProductDetailContainer>
   );
 }

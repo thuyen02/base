@@ -1,19 +1,19 @@
 import styled from 'styled-components';
-import bannerImage from './banner.png'
+import bannerImage from './banner.png';
 
 import { Carousel } from 'antd';
 
 const BannerContainer = styled.div`
   width: 100%;
   height: 77vh;
-  padding: 0 50px;
+  padding: 0 100px;
   display: flex;
   justify-content: center;
 `;
 
 const Banner = styled.div`
-width: 100%;
-height: 76vh;
+  width: 100%;
+  height: 76vh;
   object-fit: cover;
   background-image: url(${bannerImage});
   background-size: cover;
@@ -63,7 +63,6 @@ const Banner_desc_btn = styled.button`
     background-color: rgb(30, 104, 129);
   }
 `;
-
 
 const BannerImg = () => {
   return (
