@@ -1,8 +1,8 @@
 import React from 'react';
 import './Updateprofile.css';
 import { Layout, Menu } from 'antd';
-import { Button, Form } from 'antd';
-import { InputC } from '../../../components/Input/Input';
+import { Button, Form} from 'antd';
+import { InputC } from '../../../components/Input/Input.jsx';
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../../shared/services/http-client';
 import { Link } from 'react-router-dom';

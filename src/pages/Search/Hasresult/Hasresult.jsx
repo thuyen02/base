@@ -31,7 +31,7 @@ export default function Hasresult() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const key = searchParams.get('q');
-  
+
   //Get api from search
   useEffect(() => {
     getDataFromSearch();
