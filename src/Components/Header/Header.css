@@ -46,7 +46,9 @@
     display: flex;
     justify-content: right;
     border-bottom: 0;
-    width: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: right;
 }
 /*  */
 

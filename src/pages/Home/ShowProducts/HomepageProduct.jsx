@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import './Card.css';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import productApi from '../../../API/productApi';
 // import QueryString from 'qs';
