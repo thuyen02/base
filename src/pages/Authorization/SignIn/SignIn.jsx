@@ -2,8 +2,8 @@ import { Checkbox, Form } from 'antd';
 import axiosInstance from '../../../shared/services/http-client';
 import { ACCESS_TOKEN, USER_ID } from '../../../shared/constants/index';
 // import { InputC } from '../../../components/Input/Input';
-import {InputC} from '../../../Components/Input/Input'
-import { ButtonC } from '../../../Components/Button/index';
+import { InputC } from '../../../components/Input/Input';
+import { ButtonC } from '../../../components/Button/index';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import swal from 'sweetalert';
@@ -46,9 +46,9 @@ export const SignIn = () => {
         layout="vertical"
         name="normal_sigin"
         className="signin-form"
-        // initialValues={{
-        //   remember: true,
-        // }}
+        initialValues={{
+          remember: true,
+        }}
         onFinish={onFinish}
       >
         <InputC

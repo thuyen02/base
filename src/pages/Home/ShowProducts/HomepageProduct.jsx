@@ -1,11 +1,13 @@
 import 'react-multi-carousel/lib/styles.css';
 import styled from 'styled-components';
 
-import { Row } from 'antd';
+import './Card.css';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { useEffect, useState } from 'react';
 import productApi from '../../../API/productApi';
 import ProductSlide from '../../../Components/ProductSlide/ProductSlide';
 import './Card.css';
+import { Row } from 'antd';
 // import QueryString from 'qs';
 
 // const responsive = {
@@ -63,18 +65,77 @@ const HomepageProduct = props => {
         <HomepageClothesTitle>
           <h2>Clothes</h2>
         </HomepageClothesTitle>
-        <Row>
-          <ProductSlide products={listClothes} />
-        </Row>
+        <div className="homepage-clothes-products" style={{padding: '0px 100px'}}>
+          <Carousel
+            swipeable={false}
+            draggable={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            // autoPlay={true}
+            // autoPlaySpeed={2000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={['tablet', 'mobile']}
+            //   deviceType={this.props.deviceType}
+            itemClass="carousel-item-padding-40-px"
+          >
+            {Array.from(listClothes).map(product => {
+              const productData = product.attributes;
+              return (
+                <div key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    name={productData.name}
+                    price={productData.price}
+                    image={productData.image}
+                  />
+                </div>
+              );
+            })}
+          </Carousel>
+        </div>
+        
       </div>
       <div className="homepage-clothes">
         <HomepageClothesTitle>
           <h2>Sport shoes</h2>
         </HomepageClothesTitle>
-
-        <Row>
-          <ProductSlide products={listShoes} />
-        </Row>
+        <div className="homepage-clothes-products">
+          <div></div>
+          <Carousel
+            swipeable={false}
+            draggable={false}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            // autoPlay={true}
+            autoPlaySpeed={2000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={['tablet', 'mobile']}
+            //   deviceType={this.props.deviceType}
+            itemClass="carousel-item-padding-40-px"
+          >
+            {Array.from(listShoes).map(product => {
+              const productData = product.attributes;
+              return (
+                <div key={product.id}>
+                  <ProductCard
+                    productId={product.id}
+                    name={productData.name}
+                    price={productData.price}
+                    image={productData.image}
+                  />
+                </div>
+              );
+            })}
+          </Carousel>
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Row } from 'antd';
-import { useEffect, useState } from 'react';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-import productApi from '../../../API/productApi';
-import ProductSlide from '../../../Components/ProductSlide/ProductSlide';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { useState, useEffect } from 'react';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import {
   SimilarProductContainer,
   TitleSimilarProduct,

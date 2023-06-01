@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
@@ -31,7 +31,7 @@ export default function Hasresult() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const key = searchParams.get('q');
-  
+
   //Get api from search
   useEffect(() => {
     getDataFromSearch();

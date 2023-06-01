@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import {
   Container,
   EmptyContent,
@@ -14,14 +14,22 @@ import { Link } from 'react-router-dom';
 export default function NoOrder() {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
-    setOpen(true);
+    setOpen(true)
   };
   const onClose = () => {
     setOpen(false);
   };
+  console.log('No order', open);
+  // console.log(noOrder);
+  // useEffect(() => {
+  //   if (noOrder) {
+  //     setOpen(!noOrder)
+  //   }
+  // }, [noOrder])
   return (
     <>
-      <ShoppingCartOutlined onClick={showDrawer} />
+      <ShoppingCartOutlined onClick={() => showDrawer()} />
+      {/* <div onClick={()=>showDrawer()}></div> */}
       <Container
         placement="right"
         onClose={onClose}

@@ -1,21 +1,19 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Category.css';
 
-import { Layout, Radio, Button } from 'antd';
+import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import ProductCard from '../../../Components/ProductCard/ProductCard';
+import ProductCard from '../../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;
 
 const Category = () => {
-  // const [productId, setProductId] = useState(1);
   const [productList, setproductList] = useState([]);
   const [pageSize, setpageSize] = useState(8);
   const [page, setpage] = useState(1);
-  const [total, settotal] = useState(12);
+  const [total, settotal] = useState(30);
   const [category, setcategoryId] = useState({
     value: 'clothes',
   });
@@ -29,7 +27,7 @@ const Category = () => {
         ['filters[category]']: category.value === 'clothes' ? 1 : 2,
         ['pagination[pageSize]']: pgSize,
         ['pagination[page]']: pg,
-      };
+      };  
       const response = await productApi.getAll(params);
       const hot = response.data;
       setproductList(hot);
@@ -51,10 +49,9 @@ const Category = () => {
 //   setpage(pg)
 // }
 
-const [current, setCurrent] = useState(1);
 const onChange = (page) => {
   fetchProductList(page)
-  setCurrent(page);
+  setpage(page);
 };
   return (
     <div>
@@ -88,7 +85,7 @@ const onChange = (page) => {
                 minHeight: 280,
                 display: 'flex',
                 flexWrap: 'wrap',
-                justifyContent: 'space-around',
+              
                 // gap:24,
               }}
             >
@@ -128,7 +125,7 @@ const onChange = (page) => {
     </Button> */}
         </Footer>  
       </Layout>
-    <Pagination onChange={onChange} defaultCurrent={1} total={20}  style={{textAlign: 'center'}}/>
+    <Pagination onChange={onChange} defaultCurrent={1} total={40}  style={{textAlign: 'center'}}/>
     </div>
   );
 };
