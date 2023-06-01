@@ -6,6 +6,7 @@ export const Container = styled(Drawer)`
   flex-direction: row;
   align-items: center;
   padding-bottom: 120px;
+  /* min-width: 600px; */
   .ant-drawer-header {
     border-bottom: none;
   }
@@ -16,12 +17,9 @@ export const Container = styled(Drawer)`
     display: flex;
     flex-direction: row-reverse;
   }
-  .ant-card-cover {
-    width: 50%;
-  }
   .ant-card-body {
     padding: 10px;
-    width: 50%;
+    width: 60%;
   }
 `;
 export const ProductList = styled.div`
@@ -30,9 +28,9 @@ export const ProductList = styled.div`
 `;
 export const CardContent = styled(Card)`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row;
   justify-content: start;
-  align-items: center;
+  align-items: center; */
   border-radius: 0;
   border: 0;
   margin-bottom: 24px;

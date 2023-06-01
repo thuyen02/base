@@ -60,12 +60,18 @@ export default function HasOrders() {
   const showDrawer = () => {
     setOpen(true);
   };
-  console.log(open);
+  // useEffect(() => {
+  //   if (hasOrders) {
+  //     setOpen(true);
+  //   } else {
+  //     setOpen(false);
+  //   }
+  // });
+  console.log('Is open: ', open);
   const onClose = () => {
     setOpen(false);
   };
 
-  
   //Hàm xử lý khi thanh toán
   const handleCheckOut = async total => {
     // const orderID = orders.map(order => order.id);
@@ -89,7 +95,8 @@ export default function HasOrders() {
     // }
     await dispatch(checkoutOrder({ orders, total, userID }));
     setIsCheckOut(true);
-    swal({
+    setOpen(false);
+    await swal({
       title: 'Payments success',
       text: 'Thank you for shopping at the website',
       icon: 'success',
@@ -110,7 +117,9 @@ export default function HasOrders() {
     //   console.log(error);
     // }
     await dispatch(deleteOrder({ id, userID }));
-    await orders.length === 0 ? setOpen(false) : setOpen(true)
+    if (orders.length === 0) {
+      setOpen(false)
+    }
   };
   //Hàm xử lý khi tăng số lượng
   const handleAddQuantity = async product => {
@@ -151,97 +160,99 @@ export default function HasOrders() {
   };
   //Lấy số lượng sản phẩm trong giỏ hàng
   const totalProducts = orders.length;
-order
   return (
     <div>
-      {orders.length === 0 || isCheckOut ? (
-        <NoOrder noOrder={orders.length === 0}/>
-      ) : (
-          <div>
-          <div onClick={showDrawer}>
-            <ShoppingCartOutlined style={{ width: 50 }} />
-            <sup>{totalProducts}</sup>
-          </div>
-          <Container
-            placement="right"
-            onClose={onClose}
-            open={open}
-            closeIcon={<img src={close} alt="close button" />}
-            title={`Total items: ${totalProducts}`}
-          >
-            <ProductList>
-              {orders.map(product => (
-                <CardContent
-                  key={product.id}
-                  cover={
-                    <img
-                      src={product.attributes.product.data.attributes.image}
-                      style={{
-                        width: '100%',
-                        padding: 8,
-                        borderRadius: 0,
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                      alt=""
-                    />
-                  }
-                >
-                  <CardBody>
-                    <CardInfo>
-                      <ProductName>
-                        {product.attributes.product.data.attributes.name}
-                      </ProductName>
-                      <ProductPrice>
-                        <sup style={{ fontSize: 14 }}>đ</sup>
-                        {product.attributes.product.data.attributes.price.toLocaleString()}
-                      </ProductPrice>
-                      <Quantity>
-                        {product.attributes.quantity > 1 ? (
-                          <QuantityButton
-                            onClick={() => handleSubQuantity(product)}
-                          >
-                            -
-                          </QuantityButton>
-                        ) : (
-                          <QuantityButtonNone>-</QuantityButtonNone>
-                        )}
-                        <div>{product.attributes.quantity}</div>
-                        <QuantityButton
-                          onClick={() => handleAddQuantity(product)}
-                        >
-                          +
-                        </QuantityButton>
-                      </Quantity>
-                    </CardInfo>
-                    <RemoveButton onClick={() => handleDelete(product.id)}>
-                      <img src={close} alt="" className="remove" />
-                    </RemoveButton>
-                  </CardBody>
-                </CardContent>
-              ))}
-            </ProductList>
-            <CheckOut>
-              <Total>
-                <p>Subtotal: </p>
-                <p style={{ fontWeight: 500 }}>
-                  <sup style={{ fontSize: 14 }}>đ</sup>
-                  {total.toLocaleString()}
-                </p>
-              </Total>
-              <CheckOutButton
-                onClick={() =>
-                  /*console.log(
-              products.map(product => product.id)
-              )*/ handleCheckOut(total)
+      {/* {orders.length === 0 || isCheckOut ? (
+        <NoOrder isOpen={true} isClose={true} />
+      ) : ( */}
+      <div >
+        <div onClick={() => showDrawer()}>
+          <ShoppingCartOutlined />
+          {orders.length > 0 ? <sup>{totalProducts}</sup> : <></>}
+        </div>
+        <Container
+          placement="right"
+          onClose={onClose}
+          open={open}
+          closeIcon={<img src={close} alt="close button" />}
+          title={`Total items: ${totalProducts}`}
+        >
+          <ProductList>
+            {orders.map(product => (
+              <CardContent
+                key={product.id}
+                cover={
+                  <img
+                    src={product.attributes.product.data.attributes.image}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      padding: 8,
+                      borderRadius: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    alt=""
+                  />
                 }
               >
-                CHECKOUT
-              </CheckOutButton>
-            </CheckOut>
-          </Container>
-        </div>
-      )}
+                <CardBody>
+                  <CardInfo>
+                    <ProductName>
+                      {product.attributes.product.data.attributes.name}
+                    </ProductName>
+                    <ProductPrice>
+                      <sup style={{ fontSize: 14 }}>đ</sup>
+                      {product.attributes.product.data.attributes.price.toLocaleString()}
+                    </ProductPrice>
+                    <Quantity>
+                      {product.attributes.quantity > 1 ? (
+                        <QuantityButton
+                          onClick={() => handleSubQuantity(product)}
+                        >
+                          -
+                        </QuantityButton>
+                      ) : (
+                        <QuantityButtonNone>-</QuantityButtonNone>
+                      )}
+                      <div>{product.attributes.quantity}</div>
+                      <QuantityButton
+                        onClick={() => handleAddQuantity(product)}
+                      >
+                        +
+                      </QuantityButton>
+                    </Quantity>
+                  </CardInfo>
+                  <RemoveButton onClick={() => handleDelete(product.id)}>
+                    <img src={close} alt="" className="remove" />
+                  </RemoveButton>
+                </CardBody>
+              </CardContent>
+            ))}
+          </ProductList>
+          <CheckOut>
+            <Total>
+              <p>Subtotal: </p>
+              <p style={{ fontWeight: 500 }}>
+                <sup style={{ fontSize: 14 }}>đ</sup>
+                {total.toLocaleString()}
+              </p>
+            </Total>
+            <CheckOutButton
+              onClick={() =>
+                /*console.log(
+              products.map(product => product.id)
+              )*/ handleCheckOut(total)
+              }
+            >
+              CHECKOUT
+            </CheckOutButton>
+          </CheckOut>
+        </Container>
+      </div>
+      {/* )}  */}
     </div>
   );
 }

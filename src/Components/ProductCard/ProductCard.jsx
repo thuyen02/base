@@ -138,7 +138,7 @@ const ProductCard = props => {
       };
       await orderApi.updateOrder(orderId, data);
       swal(notification);
-      dispatch(fetchOrderAction(userId))
+      await dispatch(fetchOrderAction(userId))
     } catch (err) {
       console.log(err);
     }
@@ -149,7 +149,7 @@ const ProductCard = props => {
 
       await orderApi.createOrder(data);
       swal(notification);
-      dispatch(fetchOrderAction(userId));
+      await dispatch(fetchOrderAction(userId));
     } catch (err) {
       console.log(err);
     }

@@ -39,6 +39,7 @@ export const checkoutOrder = createAsyncThunk('order/checkoutOrder', async (para
         axiosInstance.delete(`/orders/${order.id}`)
       })
     })
+    await thunkAPI.dispatch(fetchOrderAction(params.userID))
   } catch (error) {
     console.log(error);
   }
@@ -87,7 +88,8 @@ const initialState = {
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: {
     [fetchOrderAction.pending]: state => {
       state.loading = true;
@@ -117,7 +119,7 @@ export const orderSlice = createSlice({
     },
     [checkoutOrder.fulfilled]: (state, action) => {
       state.loading = false;
-      // state.orders = []
+      state.orders = []
     },
     [addQuantity.pending]: state => {
       state.loading = true;
