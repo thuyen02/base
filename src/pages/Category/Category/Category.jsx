@@ -4,7 +4,7 @@ import './Category.css';
 import { Layout } from 'antd';
 import productApi from '../../../API/productApi';
 
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 const { Content, Footer, Sider } = Layout;
@@ -27,7 +27,7 @@ const Category = () => {
         ['filters[category]']: category.value === 'clothes' ? 1 : 2,
         ['pagination[pageSize]']: pgSize,
         ['pagination[page]']: pg,
-      };  
+      };
       const response = await productApi.getAll(params);
       const hot = response.data;
       setproductList(hot);
@@ -37,22 +37,22 @@ const Category = () => {
     }
   };
 
-// const prevPage = async() =>{
-  
-//   const pg = page === 1 ? 1 : page-1;
-//   fetchProductList(pg)
-//   setpage(pg)
-// }
-// const nextPage = async() =>{
-//   const pg = page + 1;
-//   fetchProductList(pg)
-//   setpage(pg)
-// }
+  // const prevPage = async() =>{
 
-const onChange = (page) => {
-  fetchProductList(page)
-  setpage(page);
-};
+  //   const pg = page === 1 ? 1 : page-1;
+  //   fetchProductList(pg)
+  //   setpage(pg)
+  // }
+  // const nextPage = async() =>{
+  //   const pg = page + 1;
+  //   fetchProductList(pg)
+  //   setpage(pg)
+  // }
+
+  const onChange = page => {
+    fetchProductList(page);
+    setpage(page);
+  };
   return (
     <div>
       <Layout style={{ backgroundColor: '#fff ' }}>
@@ -85,7 +85,7 @@ const onChange = (page) => {
                 minHeight: 280,
                 display: 'flex',
                 flexWrap: 'wrap',
-              
+
                 // gap:24,
               }}
             >
@@ -93,7 +93,11 @@ const onChange = (page) => {
                 let data = product.attributes;
                 return (
                   <div
-                    style={{ color: 'black', marginTop: '24px', marginRight:'24px'}}
+                    style={{
+                      color: 'black',
+                      marginTop: '24px',
+                      marginRight: '24px',
+                    }}
                     key={product.id}
                   >
                     <ProductCard
@@ -108,10 +112,9 @@ const onChange = (page) => {
             </div>
           </Layout>
         </Content>
-        
-        <Footer style={{ textAlign: 'center',backgroundColor: '#fff' }}>
-        
-        {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
+
+        <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
+          {/* <Button disabled={page <=1 } onClick={prevPage} type="text" danger>
         <LeftOutlined style={{color:''}} />
 
     <Button onClick={prevPage} type="text" danger>
@@ -123,9 +126,14 @@ const onChange = (page) => {
   
     <RightOutlined />
     </Button> */}
-        </Footer>  
+        </Footer>
       </Layout>
-    <Pagination onChange={onChange} defaultCurrent={1} total={40}  style={{textAlign: 'center'}}/>
+      <Pagination
+        onChange={onChange}
+        defaultCurrent={1}
+        total={40}
+        style={{ textAlign: 'center' }}
+      />
     </div>
   );
 };

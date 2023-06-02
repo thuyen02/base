@@ -3,11 +3,13 @@
 import { Row } from 'antd';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import ProductCard from '../../../Components/ProductCard/ProductCard';
 import {
   SimilarProductContainer,
   TitleSimilarProduct,
 } from './SimilarProductStyle';
+import productApi from '../../../API/productApi';
+import ProductSlide from '../../../Components/ProductSlide/ProductSlide';
 
 function SimilarProduct(props) {
   const { categoryId, productId } = props;
@@ -32,7 +34,6 @@ function SimilarProduct(props) {
       console.log(err.message);
     }
   };
-  console.log(111, listProduct);
   return (
     <SimilarProductContainer>
       <TitleSimilarProduct>
