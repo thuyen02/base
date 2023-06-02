@@ -9,7 +9,6 @@ import ProductCard from '../ProductCard/ProductCard';
 
 const ProductSlide = props => {
   const { products } = props;
-  console.log(222, products);
   const settings = {
     dots: false,
     infinite: true,
@@ -18,7 +17,7 @@ const ProductSlide = props => {
     slidesToScroll: 1,
     centerMode: true,
     // variableWidth: true,
-    centerPadding: ' -10px',
+    centerPadding: ' -15px',
     responsive: [
       {
         breakpoint: 1024,

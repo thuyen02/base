@@ -46,7 +46,7 @@ export default function ProductDetail() {
   const [productId, setProductId] = useState();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getDataProduct();
@@ -97,7 +97,10 @@ export default function ProductDetail() {
           : false;
         if (getProductInOrder && getProductInOrder.id === dataInput.product) {
           foundOrder = true;
-          updateOrder(order, dataInput);
+          updateOrder(order, {
+            ...dataInput,
+            quantity: dataInput.quantity + order.attributes.quantity,
+          });
         }
       });
       if (!foundOrder) {
@@ -118,7 +121,7 @@ export default function ProductDetail() {
         ...notification,
         text: `The Quantity of products has changed in the cart`,
       });
-      dispatch(fetchOrderAction(userId))
+      dispatch(fetchOrderAction(userId));
     } catch (err) {
       console.log(err);
     }
@@ -130,7 +133,7 @@ export default function ProductDetail() {
       await orderApi.createOrder(dataInput);
       setQuantity(1);
       swal({ ...notification, text: `Add to cart successfully` });
-      dispatch(fetchOrderAction(userId))
+      dispatch(fetchOrderAction(userId));
     } catch (err) {
       throw new Error(err);
     }

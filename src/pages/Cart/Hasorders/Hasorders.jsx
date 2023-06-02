@@ -40,15 +40,15 @@ export default function HasOrders() {
   const { orders } = useSelector(selectOrder);
   // console.log(orders);
 
-  //Lấy danh sách sản phẩm từ API
-  useEffect(() => {
-    axiosInstance
-      .get(`/orders?populate=product&filters[user][id]=${userID}`)
-      .then(response => {
-        setProducts(response.data);
-      })
-      .catch(error => console.log(error));
-  }, [products]);
+  // //Lấy danh sách sản phẩm từ API
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get(`/orders?populate=product&filters[user][id]=${userID}`)
+  //     .then(response => {
+  //       setProducts(response.data);
+  //     })
+  //     .catch(error => console.log(error));
+  // }, [products]);
   //Cập nhật tổng số tiền của các sản phẩm trong giỏ hàng
   useEffect(() => {
     let newTotal = 0;
@@ -78,25 +78,6 @@ export default function HasOrders() {
 
   //Hàm xử lý khi thanh toán
   const handleCheckOut = async total => {
-    // const orderID = orders.map(order => order.id);
-    // try {
-    //   const data = {
-    //     data: {
-    //       total: total,
-    //       orders: orderID,
-    //     },
-    //   };
-    //   await axiosInstance.post('/payments', data).then(() => {
-    //     console.log(data);
-    //     orders.forEach(order => {
-    //       axiosInstance.delete(`/orders/${order.id}`);
-    //     });
-    //     dispatch(fetchOrderAction(userID));
-
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
     await dispatch(checkoutOrder({ orders, total, userID }));
     setIsCheckOut(true);
     setOpen(false);
@@ -112,64 +93,26 @@ export default function HasOrders() {
 
   //Hàm xử lý xoá sản phẩm
   const handleDelete = async id => {
-    // try {
-    //   axiosInstance.delete(`/orders/${id}`).then(response => {
-    //     console.log(response.data);
-    //     dispatch(fetchOrderAction(userID));
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
     await dispatch(deleteOrder({ id, userID }));
     if (orders.length === 0) {
-      setOpen(false)
+      setOpen(true);
     }
   };
   //Hàm xử lý khi tăng số lượng
   const handleAddQuantity = async product => {
-    // try {
-    //   const data = {
-    //     data: {
-    //       quantity: product.attributes.quantity + 1,
-    //     },
-    //   };
-    //   await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
-    //     console.log(response.data.attributes.quantity);
-    //     dispatch(fetchOrderAction(userID));
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
     await dispatch(addQuantity({ product, userID }));
     // await dispatch(fetchOrderAction(userID));
   };
 
   //Hàm xử lý khi giảm số lượng
   const handleSubQuantity = async product => {
-    // try {
-    //   const data = {
-    //     data: {
-    //       quantity: product.attributes.quantity - 1,
-    //     },
-    //   };
-    //   await axiosInstance.put(`/orders/${product.id}`, data).then(response => {
-    //     console.log(response.data.attributes.quantity);
-    //     dispatch(fetchOrderAction(userID));
-    //     // setQuantity(quantity);
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
     await dispatch(subQuantity({ product, userID }));
   };
   //Lấy số lượng sản phẩm trong giỏ hàng
   const totalProducts = orders.length;
   return (
     <div>
-      {/* {orders.length === 0 || isCheckOut ? (
-        <NoOrder isOpen={true} isClose={true} />
-      ) : ( */}
-      <div >
+      <div>
         <div onClick={() => showDrawer()}>
           <ShoppingCartOutlined />
           {orders.length > 0 ? <sup>{totalProducts}</sup> : <></>}
@@ -196,7 +139,7 @@ export default function HasOrders() {
                       borderRadius: 0,
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
                     }}
                     alt=""
                   />
@@ -256,7 +199,6 @@ export default function HasOrders() {
           </CheckOut>
         </Container>
       </div>
-      {/* )}  */}
     </div>
   );
 }
